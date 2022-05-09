@@ -1,6 +1,6 @@
-package transaction;
+package health;
 
-service TransactionController{
+service HealthService{
   rpc healthCheck(Void) returns (Reason){}
 }
 

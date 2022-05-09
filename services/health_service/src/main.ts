@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { urls } from 'common';
 import { join } from 'path';
 
@@ -10,13 +10,12 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        url: urls.grpc.TRANSACTION_SERVICE_URL,
-        package: 'transaction',
-        protoPath: join(__dirname, 'grpc/transaction.proto'),
+        url: urls.grpc.HEALTH_SERVICE_URL,
+        package: 'health',
+        protoPath: join(__dirname, 'grpc/health.proto'),
       },
     },
   );
   await app.listen();
 }
-
-bootstrap().then(() => console.log('Transaction services is started'));
+bootstrap();
