@@ -1,8 +1,8 @@
 openapi: "3.0.0"
 info:
-  description: "This belongs part of ETDStats microservices which will provide a transaction and block services"
+  description: "This belongs part of ETDStats microservices which will provide a health check"
   version: "1.0.0"
-  title: "Transaction service"
+  title: "Health service"
   termsOfService: "https://github.com/etherdata-blockchain"
 
 
