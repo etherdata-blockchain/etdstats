@@ -26,11 +26,12 @@
     "@release-it/bumper": "^4.0.0"
   },
   "scripts": {
-    "prebuild": "ts-node scripts/pre_build.ts",
+    "postinstall": "ts-node scripts/post_install.ts",
     "build": "turbo run build",
     "test": "turbo run test",
     "dev": "turbo run dev",
-    "release": "release-it --no-requireCleanWorkingDir",
-    "release-dry": "release-it --no-requireCleanWorkingDir --dry-run"
+    "start": "turbo run start",
+    "release": "release-it",
+    "release-dry": "release-it --dry-run"
   }
 }

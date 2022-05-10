@@ -3,8 +3,11 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 import { urls } from 'common';
 import { join } from 'path';
+import mongoose from 'mongoose';
 
 async function bootstrap() {
+  //@ts-ignore
+  mongoose.version = '6.3.3';
   const microservice =
     await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
       transport: Transport.GRPC,
