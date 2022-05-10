@@ -23,7 +23,8 @@
     "@types/glob": "latest",
     "release-it": "^15.0.0",
     "@release-it/conventional-changelog": "^5.0.0",
-    "@release-it/bumper": "^4.0.0"
+    "@release-it/bumper": "^4.0.0",
+    "prettier": "^2.6.2"
   },
   "scripts": {
     "postinstall": "ts-node scripts/post_install.ts",
@@ -32,6 +33,7 @@
     "dev": "turbo run dev",
     "start": "turbo run start",
     "release": "release-it",
-    "release-dry": "release-it --dry-run"
+    "release-dry": "release-it --dry-run",
+    "lint": "prettier --check **/*/*.ts"
   }
 }

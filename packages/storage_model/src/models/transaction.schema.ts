@@ -1,5 +1,5 @@
-import { buildSchema, getModelForClass, prop } from '@typegoose/typegoose';
-import { interfaces } from 'common';
+import { buildSchema, getModelForClass, prop } from "@typegoose/typegoose";
+import { interfaces } from "common";
 
 export class Transaction implements interfaces.database.TransactionInterface {
   @prop()
