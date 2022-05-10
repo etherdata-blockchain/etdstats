@@ -1,6 +1,6 @@
 package health;
 
-service HealthService{
+service HealthController{
   rpc healthCheck(Void) returns (Reason){}
 }
 

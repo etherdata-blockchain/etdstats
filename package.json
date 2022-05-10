@@ -24,6 +24,7 @@
   "scripts": {
     "prebuild": "ts-node scripts/pre_build.ts",
     "build": "turbo run build",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "debug": "turbo run debug"
   }
 }
