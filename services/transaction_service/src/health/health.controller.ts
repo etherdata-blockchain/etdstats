@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 import { interfaces } from 'common';
 
@@ -6,8 +6,9 @@ import { interfaces } from 'common';
 export class HealthController
   implements interfaces.services.TransactionController
 {
-  @GrpcMethod()
+  @GrpcMethod('TransactionController', 'healthCheck')
   async healthCheck() {
+    console.log('Checking transaction health');
     return { reason: 'ok' };
   }
 }

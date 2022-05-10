@@ -19,4 +19,4 @@ async function bootstrap() {
   await app.listen();
 }
 
-bootstrap().then(() => console.log('Transaction services is started'));
+bootstrap().then(() => console.log('Transaction service is up'));
