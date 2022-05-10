@@ -1,0 +1,13 @@
+package health;
+
+service HealthController{
+  rpc healthCheck(Void) returns (Reason){}
+}
+
+message Void{
+
+}
+
+message Reason{
+  optional string reason = 1;
+}

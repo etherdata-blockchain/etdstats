@@ -5,3 +5,10 @@ for EtherData Blockchain. It contains multiple microservices and multiple fronte
 The overall architecture 
 
 ![arch](./images/arch.png)
+
+
+## Setup
+
+1. Install required dependencies: `pnpm install`
+2. Build: `pnpm build`. This will also copy grpc files to `services/*` folder
+3. Start development server: `pnpm dev`

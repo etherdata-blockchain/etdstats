@@ -10,10 +10,10 @@
   "author": "sirily11",
   "license": "ISC",
   "dependencies": {
-    "@nestjs/common": "^8.0.0",
+    "@nestjs/common": "^8.4.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
-    "webpack": "^5.72.0"
+    "webpack": "^5.72.1"
   },
   "devDependencies": {
     "@types/node": "^17.0.31",
