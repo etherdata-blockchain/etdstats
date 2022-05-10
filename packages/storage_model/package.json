@@ -5,23 +5,23 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "keywords": [],
   "author": "sirily11",
   "license": "ISC",
   "dependencies": {
     "mongoose": "^6.3.3",
-    "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.5"
-  },
-  "peerDependencies": {
-    "@nestjs/common": "^8.4.4",
-    "@nestjs/core": "^8.4.4",
-    "@nestjs/mongoose": "^9.0.3"
+    "@typegoose/typegoose": "^9.8.1",
+    "common": "*"
   },
   "devDependencies": {
     "@types/node": "^17.0.31",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "jest": "^28.1.0",
+    "@types/jest": "^27.5.0",
+    "ts-jest": "^28.0.2",
+    "mongodb-memory-server": "^8.5.2"
   }
 }

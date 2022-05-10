@@ -1,2 +1,1 @@
-export * as interfaces from './interfaces';
-export * as urls from './urls';
+export * as models from './models';
