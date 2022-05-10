@@ -51,7 +51,7 @@ jobs:
           file: ./docker/services/service.dockerfile
           platforms: linux/amd64
           push: false
-          tags: ghcr.io/${{ github.repository }}:pr-${{ github.event.number }}
+          tags: ghcr.io/${{ github.repository }}/${{ matrix.app }}:pr-${{ github.event.number }}
           build-args: |
             APP_NAME=${{ matrix.app }}
           cache-from: type=gha
