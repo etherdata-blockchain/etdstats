@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.2 (2022-05-10)
+
+
+### Bug Fixes
+
+* build and lint issue ([#5](https://github.com/etherdata-blockchain/etdstats/issues/5)) ([a863800](https://github.com/etherdata-blockchain/etdstats/commit/a8638002169db7d272e1cc5389e681a77513c0f2))
+
 ## 0.3.1 (2022-05-10)
 
 
