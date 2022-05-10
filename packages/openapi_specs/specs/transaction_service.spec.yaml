@@ -59,7 +59,7 @@ paths:
                 properties:
                   type:
                     type: string
-                    enum: ["block", "transaction", "user"]
+                    enum: [ "block", "transaction", "user" ]
                   data:
                     oneOf:
                       - $ref: '#/components/schemas/transaction'
@@ -78,13 +78,13 @@ components:
   schemas:
     error:
       type: object
-      required: ["reason"]
+      required: [ "reason" ]
       properties:
         reason:
           type: string
     transaction:
       type: "object"
-      required: ["hash", "nonce", "blockHash", "blockNumber", "transactionIndex", "from", "to", "value", "gasPrice", "gas", "input"]
+      required: [ "hash", "nonce", "blockHash", "blockNumber", "transactionIndex", "from", "to", "value", "gasPrice", "gas", "input" ]
       properties:
         hash:
           type: string
@@ -124,7 +124,7 @@ components:
 
     block:
       type: "object"
-      required: ["size", "difficulty", "totalDifficulty", "uncles", "number", "hash", "parentHash", "nonce", "sha3Uncles", "logsBloom", "transactionRoot", "stateRoot", "receiptsRoot", "miner", "extraData", "gasLimit", "gasUsed", "timestamp"]
+      required: [ "size", "difficulty", "totalDifficulty", "uncles", "number", "hash", "parentHash", "nonce", "sha3Uncles", "logsBloom", "transactionRoot", "stateRoot", "receiptsRoot", "miner", "extraData", "gasLimit", "gasUsed", "timestamp" ]
       properties:
         size:
           type: number

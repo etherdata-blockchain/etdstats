@@ -38,7 +38,7 @@ components:
   schemas:
     error:
       type: object
-      required: ["reason"]
+      required: [ "reason" ]
       properties:
         relatedServices:
           type: string

@@ -1,18 +1,16 @@
-import type { NextPage } from 'next';
-import { RedocStandalone } from 'redoc';
-import * as spec from 'openapi_specs';
+import type { NextPage } from "next";
+import { RedocStandalone } from "redoc";
+import * as spec from "openapi_specs";
 import {
   AppBar,
-  Button,
-  CircularProgress,
   Fade,
   LinearProgress,
   MenuItem,
   Toolbar,
   Typography,
-} from '@mui/material';
-import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+} from "@mui/material";
+import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -25,7 +23,7 @@ const Home: NextPage = () => {
       return spec.health_service_schema;
     }
     const foundValue = Object.entries(spec).find(
-      ([key, value], index) => key === router.query.doc,
+      ([key, value], index) => key === router.query.doc
     );
 
     if (!foundValue) {
@@ -39,13 +37,13 @@ const Home: NextPage = () => {
     <div>
       <AppBar color="primary">
         <Toolbar>
-          <Typography variant={'h5'}>Docs</Typography>
+          <Typography variant={"h5"}>Docs</Typography>
           {Object.keys(spec).map((k) => (
             <MenuItem
               key={k}
               selected={true}
               onClick={() => router.push(`?doc=${k}`)}
-              style={{ color: k === router.query.doc ? 'purple' : 'black' }}
+              style={{ color: k === router.query.doc ? "purple" : "black" }}
             >
               {k}
             </MenuItem>
@@ -54,7 +52,7 @@ const Home: NextPage = () => {
       </AppBar>
       <div style={{ marginTop: 70 }}>
         <Fade in={isLoading} mountOnEnter unmountOnExit>
-          <LinearProgress color={'secondary'} />
+          <LinearProgress color={"secondary"} />
         </Fade>
         {selectedDoc && (
           <RedocStandalone
@@ -64,8 +62,8 @@ const Home: NextPage = () => {
             }}
             options={{
               theme: {
-                sidebar: { width: '0px' },
-                rightPanel: { width: '40%' },
+                sidebar: { width: "0px" },
+                rightPanel: { width: "40%" },
               },
               scrollYOffset: 0,
               hideLoading: true,
