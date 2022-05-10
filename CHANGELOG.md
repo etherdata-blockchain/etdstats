@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 (2022-05-10)
+
+
+### Bug Fixes
+
+* workspace config ([d871719](https://github.com/etherdata-blockchain/etdstats/commit/d871719d00ccc0230e535a9071ffea7f0e77ae79))
+
 # 0.3.0 (2022-05-10)
 
 
