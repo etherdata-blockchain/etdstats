@@ -37,3 +37,5 @@ services/**/*.proto
 node_modules
 .env
 .turbo
+services/**/Dockerfile
+services/**/bin

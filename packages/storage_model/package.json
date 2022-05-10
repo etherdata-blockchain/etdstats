@@ -14,7 +14,7 @@
   "dependencies": {
     "mongoose": "^6.3.3",
     "@typegoose/typegoose": "^9.8.1",
-    "common": "*"
+    "common": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^17.0.31",
