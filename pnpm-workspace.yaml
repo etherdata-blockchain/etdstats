@@ -2,3 +2,5 @@ packages:
   - "services/**"
   - "packages/**"
   - "apps/**"
+
+prefer-workspace-packages: true
