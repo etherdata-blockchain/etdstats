@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Run (services/transaction_service)",
+            "program": "${workspaceFolder:etdstats}/services/transaction_service/.build/debug/Run",
+            "args": [],
+            "cwd": "${workspaceFolder:etdstats}/services/transaction_service",
+            "preLaunchTask": "swift: Build Debug Run (services/transaction_service)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release Run (services/transaction_service)",
+            "program": "${workspaceFolder:etdstats}/services/transaction_service/.build/release/Run",
+            "args": [],
+            "cwd": "${workspaceFolder:etdstats}/services/transaction_service",
+            "preLaunchTask": "swift: Build Release Run (services/transaction_service)"
+        }
+    ]
+}

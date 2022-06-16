@@ -27,7 +27,6 @@
     "prettier": "^2.6.2"
   },
   "scripts": {
-    "postinstall": "ts-node scripts/post_install.ts",
     "build": "turbo run build",
     "test": "turbo run test",
     "dev": "turbo run dev",

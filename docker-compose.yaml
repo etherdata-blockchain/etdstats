@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  transaction_service:
+    image: etherdata-blockchain/etdstats/transaction-service:latest
+    build:
+      context: .
+      dockerfile: docker/services/service.dockerfile
+      args:
+        - APP_NAME=transaction_service
+    container_name: transaction_service
+    ports:
+      - "8080:8080"
+    environment:
+      - RPC_URL=${RPC_URL}
+      - DATABASE_URL=${DATABASE_URL}
