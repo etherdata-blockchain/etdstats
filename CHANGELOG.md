@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.4.0 (2022-06-16)
+
+
+### Features
+
+* use swift for transaction service ([#15](https://github.com/etherdata-blockchain/etdstats/issues/15)) ([438e58d](https://github.com/etherdata-blockchain/etdstats/commit/438e58d5f57993e1f4b53b11652998dbc02cb1b9))
+
 ## 0.3.2 (2022-05-10)
 
 
