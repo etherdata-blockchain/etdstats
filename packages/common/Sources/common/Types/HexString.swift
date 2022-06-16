@@ -46,16 +46,16 @@ public struct HexString: Codable, Equatable {
         }
     }
     
-    init(_ value: String) throws{
+    public init(_ value: String) throws{
         try HexString.checkValidString(value: value)
         self._value = value
     }
     
-    init(_ value: Int){
+    public init(_ value: Int){
         self._value = value
     }
     
-    init(_ value: Double) {
+    public init(_ value: Double) {
         self._value = value
     }
     
