@@ -1,12 +1,12 @@
 //
 //  TestHexString.swift
-//  
+//
 //
 //  Created by Qiwei Li on 6/15/22.
 //
 
 import XCTest
-@testable import App
+@testable import common
 
 class TestHexString: XCTestCase {
     struct TestStruct: Codable {
