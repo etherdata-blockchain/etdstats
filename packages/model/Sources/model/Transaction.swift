@@ -4,48 +4,80 @@ import Fluent
 import Foundation
 import Vapor
 
-final class Transaction: Model, Content {
-    static let schema = "transactions"
+public final class Transaction: Model, Content {
+    public static let schema = "transactions"
 
     @ID(custom: "_id")
-    var id: ObjectId?
+    public var id: ObjectId?
 
     @Field(key: "hash")
-    var hash: String
+    public var hash: String
 
     @Field(key: "nonce")
-    var nonce: HexString
+    public var nonce: HexString
 
     @Field(key: "blockHash")
-    var blockHash: HexString
+    public var blockHash: HexString
 
     @Field(key: "blockNumber")
-    var blockNumber: HexString
+    public var blockNumber: HexString
 
     @Field(key: "transactionIndex")
-    var transactionIndex: HexString
+    public var transactionIndex: HexString
 
     @Field(key: "from")
-    var from: HexString
+    public var from: HexString
 
     @Field(key: "to")
-    var to: HexString
+    public var to: HexString
 
     @Field(key: "value")
-    var value: HexString
+    public var value: HexString
 
     @Field(key: "gasPrice")
-    var gasPrice: HexString
+    public var gasPrice: HexString
 
     @Field(key: "gas")
-    var gas: HexString
+    public var gas: HexString
 
-    @Field(key: "maxPriorityFeePerGas")
-    var maxPriorityFeeperGas: HexString?
+    @OptionalField(key: "maxPriorityFeePerGas")
+    public var maxPriorityFeeperGas: HexString?
 
-    @Field(key: "maxFeePerGas")
-    var maxFeePerGas: HexString?
+    @OptionalField(key: "maxFeePerGas")
+    public var maxFeePerGas: HexString?
 
-    @Field(key: "input")
-    var input: HexString?
+    @OptionalField(key: "input")
+    public var input: HexString?
+
+    public init() {}
+
+    public init(
+        hash: String,
+        nonce: HexString,
+        blockHash: HexString,
+        blockNumber: HexString,
+        transactionIndex: HexString,
+        from: HexString,
+        to: HexString,
+        value: HexString,
+        gasPrice: HexString,
+        gas: HexString,
+        maxPriorityFeeperGas: HexString? = nil,
+        maxFeePerGas: HexString? = nil,
+        input: HexString? = nil
+    ) {
+        self.hash = hash
+        self.nonce = nonce
+        self.blockHash = blockHash
+        self.blockNumber = blockNumber
+        self.transactionIndex = transactionIndex
+        self.from = from
+        self.to = to
+        self.value = value
+        self.gasPrice = gasPrice
+        self.gas = gas
+        self.maxPriorityFeeperGas = maxPriorityFeeperGas
+        self.maxFeePerGas = maxFeePerGas
+        self.input = input
+    }
 }

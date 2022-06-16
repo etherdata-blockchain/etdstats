@@ -9,12 +9,12 @@ import Foundation
 import Vapor
 
 public enum DataType: String, Codable {
-    case transaction = "transaction"
-    case block = "block"
-    case user = "user"
+    case transaction
+    case block
+    case user
 }
 
-public struct QueryResponse{
-    var type: DataType
-    var data: Any
+public protocol QueryResponseProtocol {
+    var type: DataType { get set }
+    var data: Any { get set }
 }

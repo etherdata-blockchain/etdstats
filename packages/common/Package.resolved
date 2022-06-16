@@ -28,6 +28,24 @@
       }
     },
     {
+      "identity" : "fluent",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/fluent.git",
+      "state" : {
+        "revision" : "ea707ee318066a073c95b2b2df1aa640fcb67f9e",
+        "version" : "4.4.0"
+      }
+    },
+    {
+      "identity" : "fluent-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/fluent-kit.git",
+      "state" : {
+        "revision" : "118870c902b078fa9ccbea240938c72e65cf87e2",
+        "version" : "1.28.0"
+      }
+    },
+    {
       "identity" : "multipart-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/multipart-kit.git",
@@ -43,6 +61,15 @@
       "state" : {
         "revision" : "9e181d685a3dec1eef1fc6dacf606af364f86d68",
         "version" : "4.5.0"
+      }
+    },
+    {
+      "identity" : "sql-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/sql-kit.git",
+      "state" : {
+        "revision" : "89b0a0a5f110e77272fb5a775064a31bfc1f155c",
+        "version" : "3.18.0"
       }
     },
     {
@@ -102,7 +129,7 @@
     {
       "identity" : "swift-nio",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-nio",
+      "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
         "revision" : "124119f0bb12384cef35aa041d7c3a686108722d",
         "version" : "2.40.0"

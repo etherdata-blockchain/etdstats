@@ -1,12 +1,14 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Qiwei Li on 6/16/22.
 //
 
 import Foundation
 import Vapor
+import common
+
 
 struct TransactionRequest: Content {
     var jsonrpc: String = "2.0"

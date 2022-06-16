@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Fluent
 
 public protocol TransactionProtocol {
-    func findById(id: HexString) async throws -> QueryResponse
+    func findById(id: HexString, with database: Database?) async throws -> QueryResponseProtocol
 }

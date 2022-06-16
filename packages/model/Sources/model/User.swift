@@ -8,7 +8,12 @@
 import Foundation
 import Vapor
 
-struct User: Content {
-   var balance: String
-   var transaction: [Transaction]
+public struct User: Content {
+    public var balance: String
+    public var transaction: [Transaction]
+
+    public init(balance: String, transaction: [Transaction]) {
+        self.balance = balance
+        self.transaction = transaction
+    }
 }

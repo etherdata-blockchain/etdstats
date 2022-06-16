@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: ["health_service", "transaction_service"]
+        app: ["transaction_service"]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Docker Buildx

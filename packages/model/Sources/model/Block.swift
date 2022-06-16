@@ -1,65 +1,87 @@
 import BSON
+import common
 import Fluent
 import Vapor
-import common
 
 /**
  Block structrue
  */
-final class Block: Model, Content {
-    static let schema = "blocks"
+public final class Block: Model, Content {
+    public static let schema = "blocks"
 
     @ID(custom: "_id")
-    var id: ObjectId?
+    public var id: ObjectId?
 
     @Field(key: "size")
-    var size: HexString
+    public var size: HexString
 
     @Field(key: "extraData")
-    var extraData: HexString
+    public var extraData: HexString
 
     @Field(key: "gasLimit")
-    var gasLimit: HexString
+    public var gasLimit: HexString
 
     @Field(key: "gasUsed")
-    var gasUsed: HexString
+    public var gasUsed: HexString
 
     @Field(key: "hash")
-    var hash: HexString
+    public var hash: HexString
 
     @Field(key: "miner")
-    var miner: HexString
+    public var miner: HexString
 
     @Field(key: "mixHash")
-    var mixHash: Double
+    public var mixHash: Double
 
     @Field(key: "nonce")
-    var nonce: HexString
+    public var nonce: HexString
 
     @Field(key: "number")
-    var number: HexString
+    public var number: HexString
 
     @Field(key: "parentHash")
-    var parentHash: HexString
+    public var parentHash: HexString
 
     @Field(key: "receiptsRoot")
-    var receiptsRoot: HexString
+    public var receiptsRoot: HexString
 
     @Field(key: "sha3Uncles")
-    var sha3Uncles: HexString
+    public var sha3Uncles: HexString
 
     @Field(key: "stateRoot")
-    var stateRoot: HexString
+    public var stateRoot: HexString
 
     @Field(key: "timestamp")
-    var timestamp: Date
+    public var timestamp: Date
 
     @Field(key: "totalDifficulty")
-    var totalDifficulty: HexString
+    public var totalDifficulty: HexString
 
     @Field(key: "transactionsRoot")
-    var transactionsRoot: HexString
+    public var transactionsRoot: HexString
 
     @Field(key: "uncles")
-    var uncles: [HexString]
+    public var uncles: [HexString]
+
+    public init() {}
+
+    public init(size: HexString, extraData: HexString, gasLimit: HexString, gasUsed: HexString, hash: HexString, miner: HexString, mixHash: Double, nonce: HexString, number: HexString, parentHash: HexString, receiptsRoot: HexString, sha3Uncles: HexString, stateRoot: HexString, timestamp: Date, totalDifficulty: HexString, transactionsRoot: HexString, uncles: [HexString]) {
+        self.size = size
+        self.extraData = extraData
+        self.gasLimit = gasLimit
+        self.gasUsed = gasUsed
+        self.hash = hash
+        self.miner = miner
+        self.mixHash = mixHash
+        self.nonce = nonce
+        self.number = number
+        self.parentHash = parentHash
+        self.receiptsRoot = receiptsRoot
+        self.sha3Uncles = sha3Uncles
+        self.stateRoot = stateRoot
+        self.timestamp = timestamp
+        self.totalDifficulty = totalDifficulty
+        self.transactionsRoot = transactionsRoot
+        self.uncles = uncles
+    }
 }
