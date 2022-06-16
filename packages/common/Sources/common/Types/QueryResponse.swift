@@ -8,13 +8,13 @@
 import Foundation
 import Vapor
 
-enum DataType: String, Codable {
+public enum DataType: String, Codable {
     case transaction = "transaction"
     case block = "block"
     case user = "user"
 }
 
-struct QueryResponse{
+public struct QueryResponse{
     var type: DataType
     var data: Any
 }

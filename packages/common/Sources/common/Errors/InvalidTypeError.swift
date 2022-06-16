@@ -8,18 +8,18 @@
 import Foundation
 import Vapor
 
-enum InvalidTypeError {
+public enum InvalidTypeError {
     case invalidRequestType
 }
 
 extension InvalidTypeError: AbortError {
-    var reason: String {
+    public var reason: String {
         switch self {
         case .invalidRequestType: return "Request Type is not valid"
         }
     }
     
-    var status: HTTPResponseStatus {
+    public var status: HTTPResponseStatus {
         switch self {
         case .invalidRequestType: return .badRequest
         }

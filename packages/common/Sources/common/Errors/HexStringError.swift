@@ -8,6 +8,6 @@
 import Foundation
 
 
-enum HexStringError: Error {
+public enum HexStringError: Error {
     case invalidType
 }

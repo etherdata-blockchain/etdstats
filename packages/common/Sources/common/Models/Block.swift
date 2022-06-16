@@ -10,7 +10,7 @@ import Foundation
 /**
  Block structrue
  */
-class Block: Codable{
+public class Block: Codable{
     var size: HexString
     var extraData: HexString
     var gasLimit: HexString

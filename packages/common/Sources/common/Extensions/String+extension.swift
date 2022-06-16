@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     func slice(start: Int? = nil, end: Int? = nil) -> String{
         let start = self.index(self.startIndex, offsetBy: start ?? 0)
         let end = self.index(self.endIndex, offsetBy: end ?? 0)

@@ -9,7 +9,7 @@ import Foundation
 import Vapor
 
 // MARK: - JSONRPCResponse
-struct JSONRPCResponse<T: Codable>: Content {
+public struct JSONRPCResponse<T: Codable>: Content {
     let jsonrpc: String
     let result: T
 }

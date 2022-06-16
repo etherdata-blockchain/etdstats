@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Transaction: Codable {
+public class Transaction: Codable {
     var hash: String
     var nonce: HexString
     var blockHash: HexString

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HexString: Codable, Equatable {
+public struct HexString: Codable, Equatable {
     private var _value: Any
     var stringValue: String? {
         get {
@@ -59,7 +59,7 @@ struct HexString: Codable, Equatable {
         self._value = value
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         if let value = self._value as? String {
             try container.encode(value)
@@ -78,7 +78,7 @@ struct HexString: Codable, Equatable {
         throw HexStringError.invalidType
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let value = try? container.decode(Int.self){
             self._value = value
@@ -99,7 +99,7 @@ struct HexString: Codable, Equatable {
         throw HexStringError.invalidType
     }
     
-    static func ==(lhs: HexString, rhs: HexString) -> Bool {
+    public static func ==(lhs: HexString, rhs: HexString) -> Bool {
         if lhs.stringValue == rhs.stringValue || lhs.intValue == rhs.intValue {
             return true
         }

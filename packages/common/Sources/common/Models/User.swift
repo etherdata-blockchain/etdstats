@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User: Codable {
+public class User: Codable {
     var balance: String
     var transaction: [Transaction]
 }

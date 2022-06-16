@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol TransactionProtocol {
+public protocol TransactionProtocol {
     func findById(id: HexString) async throws -> QueryResponse
 }
