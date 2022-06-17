@@ -9,5 +9,5 @@ import Foundation
 import Fluent
 
 public protocol TransactionProtocol {
-    func findById(id: HexString, with database: Database?) async throws -> QueryResponseProtocol
+    func findById(id: HexString, with database: Database?, page: Int?, perPage: Int?) async throws -> QueryResponseProtocol
 }
