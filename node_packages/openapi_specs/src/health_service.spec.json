@@ -1,70 +1,114 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "description": "This belongs part of ETDStats microservices which will provide a health check",
-    "version": "1.0.0",
-    "title": "Health service",
-    "termsOfService": "https://github.com/etherdata-blockchain"
-  },
-  "tags": [
-    {
-      "name": "transaction",
-      "description": "Get blocks and transactions details"
+    "openapi": "3.0.0",
+    "info": {
+        "description": "This belongs part of ETDStats microservices which will provide a health check",
+        "version": "0.4.0",
+        "title": "Health service",
+        "termsOfService": "https://github.com/etherdata-blockchain"
     },
-    {
-      "name": "health",
-      "description": "Get server's health info"
-    }
-  ],
-  "servers": [
-    {
-      "url": "stats.etdchain.net/v3/transaction",
-      "description": "Production server"
-    },
-    {
-      "url": "stats.debugchain.net/v3/transaction",
-      "description": "Testing server"
-    }
-  ],
-  "paths": {
-    "/health": {
-      "get": {
-        "tags": [
-          "health"
-        ],
-        "summary": "Get server's health info",
-        "description": "Will return a error reason if not healthy",
-        "responses": {
-          "200": {
-            "description": "Server is up"
-          },
-          "500": {
-            "description": "Server is down",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error"
+    "tags": [
+        {
+            "name": "transaction",
+            "description": "Get blocks and transactions details"
+        },
+        {
+            "name": "health",
+            "description": "Get server's health info"
+        }
+    ],
+    "servers": [
+        {
+            "url": "stats.etdchain.net/v3/transaction",
+            "description": "Production server"
+        },
+        {
+            "url": "stats.debugchain.net/v3/transaction",
+            "description": "Testing server"
+        }
+    ],
+    "paths": {
+        "/health": {
+            "get": {
+                "tags": [
+                    "health"
+                ],
+                "summary": "Get server's health info",
+                "description": "Will return a error reason if not healthy",
+                "responses": {
+                    "200": {
+                        "description": "Server is up"
+                    },
+                    "500": {
+                        "description": "Server is down",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "error": {
-        "type": "object",
-        "required": [
-          "reason"
-        ],
-        "properties": {
-          "relatedServices": {
-            "type": "string"
-          }
+    },
+    "components": {
+        "schemas": {
+            "error": {
+                "type": "object",
+                "required": [
+                    "reason"
+                ],
+                "properties": {
+                    "services": {
+                        "type": "array",
+                        "title": "Services",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "ok",
+                                        "warning",
+                                        "error"
+                                    ]
+                                },
+                                "total": {
+                                    "type": "number",
+                                    "example": 11,
+                                    "description": "Total number of child services"
+                                },
+                                "numHealthyServices": {
+                                    "type": "number",
+                                    "example": 10,
+                                    "description": "Number of services in healthy condition"
+                                },
+                                "isLeaf": {
+                                    "type": "boolean",
+                                    "example": true,
+                                    "description": "If this is the leaf node (no children)"
+                                },
+                                "services": {
+                                    "type": "array",
+                                    "minItems": 0,
+                                    "items": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/error"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "status",
+                                "total",
+                                "numHealthyServices",
+                                "isLeaf",
+                                "services"
+                            ]
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
