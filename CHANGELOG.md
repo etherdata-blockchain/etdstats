@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.6.0 (2022-06-17)
+
+
+### Features
+
+* update openapi spec ([#17](https://github.com/etherdata-blockchain/etdstats/issues/17)) ([e3ba9c4](https://github.com/etherdata-blockchain/etdstats/commit/e3ba9c415457e7cbcbfb35620afd7bc33a2b705f))
+
 # 0.5.0 (2022-06-17)
 
 
