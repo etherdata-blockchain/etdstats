@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.5.0 (2022-06-17)
+
+
+### Features
+
+* add env checker ([#16](https://github.com/etherdata-blockchain/etdstats/issues/16)) ([42afd69](https://github.com/etherdata-blockchain/etdstats/commit/42afd69e222d569260e383e16f2b10c2b50afb3f))
+
 # 0.4.0 (2022-06-16)
 
 
