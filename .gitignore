@@ -39,3 +39,4 @@ node_modules
 .turbo
 services/**/Dockerfile
 services/**/bin
+.idea
