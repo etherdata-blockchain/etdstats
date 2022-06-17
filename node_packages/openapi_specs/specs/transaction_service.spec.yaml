@@ -49,6 +49,20 @@ paths:
           required: true
           schema:
             type: "string"
+        - name: start
+          in: query
+          required: false
+          description: "Start at. Only works on user info"
+          schema:
+            type: "number"
+        - name: end
+          in: query
+          required: false
+          description: "End at. Only works on user info"
+          schema:
+            type: number
+
+
       responses:
         "200":
           description: "Returns the corresponding info based on the id. Note: only one of three properties will be returned."

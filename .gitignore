@@ -40,3 +40,4 @@ node_modules
 services/**/Dockerfile
 services/**/bin
 .idea
+.build

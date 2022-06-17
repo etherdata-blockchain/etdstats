@@ -4,12 +4,18 @@ import fs from "fs";
 import path from "path";
 import nunjucks from "nunjucks";
 
+const packageJson = require(path.resolve(__dirname, "package.json"));
+
 function generate() {
   glob("specs/*yaml", (err, matches) => {
     const outputFileNames: { name: string; path: string }[] = [];
     for (const match of matches) {
       const fileContent = fs.readFileSync(match, "utf-8");
       const yamlContent = yaml.parse(fileContent);
+
+      // update version from package.json
+      yamlContent.info.version = packageJson.version;
+
       const fileName = path.parse(match);
       const outputPath = path.join("src", `${fileName.name}.json`);
       outputFileNames.push({
