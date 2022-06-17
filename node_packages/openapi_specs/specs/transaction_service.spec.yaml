@@ -49,16 +49,16 @@ paths:
           required: true
           schema:
             type: "string"
-        - name: start
+        - name: page
           in: query
           required: false
-          description: "Start at. Only works on user info"
+          description: "Current page number. Only works on user info"
           schema:
             type: "number"
-        - name: end
+        - name: per
           in: query
           required: false
-          description: "End at. Only works on user info"
+          description: "Number of items per page. Only works on user info"
           schema:
             type: number
 

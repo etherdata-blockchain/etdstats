@@ -6,6 +6,11 @@ import common
 
 typealias Request = Vapor.Request
 
+struct TransactionQuery: Content {
+    var page: Int?
+    var per: Int?
+}
+
 struct TransactionController: RouteCollection, TransactionProtocol {
     
     func boot(routes: RoutesBuilder) throws {
@@ -29,7 +34,7 @@ struct TransactionController: RouteCollection, TransactionProtocol {
     /**
      Get user data by user
      */
-    private func getUser(id: HexString, start: Int?, end: Int?, db: Database) async -> User?{
+    private func getUser(id: HexString, page: Int?, per: Int?, db: Database) async -> User?{
         let task = AF.request(Environment.get(ENVIRONMENT_RPC_URL_KEY)!,
                               method: .post,
                               parameters: BalanceRequest(params: [id.stringValue ?? "", "latest"]),
@@ -39,15 +44,16 @@ struct TransactionController: RouteCollection, TransactionProtocol {
         guard let balance = value?.result else {
             return nil
         }
-
+        
+    
         let result = try! await Transaction.query(on: db)
             .group(.or){
                 group in
                 group.filter(\.$from == id).filter(\.$to == id)
             }
-            .all()
+            .paginate(PageRequest(page: page ?? 0, per: per ?? 20))
 
-        let user = User(balance: balance, transaction: result)
+        let user = User(balance: balance, transaction: result.items)
         return user
     }
     
@@ -66,7 +72,7 @@ struct TransactionController: RouteCollection, TransactionProtocol {
     /**
      Get transaction, block, or user info by id
      */
-    func findById(id: HexString, with database: Database?) async throws -> QueryResponseProtocol {
+    func findById(id: HexString, with database: Database?, page: Int?, perPage: Int?) async throws -> QueryResponseProtocol {
         guard let database = database else {
             throw InvalidTypeError.invalidRequestType
         }
@@ -74,7 +80,7 @@ struct TransactionController: RouteCollection, TransactionProtocol {
         return try await QueryResponse.fromData(
             transactionData: getTransaction(id: id),
             blockData: getBlock(id: id, with: database),
-            userData: getUser(id: id, start: 0, end: 20, db: database)
+            userData: getUser(id: id, page: page, per: perPage, db: database)
         )
     }
 
@@ -82,9 +88,11 @@ struct TransactionController: RouteCollection, TransactionProtocol {
         guard let id =  req.parameters.get("id") else {
             throw InvalidHashError.missingID
         }
+        let query = try req.query.decode(TransactionQuery.self)
+        
         
         let hexStringID = try HexString(id)
         
-        return try await findById(id: hexStringID, with: req.db) as! QueryResponse
+        return try await findById(id: hexStringID, with: req.db, page: query.page, perPage: query.per) as! QueryResponse
     }
 }
