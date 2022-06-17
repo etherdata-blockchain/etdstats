@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.7.0 (2022-06-17)
+
+
+### Features
+
+* add pagination to transaction service ([#18](https://github.com/etherdata-blockchain/etdstats/issues/18)) ([ec24e1b](https://github.com/etherdata-blockchain/etdstats/commit/ec24e1b17048717f9d6620a0269926e08e41e08f))
+
 # 0.6.0 (2022-06-17)
 
 
