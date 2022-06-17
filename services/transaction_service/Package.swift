@@ -13,8 +13,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-mongo-driver.git", from: "1.0.0"),
         .package(url: "https://github.com/Alamofire/Alamofire", from: "5.0.0"),
         .package(path: "../../packages/common"),
-        .package(path: "../../packages/model")
-        
+        .package(path: "../../packages/model"),
+        .package(path: "../../packages/env")
     ],
     targets: [
         .target(
@@ -25,7 +25,8 @@ let package = Package(
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "common", package: "common"),
-                .product(name: "model", package: "model")
+                .product(name: "model", package: "model"),
+                .product(name: "env", package: "env")
             ],
             swiftSettings: [
                 .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release))

@@ -7,6 +7,5 @@
 
 import Foundation
 
-
 let ENVIRONMENT_DB_KEY = "DATABASE_URL"
 let ENVIRONMENT_RPC_URL_KEY = "RPC_URL"
