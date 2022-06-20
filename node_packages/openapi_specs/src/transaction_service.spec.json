@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a transaction and block services",
-        "version": "0.4.0",
+        "version": "0.7.0",
         "title": "Transaction service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -18,11 +18,11 @@
     ],
     "servers": [
         {
-            "url": "stats.etdchain.net/v3/transaction",
+            "url": "https://api.stats.etdchain.net/v3/transaction",
             "description": "Production server"
         },
         {
-            "url": "stats.debugchain.net/v3/transaction",
+            "url": "https://api.stats.debugchain.net/v3/transaction",
             "description": "Testing server"
         }
     ],
@@ -36,14 +36,21 @@
                 "description": "Will return a error reason if not healthy",
                 "responses": {
                     "200": {
-                        "description": "Server is up"
+                        "description": "Server is up",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/reason"
+                                }
+                            }
+                        }
                     },
                     "500": {
                         "description": "Server is down",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/error"
+                                    "$ref": "#/components/schemas/reason"
                                 }
                             }
                         }
@@ -70,19 +77,19 @@
                         }
                     },
                     {
-                        "name": "start",
+                        "name": "page",
                         "in": "query",
                         "required": false,
-                        "description": "Start at. Only works on user info",
+                        "description": "Current page number. Only works on user info",
                         "schema": {
                             "type": "number"
                         }
                     },
                     {
-                        "name": "end",
+                        "name": "per",
                         "in": "query",
                         "required": false,
-                        "description": "End at. Only works on user info",
+                        "description": "Number of items per page. Only works on user info",
                         "schema": {
                             "type": "number"
                         }
@@ -127,7 +134,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/error"
+                                    "$ref": "#/components/schemas/reason"
                                 }
                             }
                         }
@@ -137,7 +144,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/error"
+                                    "$ref": "#/components/schemas/reason"
                                 }
                             }
                         }
@@ -148,7 +155,7 @@
     },
     "components": {
         "schemas": {
-            "error": {
+            "reason": {
                 "type": "object",
                 "required": [
                     "reason"
