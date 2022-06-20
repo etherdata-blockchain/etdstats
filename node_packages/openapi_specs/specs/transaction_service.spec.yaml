@@ -28,12 +28,16 @@ paths:
       responses:
         "200":
           description: "Server is up"
+          content:
+            application/json:
+              schema:
+                $ref: "health_service.spec.yaml#/components/schemas/error"
         "500":
           description: "Server is down"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/error"
+                $ref: "health_service.spec.yaml#/components/schemas/error"
 
   /{id}:
     get:

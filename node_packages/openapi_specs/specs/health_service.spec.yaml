@@ -28,6 +28,10 @@ paths:
       responses:
         "200":
           description: "Server is up"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
         "500":
           description: "Server is down"
           content:
