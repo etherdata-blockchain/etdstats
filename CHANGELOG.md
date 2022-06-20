@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.8.0 (2022-06-20)
+
+
+### Features
+
+* update health spec ([#19](https://github.com/etherdata-blockchain/etdstats/issues/19)) ([fe89ba5](https://github.com/etherdata-blockchain/etdstats/commit/fe89ba55a742d30747a490b073f26a6f90eff632))
+
 # 0.7.0 (2022-06-17)
 
 
