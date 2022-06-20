@@ -3,6 +3,7 @@ import yaml from "yaml";
 import fs from "fs";
 import path from "path";
 import nunjucks from "nunjucks";
+import { DependencyTree } from "openapi_compiler";
 
 const packageJson = require(path.resolve(__dirname, "package.json"));
 
@@ -10,8 +11,8 @@ function generate() {
   glob("specs/*yaml", (err, matches) => {
     const outputFileNames: { name: string; path: string }[] = [];
     for (const match of matches) {
-      const fileContent = fs.readFileSync(match, "utf-8");
-      const yamlContent = yaml.parse(fileContent);
+      const dependencyTree = DependencyTree.buildTree(match);
+      const yamlContent = dependencyTree.toSpec();
 
       // update version from package.json
       yamlContent.info.version = packageJson.version;

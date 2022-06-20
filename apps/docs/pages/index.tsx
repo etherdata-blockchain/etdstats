@@ -1,16 +1,17 @@
-import type { NextPage } from "next";
-import { RedocStandalone } from "redoc";
-import * as spec from "openapi_specs";
 import {
   AppBar,
+  Box,
+  CircularProgress,
   Fade,
-  LinearProgress,
   MenuItem,
   Toolbar,
   Typography,
 } from "@mui/material";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import * as spec from "openapi_specs";
 import { useEffect, useMemo, useState } from "react";
+import { RedocStandalone } from "redoc";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -36,24 +37,26 @@ const Home: NextPage = () => {
   return (
     <div>
       <AppBar color="primary">
-        <Toolbar>
-          <Typography variant={"h5"}>Docs</Typography>
-          {Object.keys(spec).map((k) => (
-            <MenuItem
-              key={k}
-              selected={true}
-              onClick={() => router.push(`?doc=${k}`)}
-              style={{ color: k === router.query.doc ? "purple" : "black" }}
-            >
-              {k}
-            </MenuItem>
-          ))}
+        <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Box display={"flex"}>
+            <Typography variant={"h5"}>Docs</Typography>
+            {Object.keys(spec).map((k) => (
+              <MenuItem
+                key={k}
+                selected={true}
+                onClick={() => router.push(`?doc=${k}`)}
+                style={{ color: k === router.query.doc ? "purple" : "black" }}
+              >
+                {k}
+              </MenuItem>
+            ))}
+          </Box>
+          <Fade in={isLoading} mountOnEnter unmountOnExit>
+            <CircularProgress color={"secondary"} size={30} />
+          </Fade>
         </Toolbar>
       </AppBar>
       <div style={{ marginTop: 70 }}>
-        <Fade in={isLoading} mountOnEnter unmountOnExit>
-          <LinearProgress color={"secondary"} />
-        </Fade>
         {selectedDoc && (
           <RedocStandalone
             spec={selectedDoc}
