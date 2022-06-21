@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.9.0 (2022-06-21)
+
+
+### Features
+
+* add health check for transaction service ([#20](https://github.com/etherdata-blockchain/etdstats/issues/20)) ([6a2b774](https://github.com/etherdata-blockchain/etdstats/commit/6a2b774e847e955c603e0cffbc5129bf72f582ad))
+
 # 0.8.0 (2022-06-20)
 
 
