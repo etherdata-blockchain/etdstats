@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.1 (2022-06-21)
+
+
+### Bug Fixes
+
+* tests ([#22](https://github.com/etherdata-blockchain/etdstats/issues/22)) ([fee8aaa](https://github.com/etherdata-blockchain/etdstats/commit/fee8aaa5a9b4bd2939e48d0bec1f4ebab32d55c9))
+
 # 0.9.0 (2022-06-21)
 
 
