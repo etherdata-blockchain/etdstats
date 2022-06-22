@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.12.0 (2022-06-22)
+
+
+### Features
+
+* add redis cache support ([#26](https://github.com/etherdata-blockchain/etdstats/issues/26)) ([35bd92f](https://github.com/etherdata-blockchain/etdstats/commit/35bd92f8fbccf234fce4c1de1ed73b234e22af41))
+
 # 0.11.0 (2022-06-22)
 
 
