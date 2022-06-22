@@ -46,6 +46,11 @@ jobs:
     strategy:
       matrix:
         app:  ["transaction_service"]
+    services:
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
     steps:
       - uses: actions/checkout@v3
       - uses: swift-actions/setup-swift@v1
@@ -55,6 +60,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           RPC_URL: ${{ secrets.RPC_URL }}
+          REDIS_URL: redis://localhost:6379
 
   docker-service:
     name: Build dockerized services
