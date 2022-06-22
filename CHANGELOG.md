@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.11.0 (2022-06-22)
+
+
+### Features
+
+* add stress_tests support ([#25](https://github.com/etherdata-blockchain/etdstats/issues/25)) ([56b87f8](https://github.com/etherdata-blockchain/etdstats/commit/56b87f88a8ca1d1fe837781b8ef5b26ef49a9752))
+
 # 0.10.0 (2022-06-22)
 
 
