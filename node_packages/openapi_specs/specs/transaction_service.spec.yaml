@@ -13,9 +13,9 @@ tags:
     description: "Get server's health info"
 
 servers:
-  - url: https://api.stats.etdchain.net/v3/transaction
+  - url: https://api.etdchain.net/stats/transaction
     description: Production server
-  - url: https://api.stats.debugchain.net/v3/transaction
+  - url: https://api.debugchain.net/stats/transaction
     description: Testing server
 
 paths:
