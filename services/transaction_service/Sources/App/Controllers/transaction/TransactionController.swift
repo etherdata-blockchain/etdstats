@@ -12,17 +12,17 @@ struct TransactionQuery: Content {
 
 struct TransactionController: RouteCollection, TransactionProtocol {
     func boot(routes: RoutesBuilder) throws {
-        routes.get("stats","transaction",":id", use: self.get)
-        routes.get("stats","transaction", "health", use: self.getHealth)
+        routes.get("stats", "transaction", ":id", use: self.get)
+        routes.get("stats", "transaction", "health", use: self.getHealth)
     }
-    
+
     /**
      Get transaction service's health condition
      */
     func health() async -> Health {
         return Health(status: .ok, total: 1, numHealthyServices: 1, isLeaf: true, services: [])
     }
-    
+
     /**
      Get transaction, block, or user info by id
      */
@@ -32,11 +32,10 @@ struct TransactionController: RouteCollection, TransactionProtocol {
         }
 
         return try await QueryResponse.fromData(
-            transactionData: getTransaction(id: id),
-            blockData: getBlock(id: id, with: database),
-            userData: getUser(id: id, page: page, per: perPage, db: database)
+                id: id,
+                transactionData: getTransaction(id: id),
+                blockData: getBlock(id: id, with: database),
+                userData: getUser(id: id, page: page, per: perPage, db: database)
         )
     }
-    
-    
 }

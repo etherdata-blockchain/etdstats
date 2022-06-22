@@ -10,7 +10,7 @@ import Vapor
 
 
 public enum InvalidHashError {
-    case hashNotFound
+    case hashNotFound(id: HexString)
     case invalidFormat
     case missingID
 }
@@ -19,7 +19,7 @@ extension InvalidHashError: AbortError {
     public var reason: String {
         switch self {
         case .invalidFormat: return "Invalid hash format"
-        case .hashNotFound: return "Neither a block, transaction, nor user with this id found"
+        case .hashNotFound(let id): return "Neither a block, transaction, nor user with id \(id.stringValue ?? "") found"
         case .missingID: return "Missing ID in parameters"
         }
     }
