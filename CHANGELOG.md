@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.10.0 (2022-06-22)
+
+
+### Features
+
+* update spec documentation url ([#24](https://github.com/etherdata-blockchain/etdstats/issues/24)) ([58df1e5](https://github.com/etherdata-blockchain/etdstats/commit/58df1e55978dc4b759678422fab1c4c7cee5f4c2))
+
 ## 0.9.2 (2022-06-22)
 
 
