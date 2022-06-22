@@ -14,3 +14,11 @@ services:
     environment:
       - RPC_URL=${RPC_URL}
       - DATABASE_URL=${DATABASE_URL}
+  redis:
+    restart: always
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis-data:/data
