@@ -18,13 +18,15 @@ RUN swift build -c release --static-swift-stdlib
 WORKDIR /build
 RUN cp "$(swift build --package-path /app/services/${APP_NAME} -c release --show-bin-path)/Run" ./
 
-FROM ubuntu:latest
+FROM ubuntu:20.04 as run
 
 ARG APP_NAME
 WORKDIR /app
 
-RUN apt update
-RUN apt install -y libcurl4
+RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && \
+    apt-get -q update && apt-get -q dist-upgrade -y && apt-get -q install -y ca-certificates tzdata libcurl4&& \
+    rm -r /var/lib/apt/lists/*
+
 
 COPY --from=build /build/Run /app
 
