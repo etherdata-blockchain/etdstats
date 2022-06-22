@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.2 (2022-06-22)
+
+
+### Bug Fixes
+
+* docker unexpectedly exited ([#23](https://github.com/etherdata-blockchain/etdstats/issues/23)) ([3820475](https://github.com/etherdata-blockchain/etdstats/commit/3820475a67df66bf450cc15f21135e24f6e9cf94))
+
 ## 0.9.1 (2022-06-21)
 
 
