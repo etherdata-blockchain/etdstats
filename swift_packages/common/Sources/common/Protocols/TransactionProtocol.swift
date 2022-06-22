@@ -7,7 +7,9 @@
 
 import Foundation
 import Fluent
+import Vapor
 
 public protocol TransactionProtocol: HealthProtocol {
-    func findById(id: HexString, with database: Database?, page: Int?, perPage: Int?) async throws -> QueryResponseProtocol
+    associatedtype DBClient: DatabaseProtocol
+    func findById(id: HexString, with database: DBClient, page: Int?, perPage: Int?) async throws -> QueryResponseProtocol
 }

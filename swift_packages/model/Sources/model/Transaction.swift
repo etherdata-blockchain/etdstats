@@ -17,10 +17,10 @@ public final class Transaction: Model, Content {
     public var nonce: HexString
 
     @Field(key: "blockHash")
-    public var blockHash: HexString
+    public var blockHash: HexString?
 
     @Field(key: "blockNumber")
-    public var blockNumber: HexString
+    public var blockNumber: HexString?
 
     @Field(key: "transactionIndex")
     public var transactionIndex: HexString

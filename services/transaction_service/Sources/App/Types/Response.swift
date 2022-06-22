@@ -14,6 +14,7 @@ import model
 struct QueryResponse: Content, QueryResponseProtocol{
     var type: DataType
     var data: Any
+    var shouldCache: Bool
 
     private enum CodingKeys: String, CodingKey { case type, data }
 
@@ -21,6 +22,7 @@ struct QueryResponse: Content, QueryResponseProtocol{
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         type = try container.decode(DataType.self, forKey: .type)
+        shouldCache = false
 
         if let data = try? container.decode(Transaction.self, forKey: .data) {
             self.data = data
@@ -36,13 +38,13 @@ struct QueryResponse: Content, QueryResponseProtocol{
             self.data = data
             return
         }
-
         throw InvalidTypeError.invalidRequestType
     }
 
-    init(type: DataType, data: Any){
+    init(type: DataType, data: Any, shouldCache: Bool){
         self.type = type
         self.data = data
+        self.shouldCache = shouldCache
     }
 
     func encode(to encoder: Encoder) throws {
@@ -65,16 +67,24 @@ struct QueryResponse: Content, QueryResponseProtocol{
 
 extension QueryResponse {
     static func fromData(id: HexString, transactionData: Transaction?, blockData: Block?, userData: User?) throws -> QueryResponse{
+        var shouldCache: Bool = false
+
         if let transactionData = transactionData {
-            return QueryResponse(type: .transaction, data: transactionData)
+            if let _ = transactionData.blockNumber {
+                // unconfirmed transaction
+               shouldCache = true
+            }
+            return QueryResponse(type: .transaction, data: transactionData,shouldCache: shouldCache)
         }
 
         if let blockData = blockData {
-            return QueryResponse(type: .block, data: blockData)
+            shouldCache = true
+            return QueryResponse(type: .block, data: blockData,shouldCache: shouldCache)
         }
 
         if let userData = userData {
-            return QueryResponse(type: .user, data: userData)
+            shouldCache = true
+            return QueryResponse(type: .user, data: userData, shouldCache: shouldCache)
         }
 
         throw InvalidHashError.hashNotFound(id: id)

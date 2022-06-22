@@ -10,6 +10,7 @@ import Vapor
 import Alamofire
 import model
 import common
+import Redis
 
 typealias Request = Vapor.Request
 
@@ -17,7 +18,7 @@ extension TransactionController {
     /**
      Get user data by user
      */
-    func getUser(id: HexString, page: Int?, per: Int?, db: Database) async -> User? {
+    func getUser(id: HexString, page: Int?, per: Int?, db: DatabaseClient) async -> User? {
         let task = AF.request(Environment.get(ENVIRONMENT_RPC_URL_KEY)!,
                 method: .post,
                 parameters: BalanceRequest(params: [id.stringValue ?? "", "latest"]),
@@ -29,7 +30,7 @@ extension TransactionController {
         }
 
 
-        let result = try? await Transaction.query(on: db)
+        let result = try? await Transaction.query(on: db.databaseClient)
                 .group(.or) {
                     group in
                     group.filter(\.$from == id).filter(\.$to == id)
@@ -46,8 +47,8 @@ extension TransactionController {
     /**
      Get Block by block id
      */
-    func getBlock(id: HexString, with db: Database) async -> Block? {
-        let result = try? await Block.query(on: db)
+    func getBlock(id: HexString, with db: DatabaseClient) async -> Block? {
+        let result = try? await Block.query(on: db.databaseClient)
                 .filter(\.$hash == id)
                 .first()
         return result
@@ -56,7 +57,7 @@ extension TransactionController {
     /**
      Find transaction by transaction id
      */
-    func getTransaction(id: HexString) async -> Transaction? {
+    func getTransaction(id: HexString, with database: DatabaseClient) async -> Transaction? {
         let task = AF.request(Environment.get("RPC_URL")!,
                 method: .post,
                 parameters: TransactionRequest(params: [id]),
@@ -74,8 +75,9 @@ extension TransactionController {
 
 
         let hexStringID = try HexString(id)
+        let dbClient = DatabaseClient(logger: req.logger, cacheClient: req.redis, databaseClient: req.db)
 
-        let result =  try await findById(id: hexStringID, with: req.db, page: query.page, perPage: query.per) as? QueryResponse
+        let result =  try await findById(id: hexStringID, with: dbClient, page: query.page, perPage: query.per) as? QueryResponse
         if let result = result {
             return result
         }
