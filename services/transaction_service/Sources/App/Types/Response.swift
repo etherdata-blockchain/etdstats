@@ -64,7 +64,7 @@ struct QueryResponse: Content, QueryResponseProtocol{
 
 
 extension QueryResponse {
-    static func fromData(transactionData: Transaction?, blockData: Block?, userData: User?) throws -> QueryResponse{
+    static func fromData(id: HexString, transactionData: Transaction?, blockData: Block?, userData: User?) throws -> QueryResponse{
         if let transactionData = transactionData {
             return QueryResponse(type: .transaction, data: transactionData)
         }
@@ -77,6 +77,6 @@ extension QueryResponse {
             return QueryResponse(type: .user, data: userData)
         }
 
-        throw InvalidHashError.hashNotFound
+        throw InvalidHashError.hashNotFound(id: id)
     }
 }

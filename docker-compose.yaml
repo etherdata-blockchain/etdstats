@@ -2,7 +2,7 @@ version: "3"
 
 services:
   transaction_service:
-    image: etherdata-blockchain/etdstats/transaction-service:latest
+    image: ghcr.io/etherdata-blockchain/etdstats/transaction_service:0.9.1
     build:
       context: .
       dockerfile: docker/services/service.dockerfile
