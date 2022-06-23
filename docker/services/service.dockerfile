@@ -23,9 +23,12 @@ FROM ubuntu:20.04 as run
 ARG APP_NAME
 WORKDIR /app
 
-RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && \
-    apt-get -q update && apt-get -q dist-upgrade -y && apt-get -q install -y ca-certificates tzdata libcurl4&& \
-    rm -r /var/lib/apt/lists/*
+RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && apt-get -q update && \
+    apt-get -q install -y \
+    libcurl4 \
+    libxml2 \
+    tzdata \
+    && rm -r /var/lib/apt/lists/*
 
 
 COPY --from=build /build/Run /app
