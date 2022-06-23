@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.12.1 (2022-06-23)
+
+
+### Bug Fixes
+
+* redis issue ([#27](https://github.com/etherdata-blockchain/etdstats/issues/27)) ([69126af](https://github.com/etherdata-blockchain/etdstats/commit/69126afaaaf0502b6e8fbc5530afaa868f8413db))
+
 # 0.12.0 (2022-06-22)
 
 
