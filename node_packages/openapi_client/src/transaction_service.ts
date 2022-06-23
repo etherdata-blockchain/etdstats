@@ -11,7 +11,7 @@ interface QueryParameter1 {
   per: number;
 }
 
-type Result1 = BlockResult | TransactionResult | UserResult;
+export type TransactionResponse = BlockResult | TransactionResult | UserResult;
 
 interface Transaction {
   hash: string;
@@ -29,12 +29,12 @@ interface Transaction {
   input: string;
 }
 
-interface TransactionResult {
+export interface TransactionResult {
   type: "transaction";
   data: Transaction;
 }
 
-interface BlockResult {
+export interface BlockResult {
   type: "block";
   data: {
     size: number;
@@ -58,9 +58,12 @@ interface BlockResult {
   };
 }
 
-interface UserResult {
-  balance: string;
-  transactions: Transaction[];
+export interface UserResult {
+  type: "user";
+  data: {
+    balance: string;
+    transactions: Transaction[];
+  };
 }
 
 export class TransactionService extends Client {
@@ -72,8 +75,9 @@ export class TransactionService extends Client {
    */
   public async fetchDetailsById(
     id: string,
-    params: QueryParameter1
-  ): Promise<Result1> {
-    return this.client.get(`/transactions/${id}`, { params });
+    params?: QueryParameter1
+  ): Promise<TransactionResponse> {
+    let response = await this.client.get(`${this.baseUrl}/${id}`, { params });
+    return response.data;
   }
 }
