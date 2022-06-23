@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.13.0 (2022-06-23)
+
+
+### Features
+
+* add openapi client ([#32](https://github.com/etherdata-blockchain/etdstats/issues/32)) ([466ee8d](https://github.com/etherdata-blockchain/etdstats/commit/466ee8d9ca1ab910548156cd27adf33f248ba8ad))
+
 ## 0.12.1 (2022-06-23)
 
 
