@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.14.0 (2022-06-23)
+
+
+### Features
+
+* add transaction ui ([#33](https://github.com/etherdata-blockchain/etdstats/issues/33)) ([dd55a27](https://github.com/etherdata-blockchain/etdstats/commit/dd55a27a5eecef94d210ea604533c2197534d408))
+
 # 0.13.0 (2022-06-23)
 
 
