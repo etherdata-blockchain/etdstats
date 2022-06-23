@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a transaction and block services",
-        "version": "0.9.1",
+        "version": "0.12.1",
         "title": "Transaction service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -65,7 +65,7 @@
                 ],
                 "summary": "Get any one of the following details by id: Transaction, block, or user",
                 "description": "Multiple status values can be provided with comma separated strings",
-                "operationId": "findPetsByStatus",
+                "operationId": "findDetailsById",
                 "parameters": [
                     {
                         "name": "id",

@@ -45,7 +45,7 @@ paths:
         - "transaction"
       summary: "Get any one of the following details by id: Transaction, block, or user"
       description: "Multiple status values can be provided with comma separated strings"
-      operationId: "findPetsByStatus"
+      operationId: "findDetailsById"
       parameters:
         - name: "id"
           in: "path"
