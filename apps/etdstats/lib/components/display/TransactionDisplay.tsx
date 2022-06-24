@@ -17,7 +17,6 @@ export default function TransactionDisplay({ data }: Props) {
     return "confirmed";
   }, [data]);
 
-  console.log(data);
   return (
     <Card>
       <CardContent>
@@ -40,8 +39,10 @@ export default function TransactionDisplay({ data }: Props) {
               <Chip label={status} />
             </Box>
             <Typography
-              width={300}
-              style={{ wordWrap: "break-word" }}
+              sx={{
+                width: { sm: 300, xs: 100 },
+                wordWrap: "break-word",
+              }}
               fontWeight="bold"
             >
               {data.data.hash}
@@ -67,7 +68,7 @@ export default function TransactionDisplay({ data }: Props) {
         </Grid>
 
         <Box p={2}>
-          <Card variant="outlined">
+          <Card variant="outlined" sx={{ boxShadow: "none" }}>
             <CardContent>
               <Stack>
                 <Typography

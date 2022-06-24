@@ -16,7 +16,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import TransactionDisplay from "../../components/display/TransactionDisplay";
+import TransactionDisplay from "../../lib/components/display/TransactionDisplay";
 
 interface Props {
   data: TransactionResponse;
@@ -24,7 +24,7 @@ interface Props {
 
 export default function Details({ data }: Props) {
   return (
-    <Box p={2}>
+    <Box p={5}>
       <Typography variant="h5" fontWeight={"bold"}>
         {capitalize(data.type)} Details
       </Typography>
@@ -58,7 +58,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     baseUrl: process.env.API_ENDPOINT!,
   });
   const data = await service.fetchDetailsById(id as string);
-  console.log(data);
 
   return {
     props: {
