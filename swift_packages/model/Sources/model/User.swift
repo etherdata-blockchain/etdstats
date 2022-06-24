@@ -8,12 +8,29 @@
 import Foundation
 import Vapor
 
+
+public struct RecentTransaction: Content {
+    public var date: String
+    public var count: Int
+
+    public init(date: String, count: Int) {
+        self.date = date
+        self.count = count
+    }
+}
+
 public struct User: Content {
     public var balance: String
-    public var transaction: [Transaction]
+    public var transactions: [Transaction]
+    public var totalTransactionsReceived: Int
+    public var totalTransactionsSent: Int
+    public var recentTransactions: [RecentTransaction]
 
-    public init(balance: String, transaction: [Transaction]) {
+    public init(balance: String, transactions: [Transaction], totalTransactionsReceived: Int, totalTransactionsSent: Int, recentTransactions: [RecentTransaction]) {
         self.balance = balance
-        self.transaction = transaction
+        self.transactions = transactions
+        self.totalTransactionsReceived = totalTransactionsReceived
+        self.totalTransactionsSent = totalTransactionsSent
+        self.recentTransactions = recentTransactions
     }
 }

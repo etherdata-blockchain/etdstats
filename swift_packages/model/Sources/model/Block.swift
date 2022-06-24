@@ -63,9 +63,16 @@ public final class Block: Model, Content {
     @Field(key: "uncles")
     public var uncles: [HexString]
 
-    public init() {}
+    /**
+        A list of transactions
+     */
+    public var transactions: [Transaction] = []
 
-    public init(size: HexString, extraData: HexString, gasLimit: HexString, gasUsed: HexString, hash: HexString, miner: HexString, mixHash: Double, nonce: HexString, number: HexString, parentHash: HexString, receiptsRoot: HexString, sha3Uncles: HexString, stateRoot: HexString, timestamp: Date, totalDifficulty: HexString, transactionsRoot: HexString, uncles: [HexString]) {
+    public init() {
+    }
+
+    public init(id: ObjectId?, size: HexString, extraData: HexString, gasLimit: HexString, gasUsed: HexString, hash: HexString, miner: HexString, mixHash: Double, nonce: HexString, number: HexString, parentHash: HexString, receiptsRoot: HexString, sha3Uncles: HexString, stateRoot: HexString, timestamp: Date, totalDifficulty: HexString, transactionsRoot: HexString, uncles: [HexString]) {
+        self.id = id
         self.size = size
         self.extraData = extraData
         self.gasLimit = gasLimit

@@ -108,7 +108,7 @@ components:
           type: string
     transaction:
       type: "object"
-      required: [ "hash", "nonce", "blockHash", "blockNumber", "transactionIndex", "from", "to", "value", "gasPrice", "gas", "input" ]
+      required: [ "hash", "nonce", "blockHash", "blockNumber", "transactionIndex", "from", "to", "value", "gasPrice", "gas", "input"]
       properties:
         hash:
           type: string
@@ -136,13 +136,37 @@ components:
           type: number
         input:
           type: string
+        block:
+          type: object
+          description: The block which contains this transaction
+          $ref: "#/components/schemas/block"
     user:
       type: object
       properties:
         balance:
           type: string
+          description: User balance in hex string
+        totalTransactionsReceived:
+          type: number
+          description: Total number of transaction received
+        totalTransactionsSent:
+          type: number
+          description: Total number of transaction sent
+        recentTransactions:
+          type: array
+          description: Transaction count group by date in last few days
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                description: Date
+              count:
+                type: number
+                description: Number of transactions
         transactions:
           type: array
+          description: A list of transactions
           items:
             $ref: "#/components/schemas/transaction"
 
@@ -162,8 +186,9 @@ components:
             type: string
         transactions:
           type: array
+          description: A list of transactions within the block
           items:
-            type: string
+            $ref: "#/components/schemas/transaction"
         number:
           type: string
         hash:

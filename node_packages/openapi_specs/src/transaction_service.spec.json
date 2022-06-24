@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a transaction and block services",
-        "version": "0.12.1",
+        "version": "0.14.0",
         "title": "Transaction service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -179,7 +179,8 @@
                     "value",
                     "gasPrice",
                     "gas",
-                    "input"
+                    "input",
+                    "block"
                 ],
                 "properties": {
                     "hash": {
@@ -220,6 +221,11 @@
                     },
                     "input": {
                         "type": "string"
+                    },
+                    "block": {
+                        "type": "object",
+                        "description": "The block which contains this transaction",
+                        "$ref": "#/components/schemas/block"
                     }
                 }
             },
@@ -227,10 +233,37 @@
                 "type": "object",
                 "properties": {
                     "balance": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "User balance in hex string"
+                    },
+                    "totalTransactionsReceived": {
+                        "type": "number",
+                        "description": "Total number of transaction received"
+                    },
+                    "totalTransactionsSent": {
+                        "type": "number",
+                        "description": "Total number of transaction sent"
+                    },
+                    "recentTransactions": {
+                        "type": "array",
+                        "description": "Transaction count group by date in last few days",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "date": {
+                                    "type": "string",
+                                    "description": "Date"
+                                },
+                                "count": {
+                                    "type": "number",
+                                    "description": "Number of transactions"
+                                }
+                            }
+                        }
                     },
                     "transactions": {
                         "type": "array",
+                        "description": "A list of transactions",
                         "items": {
                             "$ref": "#/components/schemas/transaction"
                         }
@@ -277,8 +310,9 @@
                     },
                     "transactions": {
                         "type": "array",
+                        "description": "A list of transactions within the block",
                         "items": {
-                            "type": "string"
+                            "$ref": "#/components/schemas/transaction"
                         }
                     },
                     "number": {

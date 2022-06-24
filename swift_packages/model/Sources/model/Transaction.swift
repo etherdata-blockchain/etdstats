@@ -48,6 +48,9 @@ public final class Transaction: Model, Content {
 
     @OptionalField(key: "input")
     public var input: HexString?
+    
+    @Parent(key: "hash")
+    public var block: Block
 
     public init() {}
 
