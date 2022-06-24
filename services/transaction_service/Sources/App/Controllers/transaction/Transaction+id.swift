@@ -14,6 +14,12 @@ import Redis
 
 typealias Request = Vapor.Request
 
+struct UserStatistics {
+    var totalSent: Int?
+    var totalReceived: Int?
+    var transactions: Page<Transaction>?
+}
+
 extension TransactionController {
     /**
      Get user data by user
@@ -29,29 +35,40 @@ extension TransactionController {
             return nil
         }
 
+        let statisticsResult = try? await UserStatistics(
+                totalSent: Transaction.query(on: db.databaseClient).filter(\.$from == id).count(),
+                totalReceived: Transaction.query(on: db.databaseClient).filter(\.$to == id).count(),
+                transactions: Transaction.query(on: db.databaseClient)
+                        .group(.or) {
+                            group in
+                            group.filter(\.$from == id).filter(\.$to == id)
+                        }
+                        .paginate(PageRequest(page: page ?? 0, per: per ?? 20)
+                        )
+        )
 
-        let result = try? await Transaction.query(on: db.databaseClient)
-                .group(.or) {
-                    group in
-                    group.filter(\.$from == id).filter(\.$to == id)
-                }
-                .paginate(PageRequest(page: page ?? 0, per: per ?? 20))
 
-        if let result = result {
-            let user = User(balance: balance, transaction: result.items)
+        if let statisticsResult = statisticsResult {
+            let user = User(balance: balance, transactions: statisticsResult.transactions?.items ?? [],
+                    totalTransactionsReceived: statisticsResult.totalReceived ?? 0,
+                    totalTransactionsSent: statisticsResult.totalSent ?? 0,
+                    recentTransactions: [])
             return user
         }
-        return User(balance: balance, transaction: [])
+        return User(balance: balance, transactions: [], totalTransactionsReceived: 0, totalTransactionsSent: 0, recentTransactions: [])
     }
 
     /**
      Get Block by block id
      */
     func getBlock(id: HexString, with db: DatabaseClient) async -> Block? {
-        let result = try? await Block.query(on: db.databaseClient)
-                .filter(\.$hash == id)
-                .first()
-        return result
+        let task = AF.request(Environment.get("RPC_URL")!,
+                method: .post,
+                parameters: BlockRequest(params: [AnyCodable(id), AnyCodable(true)]),
+                encoder: JSONParameterEncoder()
+        ).serializingDecodable(JSONRPCResponse<Block>.self)
+        let result = try? await task.value
+        return result?.result
     }
 
     /**
@@ -63,8 +80,16 @@ extension TransactionController {
                 parameters: TransactionRequest(params: [id]),
                 encoder: JSONParameterEncoder()
         ).serializingDecodable(JSONRPCResponse<Transaction>.self)
-        let value = try? await task.value
-        return value?.result
+        let result = try? await task.value
+        if let transaction = result?.result {
+            // only get block if transaction is confirmed
+            if let blockHash = transaction.blockHash {
+                let block = await getBlock(id: blockHash, with: database)
+                transaction.block = block
+            }
+            return transaction
+        }
+        return nil
     }
 
     func get(req: Request) async throws -> QueryResponse {
@@ -77,12 +102,12 @@ extension TransactionController {
         let hexStringID = try HexString(id)
         let dbClient = DatabaseClient(logger: req.logger, cacheClient: req.redis, databaseClient: req.db)
 
-        let result =  try await findById(id: hexStringID, with: dbClient, page: query.page, perPage: query.per) as? QueryResponse
+        let result = try await findById(id: hexStringID, with: dbClient, page: query.page, perPage: query.per) as? QueryResponse
         if let result = result {
             return result
         }
 
-        throw InvalidTypeError.invalidRequestType
+        throw Abort(.notFound)
     }
 
 }

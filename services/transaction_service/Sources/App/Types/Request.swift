@@ -17,6 +17,12 @@ struct TransactionRequest: Content {
     var id: String = "abcde"
 }
 
+struct BlockRequest: Content {
+    var jsonrpc: String = "2.0"
+    var method: String = "eth_getBlockByHash"
+    var params: [AnyCodable]
+    var id: String = "abcde"
+}
 
 struct BalanceRequest: Content {
     var jsonrpc: String = "2.0"

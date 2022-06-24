@@ -70,7 +70,7 @@ extension QueryResponse {
         var shouldCache: Bool = false
 
         if let transactionData = transactionData {
-            if let _ = transactionData.blockNumber {
+            if let _ = transactionData.block {
                 // unconfirmed transaction
                shouldCache = true
             }

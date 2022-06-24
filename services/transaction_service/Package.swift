@@ -15,7 +15,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/redis.git", from: "4.0.0"),
         .package(path: "../../swift_packages/common"),
         .package(path: "../../swift_packages/model"),
-        .package(path: "../../swift_packages/env"),
+        .package(path: "../../swift_packages/env")
     ],
     targets: [
         .target(
