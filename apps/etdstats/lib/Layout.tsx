@@ -1,4 +1,5 @@
 import { AppBar, Box, Drawer, IconButton, Stack, Toolbar } from "@mui/material";
+import { useRouter } from "next/router";
 
 import React from "react";
 import { ConnectWalletButton, UniversalSearchButton } from "ui";
@@ -8,6 +9,8 @@ export default function Layout(props: {
   children: React.ReactNode;
   menu: React.ReactNode;
 }) {
+  const router = useRouter();
+
   return (
     <Box>
       <AppBar
@@ -23,7 +26,12 @@ export default function Layout(props: {
           }}
         >
           <Stack>
-            <UniversalSearchButton />
+            <UniversalSearchButton
+              drawerWidth={DrawerWidth}
+              onSearch={(v) => {
+                router.push(`/info/${v}`);
+              }}
+            />
           </Stack>
           <Stack direction={"row"}>
             <ConnectWalletButton />

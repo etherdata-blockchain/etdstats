@@ -41,7 +41,7 @@ extension TransactionController {
             let user = User(balance: balance, transaction: result.items)
             return user
         }
-        return nil
+        return User(balance: balance, transaction: [])
     }
 
     /**

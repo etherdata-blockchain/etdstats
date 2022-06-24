@@ -6,5 +6,7 @@ export { UniversalSearchButton } from "./buttons/UniversalSearchButton";
 export { ConnectWalletButton } from "./buttons/ConnectWalletButton";
 
 export { MenuSubHeader } from "./menus/MenuSubHeader";
+export { Breadcrumbs } from "./menus/Breadcrumbs";
 
 export { Chip } from "./Chip";
+export { StyledDataGrid } from "./StyledDataGrid";

@@ -18,6 +18,8 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.4",
-    "@types/react": "18.0.14"
+    "@types/react": "18.0.14",
+    "@mui/x-data-grid": "5.12.2",
+    "@mui/system": "5.8.4"
   }
 }
