@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.15.0 (2022-06-24)
+
+
+### Features
+
+* add block UI ([#34](https://github.com/etherdata-blockchain/etdstats/issues/34)) ([c18e79f](https://github.com/etherdata-blockchain/etdstats/commit/c18e79f86da6f7f242d99dab42ac3d7faadc931a))
+
 # 0.14.0 (2022-06-23)
 
 
