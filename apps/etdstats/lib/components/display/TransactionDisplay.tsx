@@ -17,7 +17,6 @@ export default function TransactionDisplay({ data }: Props) {
     return "confirmed";
   }, [data]);
 
-  console.log(data);
   return (
     <Card>
       <CardContent>
@@ -30,7 +29,7 @@ export default function TransactionDisplay({ data }: Props) {
           <Stack direction={"row"} justifyItems="center" alignItems={"center"}>
             <Image
               src="/TransactionIcon.webp"
-              alt="Vercel Logo"
+              alt="Transaction Logo"
               width={80}
               height={80}
             />
@@ -40,8 +39,10 @@ export default function TransactionDisplay({ data }: Props) {
               <Chip label={status} />
             </Box>
             <Typography
-              width={300}
-              style={{ wordWrap: "break-word" }}
+              sx={{
+                width: { sm: 300, xs: 100 },
+                wordWrap: "break-word",
+              }}
               fontWeight="bold"
             >
               {data.data.hash}
@@ -65,9 +66,8 @@ export default function TransactionDisplay({ data }: Props) {
             <ListItemButton title="Timestamp" subtitle={""} />
           </Grid>
         </Grid>
-
         <Box p={2}>
-          <Card variant="outlined">
+          <Card variant="outlined" sx={{ boxShadow: "none" }}>
             <CardContent>
               <Stack>
                 <Typography
@@ -85,7 +85,6 @@ export default function TransactionDisplay({ data }: Props) {
             </CardContent>
           </Card>
         </Box>
-
         <Stack spacing={3} alignItems={"flex-end"}>
           <Stack>
             <Typography

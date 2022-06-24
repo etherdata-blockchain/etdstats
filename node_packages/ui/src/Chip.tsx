@@ -11,7 +11,7 @@ export function Chip({ label }: Props) {
       color="rgb(34,154,22)"
       fontFamily={"Public Sans, sans-serif"}
       bgcolor={"rgba(84,214,44,0.16)"}
-      padding={"0px 8px"}
+      padding={"2px 12px"}
       fontSize="0.75rem"
       fontWeight={"700"}
       textTransform={"uppercase"}

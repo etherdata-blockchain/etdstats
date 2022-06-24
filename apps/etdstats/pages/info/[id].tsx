@@ -4,7 +4,12 @@ import {
   TransactionResult,
   TransactionService,
 } from "openapi_client";
-import { DownloadDataButton, SaveToFavoriteButton, ShareDataButton } from "ui";
+import {
+  Breadcrumbs,
+  DownloadDataButton,
+  SaveToFavoriteButton,
+  ShareDataButton,
+} from "ui";
 import React from "react";
 import Image from "next/image";
 import axios from "axios";
@@ -16,21 +21,38 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import TransactionDisplay from "../../components/display/TransactionDisplay";
+import TransactionDisplay from "../../lib/components/display/TransactionDisplay";
+import BlockDisplay from "../../lib/components/display/BlockDisplay";
 
 interface Props {
   data: TransactionResponse;
 }
 
 export default function Details({ data }: Props) {
+  const menus = [
+    {
+      title: "Home",
+    },
+    {
+      title: "Info",
+    },
+    {
+      title: data.type,
+    },
+  ];
+
   return (
-    <Box p={2}>
+    <Box p={5}>
       <Typography variant="h5" fontWeight={"bold"}>
         {capitalize(data.type)} Details
       </Typography>
+      <Box mt={2}>
+        <Breadcrumbs menus={menus} />
+      </Box>
       <Stack
         alignItems={"center"}
-        p={3}
+        mt={2}
+        mb={3}
         direction="row"
         justifyContent={"space-between"}
         justifyItems={"center"}
@@ -43,7 +65,8 @@ export default function Details({ data }: Props) {
           <SaveToFavoriteButton />
         </Box>
       </Stack>
-      <TransactionDisplay data={data as TransactionResult} />
+      {data.type === "transaction" && <TransactionDisplay data={data} />}
+      {data.type === "block" && <BlockDisplay data={data} />}
     </Box>
   );
 }
@@ -57,12 +80,20 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     client: axios,
     baseUrl: process.env.API_ENDPOINT!,
   });
-  const data = await service.fetchDetailsById(id as string);
-  console.log(data);
+
+  try {
+    const data = await service.fetchDetailsById(id as string);
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch (err: any) {
+    let status = err.response.status;
+    console.log(status);
+  }
 
   return {
-    props: {
-      data,
-    },
+    notFound: true,
   };
 };

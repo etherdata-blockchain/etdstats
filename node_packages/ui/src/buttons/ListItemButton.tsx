@@ -10,7 +10,7 @@ interface Props {
 export function ListItemButton({ subtitle, title }: Props) {
   return (
     <Button>
-      <Stack>
+      <Stack spacing={2}>
         <Typography
           textTransform={"uppercase"}
           variant="caption"
@@ -19,7 +19,11 @@ export function ListItemButton({ subtitle, title }: Props) {
         >
           {title}
         </Typography>
-        <Typography width={300} style={{ wordWrap: "break-word" }}>
+        <Typography
+          width={300}
+          style={{ wordWrap: "break-word" }}
+          variant="body2"
+        >
           {subtitle}
         </Typography>
       </Stack>

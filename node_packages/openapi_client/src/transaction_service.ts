@@ -38,7 +38,7 @@ export interface BlockResult {
   type: "block";
   data: {
     size: number;
-    difficulty: number;
+    totalDifficulty: number;
     uncles: string[];
     transactions: string[];
     number: string;
