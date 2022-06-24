@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/OpenKitten/MongoKitten.git", from: "6.6.4"),
-        .package(path: "../common")
+        .package(path: "../common"),
     ],
     targets: [
         .target(
