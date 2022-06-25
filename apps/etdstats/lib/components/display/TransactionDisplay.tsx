@@ -1,7 +1,8 @@
 import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { TransactionResult } from "openapi_client";
-import React from "react";
+import React, { useCallback } from "react";
 import { Chip, ListItemButton } from "ui";
 import { toETD, toWei } from "../../utils/toETD";
 
@@ -10,12 +11,18 @@ interface Props {
 }
 
 export default function TransactionDisplay({ data }: Props) {
+  const router = useRouter();
   const status = React.useMemo(() => {
     if (data.data.blockHash === undefined) {
       return "pending";
     }
     return "confirmed";
   }, [data]);
+
+  const navTo = useCallback(async (id: string) => {
+    console.log("navTo", id);
+    await router.push(`/info/${id}`);
+  }, []);
 
   return (
     <Card>
@@ -54,16 +61,28 @@ export default function TransactionDisplay({ data }: Props) {
             <ListItemButton
               title="Transaction From"
               subtitle={data.data.from}
+              onClick={() => navTo(data.data.from)}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ListItemButton title="Transaction To" subtitle={data.data.to} />
+            <ListItemButton
+              title="Transaction To"
+              subtitle={data.data.to}
+              onClick={() => navTo(data.data.to)}
+            />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ListItemButton title="Block" subtitle={data.data.blockHash} />
+            <ListItemButton
+              title="Block"
+              subtitle={data.data.blockHash}
+              onClick={async () => navTo(data.data.blockHash)}
+            />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ListItemButton title="Timestamp" subtitle={""} />
+            <ListItemButton
+              title="Timestamp"
+              subtitle={data.data.block.timestamp}
+            />
           </Grid>
         </Grid>
         <Box p={2}>

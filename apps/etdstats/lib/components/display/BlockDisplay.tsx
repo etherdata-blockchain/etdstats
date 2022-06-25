@@ -1,13 +1,22 @@
-import { Box, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+} from "@mui/material";
+import dayjs from "dayjs";
 import Image from "next/image";
 import { BlockResult } from "openapi_client";
-import React from "react";
 import { Chip, ListItemButton, StyledDataGrid } from "ui";
-import dayjs from "dayjs";
 import { toETD, toWei } from "../../utils/toETD";
+import { GridColDef } from "@mui/x-data-grid";
 //@ts-ignore
 import { format } from "friendly-numbers";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { useRouter } from "next/router";
+import { useCallback, useMemo } from "react";
 
 interface Props {
   data: BlockResult;
@@ -20,14 +29,17 @@ const columns: GridColDef[] = [
     flex: 1,
   },
   {
-    field: "Hash",
+    field: "hash",
     headerName: "Hash",
-    flex: 5,
+    flex: 10,
+    renderCell: (rowData) => (
+      <Link href={`/info/${rowData.value}`}>{rowData.value}</Link>
+    ),
   },
   {
-    field: "Value",
+    field: "value",
     headerName: "Value",
-    flex: 4,
+    flex: 2,
     valueFormatter: (params) => {
       return format(toETD(params.value), {
         precision: 2,
@@ -38,6 +50,23 @@ const columns: GridColDef[] = [
 ];
 
 export default function TransactionDisplay({ data }: Props) {
+  const router = useRouter();
+
+  const navTo = useCallback(async (id: string) => {
+    console.log("navTo", id);
+    await router.push(`/info/${id}`);
+  }, []);
+
+  const rows = useMemo(() => {
+    return data.data.transactions.map((transaction, index) => {
+      return {
+        id: index,
+        hash: transaction.hash,
+        value: toETD(transaction.value),
+      };
+    });
+  }, [data]);
+
   return (
     <Stack spacing={5}>
       <Card>
@@ -86,7 +115,7 @@ export default function TransactionDisplay({ data }: Props) {
             <Grid item xs={12} md={6}>
               <ListItemButton
                 title="Block Number"
-                subtitle={data.data.number}
+                subtitle={parseInt(data.data.number, 16).toString()}
               />
             </Grid>
             <Grid item xs={12} md={6}>
@@ -101,10 +130,15 @@ export default function TransactionDisplay({ data }: Props) {
               <ListItemButton
                 title="Parent Block"
                 subtitle={data.data.parentHash}
+                onClick={() => navTo(data.data.parentHash)}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <ListItemButton title="Miner" subtitle={data.data.miner} />
+              <ListItemButton
+                title="Miner"
+                subtitle={data.data.miner}
+                onClick={() => navTo(data.data.miner)}
+              />
             </Grid>
           </Grid>
         </CardContent>
@@ -195,7 +229,7 @@ export default function TransactionDisplay({ data }: Props) {
           <StyledDataGrid
             columns={columns}
             autoHeight
-            rows={[]}
+            rows={rows}
             hideFooter={true}
             hideFooterPagination={true}
           />

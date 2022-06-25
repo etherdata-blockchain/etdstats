@@ -44,6 +44,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        contained: {
+          backgroundColor: "rgb(0, 171, 85)",
+          boxShadow: "rgb(0 171 85 /24%) 0px 8px 16px 0px",
+          borderRadius: "8px",
+        },
+      },
+    },
   },
 });
 

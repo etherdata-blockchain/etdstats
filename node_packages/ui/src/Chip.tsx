@@ -3,14 +3,19 @@ import React from "react";
 
 interface Props {
   label: string;
+  backgroundColor?: string;
+  textColor?: string;
 }
 
-export function Chip({ label }: Props) {
+export function Chip({ label, backgroundColor, textColor }: Props) {
+  const background = backgroundColor ?? "rgba(84,214,44,0.16)";
+  const color = textColor ?? "rgb(34,154,22)";
+
   return (
     <Box
-      color="rgb(34,154,22)"
+      color={color}
       fontFamily={"Public Sans, sans-serif"}
-      bgcolor={"rgba(84,214,44,0.16)"}
+      bgcolor={background}
       padding={"2px 12px"}
       fontSize="0.75rem"
       fontWeight={"700"}

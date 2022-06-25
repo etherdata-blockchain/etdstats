@@ -83,7 +83,9 @@ extension QueryResponse {
         }
 
         if let userData = userData {
-            shouldCache = true
+            if userData.transactions.count > 0 {
+                shouldCache = true
+            }
             return QueryResponse(type: .user, data: userData, shouldCache: shouldCache)
         }
 

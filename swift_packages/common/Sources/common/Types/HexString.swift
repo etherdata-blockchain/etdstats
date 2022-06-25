@@ -71,7 +71,7 @@ public struct HexString: Codable, Equatable {
             try container.encode(value)
             return
         }
-        throw HexStringError.invalidType
+        throw HexStringError.invalidType(receivedType: String(describing: type(of: _value)))
     }
 
     public init(from decoder: Decoder) throws {
@@ -92,7 +92,7 @@ public struct HexString: Codable, Equatable {
             return
         }
 
-        throw HexStringError.invalidType
+        self._value = "0x"
     }
 
     public static func == (lhs: HexString, rhs: HexString) -> Bool {
@@ -104,11 +104,11 @@ public struct HexString: Codable, Equatable {
 
     private static func checkValidString(value: String) throws {
         if !value.starts(with: "0x") {
-            throw HexStringError.invalidType
+            throw HexStringError.invalidType(receivedType: "String")
         }
 
         if !value.isHexNumber {
-            throw HexStringError.invalidType
+            throw HexStringError.invalidType(receivedType: "String")
         }
     }
 }

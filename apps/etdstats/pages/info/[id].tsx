@@ -1,34 +1,24 @@
+import { Box, capitalize, Stack, Typography } from "@mui/material";
+import axios from "axios";
 import { GetServerSideProps } from "next";
-import {
-  TransactionResponse,
-  TransactionResult,
-  TransactionService,
-} from "openapi_client";
+import { TransactionResponse, TransactionService } from "openapi_client";
 import {
   Breadcrumbs,
   DownloadDataButton,
   SaveToFavoriteButton,
   ShareDataButton,
 } from "ui";
-import React from "react";
-import Image from "next/image";
-import axios from "axios";
-import {
-  Box,
-  capitalize,
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-} from "@mui/material";
-import TransactionDisplay from "../../lib/components/display/TransactionDisplay";
 import BlockDisplay from "../../lib/components/display/BlockDisplay";
+import TransactionDisplay from "../../lib/components/display/TransactionDisplay";
+import UserDisplay from "../../lib/components/display/UserDisplay";
 
 interface Props {
   data: TransactionResponse;
+  id: string;
+  currentPage: number;
 }
 
-export default function Details({ data }: Props) {
+export default function Details({ data, id, currentPage }: Props) {
   const menus = [
     {
       title: "Home",
@@ -43,6 +33,9 @@ export default function Details({ data }: Props) {
 
   return (
     <Box p={5}>
+      <head>
+        <title>ETDStats</title>
+      </head>
       <Typography variant="h5" fontWeight={"bold"}>
         {capitalize(data.type)} Details
       </Typography>
@@ -67,6 +60,9 @@ export default function Details({ data }: Props) {
       </Stack>
       {data.type === "transaction" && <TransactionDisplay data={data} />}
       {data.type === "block" && <BlockDisplay data={data} />}
+      {data.type === "user" && (
+        <UserDisplay data={data} id={id} currentPage={currentPage} />
+      )}
     </Box>
   );
 }
@@ -81,16 +77,22 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     baseUrl: process.env.API_ENDPOINT!,
   });
 
+  const param = {
+    page: parseInt(page as string),
+    per: parseInt(per as string),
+  };
+
   try {
-    const data = await service.fetchDetailsById(id as string);
+    const data = await service.fetchDetailsById(id as string, param);
     return {
       props: {
         data,
+        id: id as string,
+        currentPage: Number.isNaN(param.page) ? 0 : param.page,
       },
     };
   } catch (err: any) {
-    let status = err.response.status;
-    console.log(status);
+    console.error(err.response?.data);
   }
 
   return {
