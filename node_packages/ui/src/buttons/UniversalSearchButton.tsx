@@ -16,7 +16,7 @@ import { Close } from "@mui/icons-material";
 
 interface Props {
   drawerWidth: number;
-  onSearch(value: string): void;
+  onSearch(value: string): Promise<void>;
 }
 
 export function UniversalSearchButton(props: Props) {
