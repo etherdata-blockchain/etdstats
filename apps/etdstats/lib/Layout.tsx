@@ -28,8 +28,8 @@ export default function Layout(props: {
           <Stack>
             <UniversalSearchButton
               drawerWidth={DrawerWidth}
-              onSearch={(v) => {
-                router.push(`/info/${v}`);
+              onSearch={async (v) => {
+                await router.push(`/info/${v}`);
               }}
             />
           </Stack>
