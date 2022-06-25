@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.17.1 (2022-06-25)
+
+
+### Bug Fixes
+
+* searching experience ([#37](https://github.com/etherdata-blockchain/etdstats/issues/37)) ([d250f69](https://github.com/etherdata-blockchain/etdstats/commit/d250f699da0fe217e1a6b696d906597b162de1d6))
+
 # 0.17.0 (2022-06-25)
 
 
