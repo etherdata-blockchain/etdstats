@@ -152,6 +152,9 @@ components:
         totalTransactionsSent:
           type: number
           description: Total number of transaction sent
+        totalTransactions:
+          type: number
+          description: Total number of transactions
         recentTransactions:
           type: array
           description: Transaction count group by date in last few days

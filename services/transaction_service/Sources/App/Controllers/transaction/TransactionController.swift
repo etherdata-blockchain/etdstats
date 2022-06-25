@@ -29,7 +29,7 @@ struct TransactionController: RouteCollection, TransactionProtocol {
      Get transaction, block, or user info by id
      */
     func findById(id: HexString, with database: DatabaseClient, page: Int?, perPage: Int?) async throws -> QueryResponseProtocol {
-        let redisKey = RedisKey("\(id.stringValue!)?start=\(page ?? 0)&end=\(perPage ?? 0)")
+        let redisKey = RedisKey("\(id.stringValue!)?start=\(page ?? 0)&per=\(perPage ?? 0)")
         let cached = try await database.cacheClient.get(redisKey, asJSON: QueryResponse.self)
         if let cached = cached {
             database.logger.info("Found cache for key \(redisKey)")
@@ -44,6 +44,7 @@ struct TransactionController: RouteCollection, TransactionProtocol {
         // save cache
         if result.shouldCache {
             try? await database.cacheClient.set(redisKey, toJSON: result)
+            let _ = database.cacheClient.expire(redisKey, after: .hours(1))
         }
         return result
     }

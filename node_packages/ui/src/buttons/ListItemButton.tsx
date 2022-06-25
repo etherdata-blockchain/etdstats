@@ -1,5 +1,11 @@
 import React from "react";
-import { ListItemButton as Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  ListItemButton as Button,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 interface Props {
   title: string;
@@ -7,9 +13,19 @@ interface Props {
   onClick?: () => void;
 }
 
-export function ListItemButton({ subtitle, title }: Props) {
+export function ListItemButton({ subtitle, title, onClick }: Props) {
+  const [loading, setLoading] = React.useState(false);
+
   return (
-    <Button>
+    <Button
+      onClick={async () => {
+        if (onClick) {
+          setLoading(true);
+          await onClick();
+          setLoading(false);
+        }
+      }}
+    >
       <Stack spacing={2}>
         <Typography
           textTransform={"uppercase"}
@@ -26,6 +42,7 @@ export function ListItemButton({ subtitle, title }: Props) {
         >
           {subtitle}
         </Typography>
+        <Box>{loading && <CircularProgress size={20} />}</Box>
       </Stack>
     </Button>
   );

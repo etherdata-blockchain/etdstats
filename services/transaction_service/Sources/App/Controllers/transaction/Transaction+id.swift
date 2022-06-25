@@ -43,19 +43,24 @@ extension TransactionController {
                             group in
                             group.filter(\.$from == id).filter(\.$to == id)
                         }
+                        .sort(\.$id, .descending)
                         .paginate(PageRequest(page: page ?? 0, per: per ?? 20)
                         )
         )
 
-
         if let statisticsResult = statisticsResult {
-            let user = User(balance: balance, transactions: statisticsResult.transactions?.items ?? [],
+            let user = User(
+                    balance: balance,
+                    transactions: statisticsResult.transactions?.items ?? [],
                     totalTransactionsReceived: statisticsResult.totalReceived ?? 0,
                     totalTransactionsSent: statisticsResult.totalSent ?? 0,
-                    recentTransactions: [])
+                    recentTransactions: [],
+                    totalTransactions: statisticsResult.transactions?.metadata.total ?? 0,
+                    itemsPerPage: statisticsResult.transactions?.metadata.per ?? 0
+            )
             return user
         }
-        return User(balance: balance, transactions: [], totalTransactionsReceived: 0, totalTransactionsSent: 0, recentTransactions: [])
+        return User(balance: balance, transactions: [], totalTransactionsReceived: 0, totalTransactionsSent: 0, recentTransactions: [], totalTransactions: 0, itemsPerPage: 0)
     }
 
     /**

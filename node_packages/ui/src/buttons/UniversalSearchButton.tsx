@@ -1,9 +1,12 @@
 import {
   AppBar,
+  Box,
+  CircularProgress,
   ClickAwayListener,
   IconButton,
   InputBase,
   Slide,
+  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -19,11 +22,12 @@ interface Props {
 export function UniversalSearchButton(props: Props) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   return (
     <>
-      <IconButton>
-        <SearchIcon onClick={() => setOpen(true)} />
+      <IconButton onClick={() => setOpen(true)}>
+        <SearchIcon />
       </IconButton>
       <Slide mountOnEnter in={open}>
         <AppBar
@@ -39,30 +43,55 @@ export function UniversalSearchButton(props: Props) {
           position="fixed"
         >
           <Toolbar>
-            <SearchIcon style={{ color: "gray" }} />
-            <InputBase
-              fullWidth
-              placeholder="Search..."
-              value={value}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  props.onSearch(value);
-                  setOpen(false);
-                  setValue("");
-                }
-              }}
-              onChange={(e) => {
-                setValue(e.target.value);
-              }}
-            />
-            <IconButton
-              onClick={() => {
-                setOpen(false);
-                setValue("");
-              }}
+            <Stack
+              direction={"row"}
+              spacing={1}
+              justifyContent="center"
+              alignItems={"center"}
+              width="100%"
             >
-              <Close />
-            </IconButton>
+              <Box flex={1}>
+                {loading ? (
+                  <CircularProgress size={20} />
+                ) : (
+                  <SearchIcon style={{ color: "gray" }} />
+                )}
+              </Box>
+              <Box flex={20}>
+                <InputBase
+                  fullWidth
+                  placeholder="Search..."
+                  value={value}
+                  onKeyDown={async (e) => {
+                    if (e.key === "Enter") {
+                      setLoading(true);
+                      await props.onSearch(value);
+                      setOpen(false);
+                      setValue("");
+                      setLoading(false);
+                    }
+
+                    if (e.key === "Escape") {
+                      setOpen(false);
+                      setValue("");
+                    }
+                  }}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                />
+              </Box>
+              <Box>
+                <IconButton
+                  onClick={() => {
+                    setOpen(false);
+                    setValue("");
+                  }}
+                >
+                  <Close />
+                </IconButton>
+              </Box>
+            </Stack>
           </Toolbar>
         </AppBar>
       </Slide>

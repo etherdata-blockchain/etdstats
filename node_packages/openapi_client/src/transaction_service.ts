@@ -27,6 +27,7 @@ interface Transaction {
   maxFeePerGas?: number;
   gas: number;
   input: string;
+  block: Block;
 }
 
 export interface TransactionResult {
@@ -34,34 +35,40 @@ export interface TransactionResult {
   data: Transaction;
 }
 
+interface Block {
+  size: number;
+  totalDifficulty: number;
+  uncles: string[];
+  transactions: Transaction[];
+  number: string;
+  hash: string;
+  parentHash: string;
+  nonce: string;
+  sha3Uncles: string;
+  logsBloom: string;
+  transactionsRoot: string;
+  stateRoot: string;
+  receiptsRoot: string;
+  miner: string;
+  extraData: string;
+  gasLimit: string;
+  gasUsed: string;
+  timestamp: string;
+}
+
 export interface BlockResult {
   type: "block";
-  data: {
-    size: number;
-    totalDifficulty: number;
-    uncles: string[];
-    transactions: string[];
-    number: string;
-    hash: string;
-    parentHash: string;
-    nonce: string;
-    sha3Uncles: string;
-    logsBloom: string;
-    transactionsRoot: string;
-    stateRoot: string;
-    receiptsRoot: string;
-    miner: string;
-    extraData: string;
-    gasLimit: string;
-    gasUsed: string;
-    timestamp: string;
-  };
+  data: Block;
 }
 
 export interface UserResult {
   type: "user";
   data: {
     balance: string;
+    totalTransactionsSent: number;
+    totalTransactionsReceived: number;
+    totalTransactions: number;
+    itemsPerPage: number;
     transactions: Transaction[];
   };
 }
@@ -77,7 +84,10 @@ export class TransactionService extends Client {
     id: string,
     params?: QueryParameter1
   ): Promise<TransactionResponse> {
-    let response = await this.client.get(`${this.baseUrl}/${id}`, { params });
+    const useParams = !Number.isNaN(params?.page) && params?.page !== undefined;
+    let response = await this.client.get(`${this.baseUrl}/${id}`, {
+      params: useParams ? { page: params.page } : undefined,
+    });
     return response.data;
   }
 }

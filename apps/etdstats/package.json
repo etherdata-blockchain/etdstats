@@ -25,7 +25,9 @@
     "friendly-numbers": "1.0.1",
     "@mui/x-data-grid": "^5.12.2",
     "@mui/system": "5.8.5",
-    "ui": "workspace:*"
+    "ui": "workspace:*",
+    "recharts": "^2.1.11",
+    "prop-types": "15.8.1"
   },
   "devDependencies": {
     "@types/node": "18.0.0",

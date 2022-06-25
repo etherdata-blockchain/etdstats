@@ -25,12 +25,16 @@ public struct User: Content {
     public var totalTransactionsReceived: Int
     public var totalTransactionsSent: Int
     public var recentTransactions: [RecentTransaction]
+    public var totalTransactions: Int?
+    public var itemsPerPage: Int?
 
-    public init(balance: String, transactions: [Transaction], totalTransactionsReceived: Int, totalTransactionsSent: Int, recentTransactions: [RecentTransaction]) {
+    public init(balance: String, transactions: [Transaction], totalTransactionsReceived: Int, totalTransactionsSent: Int, recentTransactions: [RecentTransaction], totalTransactions: Int?, itemsPerPage: Int?) {
         self.balance = balance
         self.transactions = transactions
         self.totalTransactionsReceived = totalTransactionsReceived
         self.totalTransactionsSent = totalTransactionsSent
         self.recentTransactions = recentTransactions
+        self.totalTransactions = totalTransactions
+        self.itemsPerPage = itemsPerPage
     }
 }
