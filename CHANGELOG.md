@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.17.0 (2022-06-25)
+
+
+### Features
+
+* add user ui ([#36](https://github.com/etherdata-blockchain/etdstats/issues/36)) ([a84a21e](https://github.com/etherdata-blockchain/etdstats/commit/a84a21ecffa996a071c286ff59bd0a6cb9ba83b8))
+
 # 0.16.0 (2022-06-24)
 
 
