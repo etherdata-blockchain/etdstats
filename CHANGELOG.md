@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.20.0 (2022-06-26)
+
+
+### Features
+
+* add analytics ui support ([#40](https://github.com/etherdata-blockchain/etdstats/issues/40)) ([89a4365](https://github.com/etherdata-blockchain/etdstats/commit/89a4365402951f7a7c931635788fc630a6a032ad))
+
 # 0.19.0 (2022-06-26)
 
 
