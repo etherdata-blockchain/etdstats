@@ -13,8 +13,13 @@ export class AnalyticsService extends Client {
    * @param params
    * @returns
    */
-  public async analytics(): Promise<AnalyticsResponse> {
-    let response = await this.client.post(`${this.baseUrl}`);
+  public async analytics(userAgent?: string): Promise<AnalyticsResponse> {
+    // set user agent if provided
+    let response = await this.client.post(`${this.baseUrl}`, {
+      headers: {
+        "User-Agent": userAgent,
+      },
+    });
     return response.data;
   }
 }

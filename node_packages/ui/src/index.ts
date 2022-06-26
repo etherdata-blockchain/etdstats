@@ -12,5 +12,10 @@ export { AutoSizeInput } from "./input/AutoSizeInput";
 
 export { PieChart } from "./chart/PieChart";
 
+export {
+  NextLinearProgressBar,
+  NextCirculatProgressBar,
+} from "./progress/NextProgress";
+
 export { Chip } from "./Chip";
 export { StyledDataGrid } from "./StyledDataGrid";

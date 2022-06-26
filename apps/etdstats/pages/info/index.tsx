@@ -15,8 +15,13 @@ import DataCard from "../../lib/components/card/DataCard";
 import { deepGreen, green, deepOrange } from "../../lib/utils/colors";
 import { green as muiGreen, blue } from "@mui/material/colors";
 import GeneralTransactionTable from "../../lib/components/table/GeneralTransactionTable";
+import { GetServerSideProps } from "next";
+import { AnalyticsService, AnalyticsResponse } from "openapi_client";
+import axios from "axios";
 
-export default function Index() {
+interface Props extends AnalyticsResponse {}
+
+export default function Index(props: Props) {
   return (
     <Box mt={10} p={2}>
       <Grid container spacing={5}>
@@ -88,7 +93,7 @@ export default function Index() {
         <Grid item xs={12} md={4}>
           <DataCard
             title="Total Visitors"
-            number={2000000}
+            number={props.total}
             icon={<Image src="/UserIcon.webp" width={"100%"} height={"100%"} />}
           />
         </Grid>
@@ -101,8 +106,8 @@ export default function Index() {
               <Box height="500px">
                 <PieChart
                   data={[
-                    { name: "Mobile", value: 400 },
-                    { name: "Desktop", value: 300 },
+                    { name: "Mobile", value: props.mobile },
+                    { name: "Desktop", value: props.desktop },
                   ]}
                   colors={[muiGreen[700], blue[600]]}
                   selectedFillColor={green}
@@ -143,3 +148,20 @@ export default function Index() {
     </Box>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const userAgent = context.req
+    ? context.req.headers["user-agent"]
+    : navigator.userAgent;
+  const analyticsService = new AnalyticsService({
+    client: axios,
+    baseUrl: process.env.ANALYTICS_API_ENDPOINT ?? process.env.API_ENDPOINT!,
+  });
+  const response = await analyticsService.analytics(userAgent);
+
+  return {
+    props: response,
+  };
+};

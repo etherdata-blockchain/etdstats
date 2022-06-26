@@ -5,8 +5,15 @@ import { createTheme } from "@mui/material";
 import Layout from "../lib/Layout";
 import Menu from "../lib/Menu";
 import { MetaMaskProvider } from "metamask-react";
+import { NextLinearProgressBar } from "ui";
+import { deepGreen } from "../lib/utils/colors";
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: deepGreen,
+    },
+  },
   components: {
     MuiDrawer: {
       styleOverrides: {
@@ -61,6 +68,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MetaMaskProvider>
       <ThemeProvider theme={theme}>
+        <NextLinearProgressBar
+          style={{ zIndex: 10000, position: "fixed", top: 0, width: "100vw" }}
+        />
         <Layout menu={<Menu />}>
           <Component {...pageProps} />
         </Layout>

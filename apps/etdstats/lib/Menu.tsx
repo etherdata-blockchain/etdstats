@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import {
@@ -12,14 +12,43 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
-import { MenuSubHeader } from "ui";
 import { useMetaMask } from "metamask-react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { MenuSubHeader } from "ui";
 
 const selectedColor = "rgb(0, 171, 85)";
 
+interface Menu {
+  name: string;
+  icon: React.ReactElement;
+  href: string;
+}
+
+const menus: Menu[] = [
+  {
+    name: "Home",
+    icon: <HomeIcon />,
+    href: "/",
+  },
+  {
+    name: "Info",
+    icon: <InfoIcon />,
+    href: "/info",
+  },
+];
+
 export default function Menu() {
+  const router = useRouter();
   const { account } = useMetaMask();
+  const [currentPath, setCurrentPath] = useState(
+    `/${router.pathname.split("/")[1]}`
+  );
+
+  useEffect(() => {
+    setCurrentPath(`/${router.pathname.split("/")[1]}`);
+  }, [router]);
 
   return (
     <List>
@@ -40,34 +69,31 @@ export default function Menu() {
         </Card>
       </Box>
       <MenuSubHeader title="General" />
-      <ListItemButton
-        sx={{
-          borderRadius: "10px",
-          padding: "12px",
-          margin: "12px",
-        }}
-      >
-        <ListItemIcon>
-          <HomeIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-      </ListItemButton>
-      <Link href="/info">
-        <ListItemButton
-          selected
-          sx={{
-            color: selectedColor,
-            borderRadius: "10px",
-            padding: "12px",
-            margin: "12px",
-          }}
-        >
-          <ListItemIcon>
-            <InfoIcon style={{ color: selectedColor }} />
-          </ListItemIcon>
-          <ListItemText primary="Info" />
-        </ListItemButton>
-      </Link>
+      {menus.map((menu) => {
+        const isSelected = currentPath === menu.href;
+        const icon = React.cloneElement(menu.icon, {
+          style: {
+            color: isSelected ? selectedColor : "inherit",
+          },
+        });
+
+        return (
+          <Link href={menu.href} key={menu.href}>
+            <ListItemButton
+              selected={isSelected}
+              sx={{
+                color: isSelected ? selectedColor : "inherit",
+                borderRadius: "10px",
+                padding: "12px",
+                margin: "12px",
+              }}
+            >
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={menu.name} />
+            </ListItemButton>
+          </Link>
+        );
+      })}
     </List>
   );
 }

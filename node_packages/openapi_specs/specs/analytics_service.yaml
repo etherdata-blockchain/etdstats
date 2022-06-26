@@ -13,13 +13,13 @@ tags:
     description: "Get server's health info"
 
 servers:
-  - url: https://api.etdchain.net/stats/transaction
+  - url: https://api.etdchain.net/stats/analytics
     description: Production server
-  - url: https://api.debugchain.net/stats/transaction
+  - url: https://api.debugchain.net/stats/analytics
     description: Testing server
 
 paths:
-  /analytics:
+  /:
     post:
       tags:
         - "analytics"

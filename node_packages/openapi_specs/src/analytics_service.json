@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a analytics service",
-        "version": "0.18.0",
+        "version": "0.19.0",
         "title": "Analytics service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -18,16 +18,16 @@
     ],
     "servers": [
         {
-            "url": "https://api.etdchain.net/stats/transaction",
+            "url": "https://api.etdchain.net/stats/analytics",
             "description": "Production server"
         },
         {
-            "url": "https://api.debugchain.net/stats/transaction",
+            "url": "https://api.debugchain.net/stats/analytics",
             "description": "Testing server"
         }
     ],
     "paths": {
-        "/analytics": {
+        "/": {
             "post": {
                 "tags": [
                     "analytics"
