@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.18.0 (2022-06-26)
+
+
+### Features
+
+* add info screen design ([#38](https://github.com/etherdata-blockchain/etdstats/issues/38)) ([6582c2e](https://github.com/etherdata-blockchain/etdstats/commit/6582c2ec2a0138335980fcd5b7202b3fb7663117))
+
 ## 0.17.1 (2022-06-25)
 
 
