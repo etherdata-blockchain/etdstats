@@ -1,0 +1,76 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "This belongs part of ETDStats microservices which will provide a analytics service",
+        "version": "0.18.0",
+        "title": "Analytics service",
+        "termsOfService": "https://github.com/etherdata-blockchain"
+    },
+    "tags": [
+        {
+            "name": "analytics",
+            "description": "Get blocks and transactions details"
+        },
+        {
+            "name": "health",
+            "description": "Get server's health info"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.etdchain.net/stats/transaction",
+            "description": "Production server"
+        },
+        {
+            "url": "https://api.debugchain.net/stats/transaction",
+            "description": "Testing server"
+        }
+    ],
+    "paths": {
+        "/analytics": {
+            "post": {
+                "tags": [
+                    "analytics"
+                ],
+                "summary": "Send analytics data to server",
+                "description": "Will returns the analytics result from server",
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/analytics"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "analytics": {
+                "type": "object",
+                "required": [
+                    "reason"
+                ],
+                "properties": {
+                    "mobile": {
+                        "type": "number",
+                        "description": "Total number of mobile vistors"
+                    },
+                    "desktop": {
+                        "type": "number",
+                        "description": "Total number of desktop vistors"
+                    },
+                    "total": {
+                        "type": "number",
+                        "description": "Total number of vistors"
+                    }
+                }
+            }
+        }
+    }
+}
