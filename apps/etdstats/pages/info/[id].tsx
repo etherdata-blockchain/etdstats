@@ -74,7 +74,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const { page, per } = context.query;
   const service = new TransactionService({
     client: axios,
-    baseUrl: process.env.API_ENDPOINT!,
+    baseUrl: process.env.TRANSACTION_API_ENDPOINT ?? process.env.API_ENDPOINT!,
   });
 
   const param = {

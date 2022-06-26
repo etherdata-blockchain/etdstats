@@ -24,6 +24,7 @@ extension AnalyticsController {
      */
     func increment(req: Request) async throws -> Analytics {
         guard let db = req.db as? MongoDatabaseRepresentable else {
+            req.logger.error("Failed to get database")
             throw Abort(.internalServerError)
         }
         let collection = db.raw[Analytics.schema]
@@ -35,8 +36,7 @@ extension AnalyticsController {
          ]
         ]
 
-        let updateResult = try! collection.updateMany(where: query, to: update).wait()
-        print(updateResult)
+        let _ = try! collection.updateOne(where: query, to: update).wait()
         if let result = try await Analytics.query(on: req.db).first() {
             return result
         } else {

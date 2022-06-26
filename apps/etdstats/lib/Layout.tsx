@@ -1,8 +1,12 @@
-import { AppBar, Box, Drawer, IconButton, Stack, Toolbar } from "@mui/material";
+import { AppBar, Box, Drawer, Stack, Toolbar } from "@mui/material";
 import { useRouter } from "next/router";
 
 import React from "react";
-import { ConnectWalletButton, UniversalSearchButton } from "ui";
+import {
+  ConnectWalletButton,
+  NextCirculatProgressBar,
+  UniversalSearchButton,
+} from "ui";
 import { DrawerWidth } from "./settings/ui";
 
 export default function Layout(props: {
@@ -33,7 +37,8 @@ export default function Layout(props: {
               }}
             />
           </Stack>
-          <Stack direction={"row"}>
+          <Stack direction={"row"} alignItems="center" spacing={2}>
+            <NextCirculatProgressBar size={20} />
             <ConnectWalletButton />
           </Stack>
         </Toolbar>
