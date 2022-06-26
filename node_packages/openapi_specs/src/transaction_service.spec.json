@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a transaction and block services",
-        "version": "0.14.0",
+        "version": "0.18.0",
         "title": "Transaction service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -179,8 +179,7 @@
                     "value",
                     "gasPrice",
                     "gas",
-                    "input",
-                    "block"
+                    "input"
                 ],
                 "properties": {
                     "hash": {
@@ -243,6 +242,10 @@
                     "totalTransactionsSent": {
                         "type": "number",
                         "description": "Total number of transaction sent"
+                    },
+                    "totalTransactions": {
+                        "type": "number",
+                        "description": "Total number of transactions"
                     },
                     "recentTransactions": {
                         "type": "array",
