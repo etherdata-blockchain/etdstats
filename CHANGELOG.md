@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.19.0 (2022-06-26)
+
+
+### Features
+
+* analytics service ([#39](https://github.com/etherdata-blockchain/etdstats/issues/39)) ([c1d58ce](https://github.com/etherdata-blockchain/etdstats/commit/c1d58ce2117830c95039a8636531d04f77e3a0ff))
+
 # 0.18.0 (2022-06-26)
 
 
