@@ -37,4 +37,15 @@ class AnyDateTests: XCTestCase {
         let decoded = try JSONDecoder().decode(TestData.self, from: encoded)
         XCTAssertEqual(Int(decoded.date.date.timeIntervalSince1970), Int(data.date.date.timeIntervalSince1970))
     }
+
+    func testDecode4() throws {
+        let data = """
+                   {
+                       "date": 1631861312
+                   }
+                   """.data(using: .utf8)!
+        let decoded = try JSONDecoder().decode(TestData.self, from: data)
+        XCTAssertEqual(decoded.date.date, Date(timeIntervalSince1970: 1631861312))
+    }
+
 }

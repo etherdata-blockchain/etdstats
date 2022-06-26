@@ -52,23 +52,13 @@ public final class Transaction: Model, Content {
     @OptionalField(key: "block_id")
     public var block: Block?
 
-    public init() {}
+    @Field(key: "timestamp")
+    public var timestamp: AnyDate
 
-    public init(
-        hash: String,
-        nonce: HexString,
-        blockHash: HexString,
-        blockNumber: HexString,
-        transactionIndex: HexString,
-        from: HexString,
-        to: HexString,
-        value: HexString,
-        gasPrice: HexString,
-        gas: HexString,
-        maxPriorityFeeperGas: HexString? = nil,
-        maxFeePerGas: HexString? = nil,
-        input: HexString? = nil
-    ) {
+    public init() {
+    }
+
+    public init(hash: String, nonce: HexString, blockHash: HexString?, blockNumber: HexString?, transactionIndex: HexString, from: HexString, to: HexString, value: HexString, gasPrice: HexString, gas: HexString, timestamp: AnyDate) {
         self.hash = hash
         self.nonce = nonce
         self.blockHash = blockHash
@@ -79,8 +69,6 @@ public final class Transaction: Model, Content {
         self.value = value
         self.gasPrice = gasPrice
         self.gas = gas
-        self.maxPriorityFeeperGas = maxPriorityFeeperGas
-        self.maxFeePerGas = maxFeePerGas
-        self.input = input
+        self.timestamp = timestamp
     }
 }

@@ -20,6 +20,8 @@
     "@mui/material": "^5.8.4",
     "@types/react": "18.0.14",
     "@mui/x-data-grid": "5.12.2",
-    "@mui/system": "5.8.4"
+    "@mui/system": "5.8.4",
+    "recharts": "2.1.11",
+    "metamask-react": "2.4.0"
   }
 }

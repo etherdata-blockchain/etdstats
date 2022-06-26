@@ -25,7 +25,8 @@ class TransactionTest: XCTestCase {
                 blockNumber: HexString(1), transactionIndex: HexString(1),
                 from: HexString(1), to: HexString(1), value: HexString(1),
                 gasPrice: HexString(1),
-                gas: HexString(1))
+                gas: HexString(1),
+                timestamp: AnyDate(Date()))
         let block = Block(size:  HexString(1), extraData:  HexString(1),
                 gasLimit:  HexString(1), gasUsed:  HexString(1), hash:  HexString(1),
                 miner:  HexString(1), nonce:  HexString(1), number:  HexString(1),

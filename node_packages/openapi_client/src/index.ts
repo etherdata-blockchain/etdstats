@@ -4,4 +4,5 @@ export type {
   BlockResult,
   UserResult,
   TransactionResponse,
+  Transaction,
 } from "./transaction_service";
