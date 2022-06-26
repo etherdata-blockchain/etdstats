@@ -22,15 +22,14 @@ import { toETD } from "../../utils/toETD";
 import StatisticsCard from "../card/StatisticsCard";
 import TransferMoneyCard from "../card/TransferMoneyCard";
 import UserContractCard from "../card/UserContractCard";
-
-const green = "rgb(200, 250, 205)";
-const deepGreen = "rgb(0, 123, 85)";
-
-const orange = "rgb(255, 247, 205)";
-const deepOrange = "rgb(122, 79, 1)";
-
-const blue = "rgb(171, 233, 255)";
-const deepBlue = "rgb(0, 99, 166)";
+import {
+  orange,
+  deepBlue,
+  deepGreen,
+  deepOrange,
+  blue,
+  green,
+} from "../../utils/colors";
 
 interface Props {
   data: UserResult;

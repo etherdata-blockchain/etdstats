@@ -17,6 +17,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { format } from "friendly-numbers";
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
+import GeneralTransactionTable from "../table/GeneralTransactionTable";
 
 interface Props {
   data: BlockResult;
@@ -56,16 +57,6 @@ export default function TransactionDisplay({ data }: Props) {
     console.log("navTo", id);
     await router.push(`/info/${id}`);
   }, []);
-
-  const rows = useMemo(() => {
-    return data.data.transactions.map((transaction, index) => {
-      return {
-        id: index,
-        hash: transaction.hash,
-        value: toETD(transaction.value),
-      };
-    });
-  }, [data]);
 
   return (
     <Stack spacing={5}>
@@ -226,13 +217,7 @@ export default function TransactionDisplay({ data }: Props) {
               </Typography>
             </Stack>
           </Stack>
-          <StyledDataGrid
-            columns={columns}
-            autoHeight
-            rows={rows}
-            hideFooter={true}
-            hideFooterPagination={true}
-          />
+          <GeneralTransactionTable data={data.data.transactions} />
         </CardContent>
       </Card>
     </Stack>

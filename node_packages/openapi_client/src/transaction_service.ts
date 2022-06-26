@@ -13,7 +13,7 @@ interface QueryParameter1 {
 
 export type TransactionResponse = BlockResult | TransactionResult | UserResult;
 
-interface Transaction {
+export interface Transaction {
   hash: string;
   nonce: number;
   blockHash: string;

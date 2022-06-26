@@ -8,7 +8,9 @@ export { ConnectWalletButton } from "./buttons/ConnectWalletButton";
 export { MenuSubHeader } from "./menus/MenuSubHeader";
 export { Breadcrumbs } from "./menus/Breadcrumbs";
 
-export { AutoSizeInput } from "./input/AutoSizeInput"
+export { AutoSizeInput } from "./input/AutoSizeInput";
+
+export { PieChart } from "./chart/PieChart";
 
 export { Chip } from "./Chip";
 export { StyledDataGrid } from "./StyledDataGrid";

@@ -27,7 +27,8 @@
     "@mui/system": "5.8.5",
     "ui": "workspace:*",
     "recharts": "^2.1.11",
-    "prop-types": "15.8.1"
+    "prop-types": "15.8.1",
+    "metamask-react": "2.4.0"
   },
   "devDependencies": {
     "@types/node": "18.0.0",

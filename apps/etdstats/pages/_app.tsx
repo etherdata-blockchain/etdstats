@@ -4,6 +4,7 @@ import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import Layout from "../lib/Layout";
 import Menu from "../lib/Menu";
+import { MetaMaskProvider } from "metamask-react";
 
 const theme = createTheme({
   components: {
@@ -58,11 +59,13 @@ const theme = createTheme({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout menu={<Menu />}>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
+    <MetaMaskProvider>
+      <ThemeProvider theme={theme}>
+        <Layout menu={<Menu />}>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </MetaMaskProvider>
   );
 }
 

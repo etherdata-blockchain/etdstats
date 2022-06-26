@@ -80,13 +80,8 @@ extension TransactionController {
      Find transaction by transaction id
      */
     func getTransaction(id: HexString, with database: DatabaseClient) async -> Transaction? {
-        let task = AF.request(Environment.get("RPC_URL")!,
-                method: .post,
-                parameters: TransactionRequest(params: [id]),
-                encoder: JSONParameterEncoder()
-        ).serializingDecodable(JSONRPCResponse<Transaction>.self)
-        let result = try? await task.value
-        if let transaction = result?.result {
+        let transaction = try? await Transaction.query(on: database.databaseClient).filter(\.$hash == id.stringValue!).first()
+        if let transaction = transaction {
             // only get block if transaction is confirmed
             if let blockHash = transaction.blockHash {
                 let block = await getBlock(id: blockHash, with: database)
