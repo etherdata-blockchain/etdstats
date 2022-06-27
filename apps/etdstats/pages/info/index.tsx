@@ -1,27 +1,26 @@
 import {
-  Card,
-  Grid,
-  CardContent,
   Box,
+  Button,
+  Card,
+  CardContent,
+  Grid,
   Stack,
   Typography,
-  Button,
-  Fab,
 } from "@mui/material";
+import { blue, green as muiGreen } from "@mui/material/colors";
 import Image from "next/image";
-import React from "react";
+import { useContext } from "react";
 import { PieChart, StyledDataGrid } from "ui";
 import DataCard from "../../lib/components/card/DataCard";
-import { deepGreen, green, deepOrange } from "../../lib/utils/colors";
-import { green as muiGreen, blue } from "@mui/material/colors";
 import GeneralTransactionTable from "../../lib/components/table/GeneralTransactionTable";
-import { GetServerSideProps } from "next";
-import { AnalyticsService, AnalyticsResponse } from "openapi_client";
-import axios from "axios";
+import { AnalyticsContext } from "../../lib/contexts/AnalyticsContext";
+import { green } from "../../lib/utils/colors";
 
-interface Props extends AnalyticsResponse {}
+interface Props {}
 
 export default function Index(props: Props) {
+  const { analytics } = useContext(AnalyticsContext);
+
   return (
     <Box mt={10} p={2}>
       <Grid container spacing={5}>
@@ -93,7 +92,7 @@ export default function Index(props: Props) {
         <Grid item xs={12} md={4}>
           <DataCard
             title="Total Visitors"
-            number={props.total}
+            number={analytics?.total}
             icon={<Image src="/UserIcon.webp" width={"100%"} height={"100%"} />}
           />
         </Grid>
@@ -106,8 +105,8 @@ export default function Index(props: Props) {
               <Box height="500px">
                 <PieChart
                   data={[
-                    { name: "Mobile", value: props.mobile },
-                    { name: "Desktop", value: props.desktop },
+                    { name: "Mobile", value: analytics?.mobile },
+                    { name: "Desktop", value: analytics?.desktop },
                   ]}
                   colors={[muiGreen[700], blue[600]]}
                   selectedFillColor={green}
@@ -148,20 +147,3 @@ export default function Index(props: Props) {
     </Box>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const userAgent = context.req
-    ? context.req.headers["user-agent"]
-    : navigator.userAgent;
-  const analyticsService = new AnalyticsService({
-    client: axios,
-    baseUrl: process.env.ANALYTICS_API_ENDPOINT ?? process.env.API_ENDPOINT!,
-  });
-  const response = await analyticsService.analytics(userAgent);
-
-  return {
-    props: response,
-  };
-};

@@ -1,4 +1,10 @@
-import { Card, CardContent, Stack, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CircularProgress,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { deepGreen, green } from "../../utils/colors";
 import { numberWithCommas } from "../../utils/format";
@@ -8,7 +14,7 @@ import { Box } from "@mui/system";
 
 interface Props {
   title: string;
-  number: number;
+  number?: number;
   icon: React.ReactElement;
 }
 
@@ -33,7 +39,11 @@ export default function DataCard(props: Props) {
               <Typography variant="subtitle2">+2.6%</Typography>
             </Stack>
             <Typography variant="h4" fontWeight={600}>
-              {numberWithCommas(props.number)}
+              {props.number ? (
+                numberWithCommas(props.number)
+              ) : (
+                <CircularProgress />
+              )}
             </Typography>
           </Stack>
           <Box>{props.icon}</Box>

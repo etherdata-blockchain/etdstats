@@ -7,6 +7,7 @@ import Menu from "../lib/Menu";
 import { MetaMaskProvider } from "metamask-react";
 import { NextLinearProgressBar } from "ui";
 import { deepGreen } from "../lib/utils/colors";
+import { AnalyticsContextProvider } from "../lib/contexts/AnalyticsContext";
 
 const theme = createTheme({
   palette: {
@@ -66,16 +67,18 @@ const theme = createTheme({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MetaMaskProvider>
-      <ThemeProvider theme={theme}>
-        <NextLinearProgressBar
-          style={{ zIndex: 10000, position: "fixed", top: 0, width: "100vw" }}
-        />
-        <Layout menu={<Menu />}>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
-    </MetaMaskProvider>
+    <AnalyticsContextProvider>
+      <MetaMaskProvider>
+        <ThemeProvider theme={theme}>
+          <NextLinearProgressBar
+            style={{ zIndex: 10000, position: "fixed", top: 0, width: "100vw" }}
+          />
+          <Layout menu={<Menu />}>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </MetaMaskProvider>
+    </AnalyticsContextProvider>
   );
 }
 
