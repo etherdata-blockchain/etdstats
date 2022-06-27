@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a health check",
-        "version": "0.19.0",
+        "version": "0.21.0",
         "title": "Health service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },

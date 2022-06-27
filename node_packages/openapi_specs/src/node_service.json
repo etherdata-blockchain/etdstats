@@ -1,14 +1,14 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "description": "This belongs part of ETDStats microservices which will provide a analytics service",
+        "description": "This belongs part of ETDStats microservices which will provide a node service. Pending!",
         "version": "0.21.0",
-        "title": "Analytics service",
+        "title": "Node service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
     "tags": [
         {
-            "name": "analytics",
+            "name": "node",
             "description": "Get blocks and transactions details"
         },
         {
@@ -18,32 +18,37 @@
     ],
     "servers": [
         {
-            "url": "https://api.etdchain.net/stats/transaction",
+            "url": "https://api.etdchain.net/stats/node",
             "description": "Production server"
         },
         {
-            "url": "https://api.debugchain.net/stats/transaction",
+            "url": "https://api.debugchain.net/stats/node",
             "description": "Testing server"
         }
     ],
     "paths": {
-        "/analytics": {
+        "/info": {
             "post": {
                 "tags": [
-                    "analytics"
+                    "node"
                 ],
-                "summary": "Send analytics data to server",
-                "description": "Will returns the analytics result from server",
+                "summary": "Submit latest block info",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "node"
+                ],
+                "summary": "Log in",
                 "responses": {
                     "201": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/analytics"
-                                }
-                            }
-                        }
+                        "description": "OK"
                     }
                 }
             }
@@ -137,25 +142,8 @@
                     }
                 }
             },
-            "analytics": {
-                "type": "object",
-                "required": [
-                    "reason"
-                ],
-                "properties": {
-                    "mobile": {
-                        "type": "number",
-                        "description": "Total number of mobile vistors"
-                    },
-                    "desktop": {
-                        "type": "number",
-                        "description": "Total number of desktop vistors"
-                    },
-                    "total": {
-                        "type": "number",
-                        "description": "Total number of vistors"
-                    }
-                }
+            "node-info": {
+                "type": "object"
             }
         }
     }
