@@ -5,7 +5,11 @@ export type {
   UserResult,
   TransactionResponse,
   Transaction,
+  Block,
 } from "./transaction_service";
 
 export { AnalyticsService } from "./analytics_service";
 export type { AnalyticsResponse } from "./analytics_service";
+
+export { BlockInfoService } from "./block_info_service";
+export type { BlockInfoResponse } from "./block_info_service";
