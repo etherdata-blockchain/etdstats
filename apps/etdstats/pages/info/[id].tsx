@@ -2,6 +2,7 @@ import { Box, capitalize, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { TransactionResponse, TransactionService } from "openapi_client";
+import { useEffect } from "react";
 import {
   Breadcrumbs,
   DownloadDataButton,
@@ -11,6 +12,7 @@ import {
 import BlockDisplay from "../../lib/components/display/BlockDisplay";
 import TransactionDisplay from "../../lib/components/display/TransactionDisplay";
 import UserDisplay from "../../lib/components/display/UserDisplay";
+import { db } from "../../lib/models/SearchModel";
 
 interface Props {
   data: TransactionResponse;
@@ -19,6 +21,14 @@ interface Props {
 }
 
 export default function Details({ data, id, currentPage }: Props) {
+  useEffect(() => {
+    (async () => {
+      if ((await db.searchResults.where("id").equals(id).count()) === 0) {
+        await db.searchResults.add({ id, result: data });
+      }
+    })();
+  }, [id]);
+
   const menus = [
     {
       title: "Home",
@@ -51,8 +61,8 @@ export default function Details({ data, id, currentPage }: Props) {
         justifyItems={"center"}
       >
         <Box>
-          <DownloadDataButton />
-          <ShareDataButton />
+          <DownloadDataButton id={id} data={data} />
+          <ShareDataButton data={data} />
         </Box>
         <Box>
           <SaveToFavoriteButton />

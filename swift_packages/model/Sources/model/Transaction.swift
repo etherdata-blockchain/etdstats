@@ -52,13 +52,13 @@ public final class Transaction: Model, Content {
     @OptionalField(key: "block_id")
     public var block: Block?
 
-    @Field(key: "timestamp")
-    public var timestamp: AnyDate
+    @OptionalField(key: "timestamp")
+    public var timestamp: AnyDate?
 
     public init() {
     }
 
-    public init(hash: String, nonce: HexString, blockHash: HexString?, blockNumber: HexString?, transactionIndex: HexString, from: HexString, to: HexString, value: HexString, gasPrice: HexString, gas: HexString, timestamp: AnyDate) {
+    public init(hash: String, nonce: HexString, blockHash: HexString?, blockNumber: HexString?, transactionIndex: HexString, from: HexString, to: HexString, value: HexString, gasPrice: HexString, gas: HexString, timestamp: AnyDate?) {
         self.hash = hash
         self.nonce = nonce
         self.blockHash = blockHash

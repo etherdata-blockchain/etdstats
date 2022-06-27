@@ -1,12 +1,13 @@
 import { AppBar, Box, Drawer, Stack, Toolbar } from "@mui/material";
 import { useRouter } from "next/router";
 
-import React from "react";
+import React, { useCallback } from "react";
 import {
   ConnectWalletButton,
   NextCirculatProgressBar,
   UniversalSearchButton,
 } from "ui";
+import { db } from "./models/SearchModel";
 import { DrawerWidth } from "./settings/ui";
 
 export default function Layout(props: {
@@ -14,6 +15,18 @@ export default function Layout(props: {
   menu: React.ReactNode;
 }) {
   const router = useRouter();
+
+  const search = useCallback(async (value: string) => {
+    const result = await db.searchResults
+      .where("id")
+      .startsWithAnyOfIgnoreCase(value)
+      .toArray();
+
+    return result.map((r) => ({
+      title: r.id,
+      subtitle: r.result.type,
+    }));
+  }, []);
 
   return (
     <Box>
@@ -35,6 +48,7 @@ export default function Layout(props: {
               onSearch={async (v) => {
                 await router.push(`/info/${v}`);
               }}
+              onType={search}
             />
           </Stack>
           <Stack direction={"row"} alignItems="center" spacing={2}>

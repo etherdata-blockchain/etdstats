@@ -27,7 +27,15 @@ export default function Index(props: Props) {
   });
 
   return (
-    <Box mt={10} p={2}>
+    <Box
+      mt={10}
+      sx={{
+        paddingX: {
+          xs: 2,
+          sm: 15,
+        },
+      }}
+    >
       <Grid container spacing={5}>
         <Grid item xs={12} md={7}>
           <Card sx={{ backgroundColor: green }}>
@@ -107,7 +115,7 @@ export default function Index(props: Props) {
               <Typography fontWeight={800} fontSize={20}>
                 Vistors statistics
               </Typography>
-              <Box minHeight="500px">
+              <Box>
                 <PieChart
                   data={[
                     { name: "Mobile", value: analyticsResult.data?.mobile },
