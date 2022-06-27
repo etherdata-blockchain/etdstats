@@ -217,7 +217,10 @@ export default function TransactionDisplay({ data }: Props) {
               </Typography>
             </Stack>
           </Stack>
-          <GeneralTransactionTable data={data.data.transactions} />
+          <GeneralTransactionTable
+            data={data.data.transactions}
+            isLoading={false}
+          />
         </CardContent>
       </Card>
     </Stack>

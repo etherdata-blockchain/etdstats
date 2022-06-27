@@ -1,24 +1,14 @@
-import { Transaction } from "openapi_client";
-import {
-  Box,
-  Card,
-  CardContent,
-  Fab,
-  Grid,
-  Link,
-  Pagination,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Link } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
-import React, { useMemo } from "react";
+import { Block } from "openapi_client";
+import { useMemo } from "react";
 //@ts-ignore
 import { format } from "friendly-numbers";
-import { toETD } from "../../utils/toETD";
 import { StyledDataGrid } from "ui";
+import { toETD } from "../../utils/toETD";
 
 interface Props {
-  data: Transaction[];
+  data: Block[];
   isLoading: boolean;
 }
 
@@ -41,27 +31,15 @@ const columns: GridColDef[] = [
     field: "timestamp",
     flex: 5,
   },
-  {
-    field: "value",
-    headerName: "Value",
-    flex: 2,
-    valueFormatter: (params) => {
-      return format(toETD(params.value), {
-        precision: 2,
-        format: "short",
-      });
-    },
-  },
 ];
 
-export default function GeneralTransactionTable({ data, isLoading }: Props) {
+export default function GeneralBlockTable({ data, isLoading }: Props) {
   const rows = useMemo(() => {
-    return data.map((transaction, index) => {
+    return data.map((block, index) => {
       return {
-        id: index,
-        hash: transaction.hash,
-        value: toETD(transaction.value),
-        timestamp: transaction.timestamp,
+        id: block.numberInBase10,
+        hash: block.hash,
+        timestamp: block.timestamp,
       };
     });
   }, [data]);

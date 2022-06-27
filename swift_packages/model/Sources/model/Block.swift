@@ -31,7 +31,7 @@ public protocol BlockProtocol: Content {
 
     var timestamp: AnyDate {get set}
 
-    var totalDifficulty: HexString {get set}
+    var totalDifficulty: HexString? {get set}
 
     var uncles: [HexString] {get set}
 }
@@ -67,7 +67,7 @@ public struct Block: BlockProtocol {
 
     public var timestamp: AnyDate
 
-    public var totalDifficulty: HexString
+    public var totalDifficulty: HexString?
 
     public var transactionsRoot: HexString
 
@@ -127,8 +127,8 @@ public final class BlockModel: Model, BlockProtocol {
     @Field(key: "timestamp")
     public var timestamp: AnyDate
     
-    @Field(key: "totalDifficulty")
-    public var totalDifficulty: HexString
+    @OptionalField(key: "totalDifficulty")
+    public var totalDifficulty: HexString?
     
     @Field(key: "uncles")
     public var uncles: [HexString]

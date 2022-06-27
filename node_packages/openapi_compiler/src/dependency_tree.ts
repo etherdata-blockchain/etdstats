@@ -26,7 +26,9 @@ function findFromObject(
   prevRefs: string[]
 ): string[] {
   const refs: string[] = prevRefs;
-
+  if (!values){
+    return refs
+  }
   for (const [key, value] of Object.entries(values)) {
     if (typeof value === "object") {
       findFromObject(value, refs);
@@ -40,12 +42,16 @@ function findFromObject(
 }
 
 function replaceObject(values: { [key: string]: any }) {
+  if (!values){
+    return
+  }
+
   for (const [key, value] of Object.entries(values)) {
     if (typeof value === "object") {
       replaceObject(value);
     }
 
-    if (value.$ref) {
+    if (value?.$ref) {
       value.$ref = `#${value.$ref.split("#")[1]}`;
     }
   }

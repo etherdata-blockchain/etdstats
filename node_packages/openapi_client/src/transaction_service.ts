@@ -1,14 +1,14 @@
 import { Client } from "./client";
 
-interface QueryParameter1 {
+export interface PaginationParameter {
   /**
    * Current page number. Only works on user info
    */
-  page: number;
+  page?: number;
   /**
    * Number of items per page. Only works on user info
    */
-  per: number;
+  per?: number;
 }
 
 export type TransactionResponse = BlockResult | TransactionResult | UserResult;
@@ -28,6 +28,7 @@ export interface Transaction {
   gas: number;
   input: string;
   block: Block;
+  timestamp: string;
 }
 
 export interface TransactionResult {
@@ -35,7 +36,7 @@ export interface TransactionResult {
   data: Transaction;
 }
 
-interface Block {
+export interface Block {
   size: number;
   totalDifficulty: number;
   uncles: string[];
@@ -54,6 +55,7 @@ interface Block {
   gasLimit: string;
   gasUsed: string;
   timestamp: string;
+  numberInBase10: number;
 }
 
 export interface BlockResult {
@@ -82,7 +84,7 @@ export class TransactionService extends Client {
    */
   public async fetchDetailsById(
     id: string,
-    params?: QueryParameter1
+    params?: PaginationParameter
   ): Promise<TransactionResponse> {
     const useParams = !Number.isNaN(params?.page) && params?.page !== undefined;
     let response = await this.client.get(`${this.baseUrl}/${id}`, {

@@ -7,7 +7,8 @@ import Menu from "../lib/Menu";
 import { MetaMaskProvider } from "metamask-react";
 import { NextLinearProgressBar } from "ui";
 import { deepGreen } from "../lib/utils/colors";
-import { AnalyticsContextProvider } from "../lib/contexts/AnalyticsContext";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const theme = createTheme({
   palette: {
@@ -65,20 +66,28 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AnalyticsContextProvider>
+    <QueryClientProvider client={queryClient}>
       <MetaMaskProvider>
         <ThemeProvider theme={theme}>
           <NextLinearProgressBar
-            style={{ zIndex: 10000, position: "fixed", top: 0, width: "100vw" }}
+            style={{
+              zIndex: 10000,
+              position: "fixed",
+              top: 0,
+              width: "100vw",
+            }}
           />
           <Layout menu={<Menu />}>
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
       </MetaMaskProvider>
-    </AnalyticsContextProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

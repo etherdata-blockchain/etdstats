@@ -61,6 +61,83 @@ paths:
             application/json:
               schema:
                 $ref: "health_service.spec.yaml#/components/schemas/error"
+  /blocks:
+    get:
+      tags:
+        - block-info
+      summary: Get blocks
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: "Current page number."
+          schema:
+            type: "number"
+        - name: per
+          in: query
+          required: false
+          description: "Number of items per page."
+          schema:
+            type: number
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: object
+                    properties:
+                      page: 
+                        type: number
+                      per:
+                        type: number
+                      total:
+                        type: number
+                  results:
+                    $ref: "transaction_service.spec.yaml#/components/schemas/block"
+  /transactions:
+    get:
+      tags:
+        - block-info
+      summary: Get blocks
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: "Current page number."
+          schema:
+            type: "number"
+        - name: per
+          in: query
+          required: false
+          description: "Number of items per page."
+          schema:
+            type: number
+      responses:
+        200:
+          description: "List of blocks"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: object
+                    properties:
+                      page: 
+                        type: number
+                      per:
+                        type: number
+                      total:
+                        type: number
+                  items:
+                    $ref: "transaction_service.spec.yaml#/components/schemas/transaction"
+                    
+
+
 components:
   schemas:
     block-info:

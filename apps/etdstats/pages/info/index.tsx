@@ -9,17 +9,22 @@ import {
 } from "@mui/material";
 import { blue, green as muiGreen } from "@mui/material/colors";
 import Image from "next/image";
-import { useContext } from "react";
 import { PieChart, StyledDataGrid } from "ui";
 import DataCard from "../../lib/components/card/DataCard";
+import GeneralBlockTable from "../../lib/components/table/GeneralBlockTable";
 import GeneralTransactionTable from "../../lib/components/table/GeneralTransactionTable";
-import { AnalyticsContext } from "../../lib/contexts/AnalyticsContext";
+import { useAnalytics } from "../../lib/hooks/useAnalytics";
+import { useBlockInfo } from "../../lib/hooks/useBlockInfo";
 import { green } from "../../lib/utils/colors";
 
 interface Props {}
 
 export default function Index(props: Props) {
-  const { analytics } = useContext(AnalyticsContext);
+  const analyticsResult = useAnalytics();
+  const { blockInfoResult, blocksResult, transactionsResult } = useBlockInfo({
+    blockPage: 1,
+    transactionPage: 1,
+  });
 
   return (
     <Box mt={10} p={2}>
@@ -70,7 +75,7 @@ export default function Index(props: Props) {
         <Grid item xs={12} md={4}>
           <DataCard
             title="Total Blocks"
-            number={2000000}
+            number={blockInfoResult.data?.numBlocks}
             icon={
               <Image src="/BlockIcon2.webp" width={"100%"} height={"100%"} />
             }
@@ -79,7 +84,7 @@ export default function Index(props: Props) {
         <Grid item xs={12} md={4}>
           <DataCard
             title="Total Transactions"
-            number={2000000}
+            number={blockInfoResult.data?.numTransactions}
             icon={
               <Image
                 src="/TransactionIcon2.webp"
@@ -92,21 +97,21 @@ export default function Index(props: Props) {
         <Grid item xs={12} md={4}>
           <DataCard
             title="Total Visitors"
-            number={analytics?.total}
+            number={analyticsResult.data?.total}
             icon={<Image src="/UserIcon.webp" width={"100%"} height={"100%"} />}
           />
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card>
+          <Card style={{ height: "100%" }}>
             <Box p={3}>
               <Typography fontWeight={800} fontSize={20}>
                 Vistors statistics
               </Typography>
-              <Box height="500px">
+              <Box minHeight="500px">
                 <PieChart
                   data={[
-                    { name: "Mobile", value: analytics?.mobile },
-                    { name: "Desktop", value: analytics?.desktop },
+                    { name: "Mobile", value: analyticsResult.data?.mobile },
+                    { name: "Desktop", value: analyticsResult.data?.desktop },
                   ]}
                   colors={[muiGreen[700], blue[600]]}
                   selectedFillColor={green}
@@ -121,13 +126,17 @@ export default function Index(props: Props) {
               <Typography fontWeight={800} fontSize={20}>
                 Latest Block
               </Typography>
-              <Box height="500px">
-                <StyledDataGrid
-                  rows={[]}
-                  columns={[]}
-                  hideFooterPagination={true}
+              <Box minHeight="500px">
+                <GeneralBlockTable
+                  data={blocksResult.data?.items ?? []}
+                  isLoading={blocksResult.status === "loading"}
                 />
               </Box>
+              <Stack direction={"row"} justifyContent="flex-end" p={2}>
+                <Box>
+                  <Button>View All Blocks</Button>
+                </Box>
+              </Stack>
             </Box>
           </Card>
         </Grid>
@@ -137,9 +146,17 @@ export default function Index(props: Props) {
               <Typography fontWeight={800} fontSize={20}>
                 Latest Transactions
               </Typography>
-              <Box height="500px">
-                <GeneralTransactionTable data={[]} />
+              <Box minHeight="500px">
+                <GeneralTransactionTable
+                  data={transactionsResult.data?.items ?? []}
+                  isLoading={transactionsResult.status === "loading"}
+                />
               </Box>
+              <Stack direction={"row"} justifyContent="flex-end" p={2}>
+                <Box>
+                  <Button>View All Transactions</Button>
+                </Box>
+              </Stack>
             </Box>
           </Card>
         </Grid>
