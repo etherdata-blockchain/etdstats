@@ -1,5 +1,17 @@
 # Changelog
 
+# 1.0.0 (2022-06-27)
+
+
+### Features
+
+* add show latest blocks and latest transactions ([#43](https://github.com/etherdata-blockchain/etdstats/issues/43)) ([948adab](https://github.com/etherdata-blockchain/etdstats/commit/948adabd4d78ba8a55723360ca9bd355c52bbf32))
+
+
+### BREAKING CHANGES
+
+* 1.0 ready
+
 # 0.22.0 (2022-06-27)
 
 
