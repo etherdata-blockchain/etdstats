@@ -1,5 +1,12 @@
 # Changelog
 
+# 0.22.0 (2022-06-27)
+
+
+### Features
+
+* add block info service ([#42](https://github.com/etherdata-blockchain/etdstats/issues/42)) ([5336f8f](https://github.com/etherdata-blockchain/etdstats/commit/5336f8f4a28645a37b9480e5451e942c6eb5f96a))
+
 # 0.21.0 (2022-06-27)
 
 
