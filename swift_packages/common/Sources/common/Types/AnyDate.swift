@@ -28,21 +28,29 @@ public struct AnyDate: Codable {
             if !stringDate.starts(with: "0x") {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                guard let date = dateFormatter.date(from: stringDate) else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date string")
+                if let date = dateFormatter.date(from: stringDate) {
+                    self.date = date
+                    return
                 }
-                self.date = date
+            
+                if let doubleDate = Double(stringDate) {
+                    date = Date(timeIntervalSince1970: doubleDate)
+                    return
+                }
+                
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date string: \(stringDate)")
 
             } else {
-                guard let date = Date(fromHexString: stringDate) else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date format")
+                if let date = Date(fromHexString: stringDate) {
+                    self.date = date
+                    return
                 }
-                self.date = date
+                
+                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date string: \(stringDate)")
             }
 
-            return
         }
-
+        
         if let intDate = try? container.decode(Int.self) {
             date = Date(timeIntervalSince1970: Double(intDate))
             return
