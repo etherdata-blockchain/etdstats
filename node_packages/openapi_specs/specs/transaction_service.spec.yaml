@@ -31,13 +31,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/reason"
+                $ref: "health_service.spec.yaml#/components/schemas/error"
         "500":
           description: "Server is down"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/reason"
+                $ref: "health_service.spec.yaml#/components/schemas/error"
 
   /{id}:
     get:

@@ -1,15 +1,19 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "description": "This belongs part of ETDStats microservices which will provide a transaction and block services",
+        "description": "This belongs part of ETDStats microservices which will provide a analytics service",
         "version": "0.21.0",
-        "title": "Transaction service",
+        "title": "Block Info service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
     "tags": [
         {
-            "name": "transaction",
+            "name": "block-info",
             "description": "Get blocks and transactions details"
+        },
+        {
+            "name": "node",
+            "description": "Get nodes info"
         },
         {
             "name": "health",
@@ -18,15 +22,49 @@
     ],
     "servers": [
         {
-            "url": "https://api.etdchain.net/stats/transaction",
+            "url": "https://api.etdchain.net/stats/block_info",
             "description": "Production server"
         },
         {
-            "url": "https://api.debugchain.net/stats/transaction",
+            "url": "https://api.debugchain.net/stats/block_info",
             "description": "Testing server"
         }
     ],
     "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "block-info"
+                ],
+                "summary": "Get latest block info",
+                "description": "Will returns the latest block info from server",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/block-info"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/nodes": {
+            "get": {
+                "tags": [
+                    "node"
+                ],
+                "summary": "Get list of nodes (Pending)",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
         "/health": {
             "get": {
                 "tags": [
@@ -51,100 +89,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/error"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/{id}": {
-            "get": {
-                "tags": [
-                    "transaction"
-                ],
-                "summary": "Get any one of the following details by id: Transaction, block, or user",
-                "description": "Multiple status values can be provided with comma separated strings",
-                "operationId": "findDetailsById",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Hex string representation of one of the following: Transaction ID, block ID, or user wallet address",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "required": false,
-                        "description": "Current page number. Only works on user info",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "name": "per",
-                        "in": "query",
-                        "required": false,
-                        "description": "Number of items per page. Only works on user info",
-                        "schema": {
-                            "type": "number"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns the corresponding info based on the id. Note: only one of three properties will be returned.",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "type": {
-                                            "type": "string",
-                                            "enum": [
-                                                "block",
-                                                "transaction",
-                                                "user"
-                                            ]
-                                        },
-                                        "data": {
-                                            "oneOf": [
-                                                {
-                                                    "$ref": "#/components/schemas/transaction"
-                                                },
-                                                {
-                                                    "$ref": "#/components/schemas/block"
-                                                },
-                                                {
-                                                    "$ref": "#/components/schemas/user"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/reason"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/reason"
                                 }
                             }
                         }
@@ -417,6 +361,58 @@
                     },
                     "baseFeePerGas": {
                         "type": "number"
+                    }
+                }
+            },
+            "block-info": {
+                "type": "object",
+                "required": [
+                    "numBlocks",
+                    "numTransactions",
+                    "blockTime",
+                    "blockTimeHistory",
+                    "difficultyHistory"
+                ],
+                "properties": {
+                    "numBlocks": {
+                        "type": "number",
+                        "description": "Current block number"
+                    },
+                    "numTransactions": {
+                        "type": "number",
+                        "description": "Total number of transactions"
+                    },
+                    "blockTime": {
+                        "type": "number",
+                        "description": "Average time for each block in seconds"
+                    },
+                    "block": {
+                        "$ref": "#/components/schemas/block",
+                        "description": "Latest block"
+                    },
+                    "blockTimeChangePercentage": {
+                        "type": "string",
+                        "description": "Difference between latest block time and previous block time",
+                        "example": "10.02%"
+                    },
+                    "difficultyChangePercentage": {
+                        "type": "string",
+                        "description": "Difference between latest block difficulty and previous block difficulty",
+                        "example": "-10.02%"
+                    },
+                    "blockTimeHistory": {
+                        "type": "array",
+                        "description": "List of blocks' time",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "difficultyHistory": {
+                        "type": "array",
+                        "description": "List of blocks' difficulty",
+                        "items": {
+                            "type": "number"
+                        }
                     }
                 }
             }

@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app:  ["transaction_service", "analytics_service"]
+        app:  ["transaction_service", "analytics_service", "block_info_service"]
     services:
       redis:
         image: redis:alpine

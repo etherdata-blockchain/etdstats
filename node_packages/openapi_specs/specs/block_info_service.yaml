@@ -1,0 +1,101 @@
+openapi: "3.0.0"
+info:
+  description: "This belongs part of ETDStats microservices which will provide a analytics service"
+  version: "1.0.0"
+  title: "Block Info service"
+  termsOfService: "https://github.com/etherdata-blockchain"
+
+
+tags:
+  - name: "block-info"
+    description: "Get blocks and transactions details"
+  - name: "node"
+    description: "Get nodes info"
+  - name: "health"
+    description: "Get server's health info"
+
+servers:
+  - url: https://api.etdchain.net/stats/block_info
+    description: Production server
+  - url: https://api.debugchain.net/stats/block_info
+    description: Testing server
+
+paths:
+  /:
+    get:
+      tags:
+        - "block-info"
+      summary: "Get latest block info"
+      description: "Will returns the latest block info from server"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/block-info"
+  /nodes:
+    get:
+      tags:
+        - "node"
+      summary: Get list of nodes (Pending)
+      responses:
+        200:
+          description: "OK"
+  /health:
+    get:
+      tags:
+        - "health"
+      summary: "Get server's health info"
+      description: "Will return a error reason if not healthy"
+      responses:
+        "200":
+          description: "Server is up"
+          content:
+            application/json:
+              schema:
+                $ref: "health_service.spec.yaml#/components/schemas/error"
+        "500":
+          description: "Server is down"
+          content:
+            application/json:
+              schema:
+                $ref: "health_service.spec.yaml#/components/schemas/error"
+components:
+  schemas:
+    block-info:
+      type: object
+      required: [ "numBlocks", "numTransactions", "blockTime", "blockTimeHistory", "difficultyHistory" ]
+      properties:
+        numBlocks:
+          type: number
+          description: Current block number
+        numTransactions:
+          type: number
+          description: Total number of transactions
+        blockTime:
+          type: number
+          description: Average time for each block in seconds
+        block:
+          $ref: "transaction_service.spec.yaml#/components/schemas/block"
+          description: Latest block
+        blockTimeChangePercentage:
+          type: string
+          description: Difference between latest block time and previous block time
+          example: "10.02%"
+        difficultyChangePercentage:
+          type: string
+          description: Difference between latest block difficulty and previous block difficulty
+          example: "-10.02%"
+        blockTimeHistory:
+          type: array
+          description: List of blocks' time
+          items:
+            type: number
+        difficultyHistory:
+          type: array
+          description: List of blocks' difficulty
+          items:
+            type: number
+
+  
