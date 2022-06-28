@@ -12,6 +12,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-mongo-driver.git", from: "1.0.0"),
         .package(url: "https://github.com/vapor/redis.git", from: "4.0.0"),
+        .package(url: "https://github.com/Alamofire/Alamofire", from: "5.0.0"),
         .package(path: "../../swift_packages/common"),
         .package(path: "../../swift_packages/model"),
         .package(path: "../../swift_packages/env")
@@ -24,6 +25,7 @@ let package = Package(
                 .product(name: "FluentMongoDriver", package: "fluent-mongo-driver"),
                 .product(name: "Redis", package: "redis"),
                 .product(name: "Vapor", package: "vapor"),
+                .product(name: "Alamofire", package: "Alamofire"),
                 .product(name: "common", package: "common"),
                 .product(name: "model", package: "model"),
                 .product(name: "env", package: "env")

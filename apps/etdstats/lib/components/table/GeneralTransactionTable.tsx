@@ -33,7 +33,7 @@ const columns: GridColDef[] = [
     headerName: "Hash",
     flex: 10,
     renderCell: (rowData) => (
-      <Link href={`/info/${rowData.value}`}>{rowData.value}</Link>
+      <Link href={`/tx/${rowData.value}`}>{rowData.value}</Link>
     ),
   },
   {

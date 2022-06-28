@@ -142,7 +142,7 @@ components:
   schemas:
     block-info:
       type: object
-      required: [ "numBlocks", "numTransactions", "blockTime", "blockTimeHistory", "difficultyHistory" ]
+      required: [ "numBlocks", "numTransactions", "blockTime", "blockTimeHistory", "difficultyHistory", "chainId" ]
       properties:
         numBlocks:
           type: number
@@ -174,5 +174,10 @@ components:
           description: List of blocks' difficulty
           items:
             type: number
-
+        chainId:
+          type: string
+          description: ChainID in hex string
+        rpc:
+          type: number
+          description: RPC URL
   

@@ -7,6 +7,7 @@ import {
   NextCirculatProgressBar,
   UniversalSearchButton,
 } from "ui";
+import { useBlockInfo } from "./hooks/useBlockInfo";
 import { db } from "./models/SearchModel";
 import { DrawerWidth } from "./settings/ui";
 
@@ -16,6 +17,7 @@ export default function Layout(props: {
 }) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
+  const { blockInfoResult } = useBlockInfo({});
 
   const search = useCallback(async (value: string) => {
     const result = await db.searchResults
@@ -34,8 +36,8 @@ export default function Layout(props: {
     <Box>
       <AppBar
         sx={{
-          width: { sm: `calc(100% - ${DrawerWidth}px )` },
-          ml: { sm: `${DrawerWidth}px` },
+          width: { md: `calc(100% - ${DrawerWidth}px )` },
+          ml: { md: `${DrawerWidth}px` },
         }}
       >
         <Toolbar
@@ -48,21 +50,26 @@ export default function Layout(props: {
             <UniversalSearchButton
               drawerWidth={DrawerWidth}
               onSearch={async (v) => {
-                await router.push(`/info/${v}`);
+                await router.push(`/tx/${v}`);
               }}
               onType={search}
             />
           </Stack>
           <Stack direction={"row"} alignItems="center" spacing={2}>
             <NextCirculatProgressBar size={20} />
-            <ConnectWalletButton />
+            {blockInfoResult.data && (
+              <ConnectWalletButton
+                chainId={blockInfoResult.data!.chainId}
+                rpc={blockInfoResult.data!.rpc}
+              />
+            )}
           </Stack>
         </Toolbar>
       </AppBar>
       <Box component={"nav"}>
         <Drawer
           variant="temporary"
-          open={open}
+          open={false}
           ModalProps={{
             keepMounted: true,
           }}
@@ -79,7 +86,7 @@ export default function Layout(props: {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { sm: "none", md: "block", xs: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: DrawerWidth,
@@ -94,11 +101,11 @@ export default function Layout(props: {
         mt={5}
         component="main"
         sx={{
-          width: { sm: `calc(100% - ${DrawerWidth}px )` },
-          pl: { sm: `${DrawerWidth}px` },
+          width: { md: `calc(100% - ${DrawerWidth}px )` },
+          pl: { md: `${DrawerWidth}px` },
         }}
       >
-        <Box sx={{ paddingX: { md: 25, sm: 3, xs: 3 } }}>{props.children}</Box>
+        <Box sx={{ paddingX: { lg: 25, sm: 3, xs: 3 } }}>{props.children}</Box>
       </Box>
     </Box>
   );

@@ -57,7 +57,7 @@ const columns: GridColDef[] = [
     flex: 4,
     sortable: false,
     renderCell: (rowData) => (
-      <Link href={`/info/${rowData.value}`} noWrap>
+      <Link href={`/tx/${rowData.value}`} noWrap>
         {rowData.value}
       </Link>
     ),
@@ -133,7 +133,7 @@ export default function TransactionDisplay({ data, id, currentPage }: Props) {
   const onPageChange = useCallback(
     async (page: number) => {
       setLoading(true);
-      await router.push(`/info/${id}?page=${page}`, undefined, {
+      await router.push(`/tx/${id}?page=${page}`, undefined, {
         scroll: false,
       });
       setPage(page);

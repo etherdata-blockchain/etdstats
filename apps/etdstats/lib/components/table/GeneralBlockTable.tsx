@@ -16,14 +16,14 @@ const columns: GridColDef[] = [
   {
     headerName: "#",
     field: "id",
-    flex: 1,
+    flex: 4,
   },
   {
     field: "hash",
     headerName: "Hash",
     flex: 10,
     renderCell: (rowData) => (
-      <Link href={`/info/${rowData.value}`}>{rowData.value}</Link>
+      <Link href={`/tx/${rowData.value}`}>{rowData.value}</Link>
     ),
   },
   {
