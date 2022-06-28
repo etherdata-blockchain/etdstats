@@ -15,6 +15,8 @@ export interface BlockInfoResponse {
   difficultyChangePercentage: "string";
   blockTimeHistory: string[];
   difficultyHistory: string[];
+  chainId: string;
+  rpc: string;
 }
 
 export interface PaginationResponse<T> {

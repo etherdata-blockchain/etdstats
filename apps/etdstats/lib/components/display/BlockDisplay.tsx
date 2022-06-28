@@ -34,7 +34,7 @@ const columns: GridColDef[] = [
     headerName: "Hash",
     flex: 10,
     renderCell: (rowData) => (
-      <Link href={`/info/${rowData.value}`}>{rowData.value}</Link>
+      <Link href={`/tx/${rowData.value}`}>{rowData.value}</Link>
     ),
   },
   {
@@ -55,7 +55,7 @@ export default function TransactionDisplay({ data }: Props) {
 
   const navTo = useCallback(async (id: string) => {
     console.log("navTo", id);
-    await router.push(`/info/${id}`);
+    await router.push(`/tx/${id}`);
   }, []);
 
   return (

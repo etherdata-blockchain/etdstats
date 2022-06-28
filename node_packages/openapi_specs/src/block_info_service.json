@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a analytics service",
-        "version": "0.22.0",
+        "version": "1.1.0",
         "title": "Block Info service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -489,7 +489,8 @@
                     "numTransactions",
                     "blockTime",
                     "blockTimeHistory",
-                    "difficultyHistory"
+                    "difficultyHistory",
+                    "chainId"
                 ],
                 "properties": {
                     "numBlocks": {
@@ -531,6 +532,14 @@
                         "items": {
                             "type": "number"
                         }
+                    },
+                    "chainId": {
+                        "type": "string",
+                        "description": "ChainID in hex string"
+                    },
+                    "rpc": {
+                        "type": "number",
+                        "description": "RPC URL"
                     }
                 }
             }

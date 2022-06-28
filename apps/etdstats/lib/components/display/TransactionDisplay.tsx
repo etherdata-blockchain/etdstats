@@ -21,7 +21,7 @@ export default function TransactionDisplay({ data }: Props) {
 
   const navTo = useCallback(async (id: string) => {
     console.log("navTo", id);
-    await router.push(`/info/${id}`);
+    await router.push(`/tx/${id}`);
   }, []);
 
   return (

@@ -35,7 +35,7 @@ const menus: Menu[] = [
   {
     name: "Info",
     icon: <InfoIcon />,
-    href: "/info",
+    href: "/tx",
   },
 ];
 

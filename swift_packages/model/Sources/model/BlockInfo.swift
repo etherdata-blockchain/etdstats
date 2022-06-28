@@ -11,8 +11,10 @@ public struct BlockInfo: Content {
     public var block: BlockModel?
     public var blockTimeChangePercentage, difficultyChangePercentage: String
     public var blockTimeHistory, difficultyHistory: [Int]
+    public var chainId: String
+    public var rpc: String
 
-    public init(numBlocks: Int, numTransactions: Int, blockTime: Int, block: BlockModel?, blockTimeChangePercentage: String, difficultyChangePercentage: String, blockTimeHistory: [Int], difficultyHistory: [Int]) {
+    public init(numBlocks: Int, numTransactions: Int, blockTime: Int, block: BlockModel?, blockTimeChangePercentage: String, difficultyChangePercentage: String, blockTimeHistory: [Int], difficultyHistory: [Int], chainId: String, rpc: String) {
         self.numBlocks = numBlocks
         self.numTransactions = numTransactions
         self.blockTime = blockTime
@@ -21,5 +23,7 @@ public struct BlockInfo: Content {
         self.difficultyChangePercentage = difficultyChangePercentage
         self.blockTimeHistory = blockTimeHistory
         self.difficultyHistory = difficultyHistory
+        self.chainId = chainId
+        self.rpc = rpc
     }
 }
