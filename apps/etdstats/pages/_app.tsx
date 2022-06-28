@@ -81,6 +81,9 @@ function MyApp({ Component, pageProps }: AppProps) {
               width: "100vw",
             }}
           />
+          <head>
+            <title>ETDStats</title>
+          </head>
           <Layout menu={<Menu />}>
             <Component {...pageProps} />
           </Layout>

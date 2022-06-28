@@ -27,15 +27,7 @@ export default function Index(props: Props) {
   });
 
   return (
-    <Box
-      mt={10}
-      sx={{
-        paddingX: {
-          xs: 2,
-          sm: 15,
-        },
-      }}
-    >
+    <Box mt={10}>
       <Grid container spacing={5}>
         <Grid item xs={12} md={7}>
           <Card sx={{ backgroundColor: green }}>

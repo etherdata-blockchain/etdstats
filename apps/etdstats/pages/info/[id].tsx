@@ -42,10 +42,7 @@ export default function Details({ data, id, currentPage }: Props) {
   ];
 
   return (
-    <Box p={5}>
-      <head>
-        <title>ETDStats</title>
-      </head>
+    <Box mt={10}>
       <Typography variant="h5" fontWeight={"bold"}>
         {capitalize(data.type)} Details
       </Typography>

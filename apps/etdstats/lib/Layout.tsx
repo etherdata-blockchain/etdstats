@@ -15,11 +15,13 @@ export default function Layout(props: {
   menu: React.ReactNode;
 }) {
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
 
   const search = useCallback(async (value: string) => {
     const result = await db.searchResults
       .where("id")
       .startsWithAnyOfIgnoreCase(value)
+      .limit(10)
       .toArray();
 
     return result.map((r) => ({
@@ -60,8 +62,9 @@ export default function Layout(props: {
       <Box component={"nav"}>
         <Drawer
           variant="temporary"
+          open={open}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
@@ -95,7 +98,7 @@ export default function Layout(props: {
           pl: { sm: `${DrawerWidth}px` },
         }}
       >
-        {props.children}
+        <Box sx={{ paddingX: { md: 25, sm: 3, xs: 3 } }}>{props.children}</Box>
       </Box>
     </Box>
   );
