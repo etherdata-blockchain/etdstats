@@ -10,10 +10,10 @@ jobs:
     if: ${{ github.event.pusher.name != 'github action' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
-          version: 6.32.9
+          version: 7.1.5
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
@@ -23,10 +23,7 @@ jobs:
       - run: pnpm build
       - run: pnpm test
       - run: pnpm release-dry
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+
   test-swift-packages:
     name: "Test Swift Packages"
     runs-on: ubuntu-latest

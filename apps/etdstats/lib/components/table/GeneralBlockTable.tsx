@@ -23,7 +23,9 @@ const columns: GridColDef[] = [
     headerName: "Hash",
     flex: 10,
     renderCell: (rowData) => (
-      <Link href={`/tx/${rowData.value}`}>{rowData.value}</Link>
+      <Link data-testid="general-block-link" href={`/tx/${rowData.value}`}>
+        {rowData.value}
+      </Link>
     ),
   },
   {
@@ -51,6 +53,7 @@ export default function GeneralBlockTable({ data, isLoading }: Props) {
 
   return (
     <StyledDataGrid
+      data-testid="general-block-table"
       loading={isLoading}
       columns={columns}
       autoHeight

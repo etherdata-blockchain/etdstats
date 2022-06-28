@@ -2,5 +2,6 @@ packages:
   - "services/**"
   - "node_packages/**"
   - "apps/**"
+  - "tests/**"
 
 prefer-workspace-packages: true
