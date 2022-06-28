@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.3.0 (2022-06-28)
+
+
+### Features
+
+* add google analytics ([#47](https://github.com/etherdata-blockchain/etdstats/issues/47)) ([dd178b9](https://github.com/etherdata-blockchain/etdstats/commit/dd178b909dff49fca41d11c2be65485958aa384a))
+
 # 1.2.0 (2022-06-28)
 
 
