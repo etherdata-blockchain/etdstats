@@ -1,6 +1,6 @@
 {
   "name": "etdstats",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "main": "index.js",
   "private": true,
   "repository": "https://github.com/etherdata-blockchain/etdstats.git",

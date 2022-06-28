@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.5.0 (2022-06-28)
+
+
+### Features
+
+* update block info ([#49](https://github.com/etherdata-blockchain/etdstats/issues/49)) ([a3fe32b](https://github.com/etherdata-blockchain/etdstats/commit/a3fe32b128d2a597a645c5a35a82726f9eb51600))
+
 ## 1.4.1 (2022-06-28)
 
 
