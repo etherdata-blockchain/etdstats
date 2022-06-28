@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.1.0 (2022-06-28)
+
+
+### Features
+
+* add auto complete function ([#44](https://github.com/etherdata-blockchain/etdstats/issues/44)) ([ecc1f29](https://github.com/etherdata-blockchain/etdstats/commit/ecc1f29e25a7711fbf28eea7499272034d683c5e))
+
 # 1.0.0 (2022-06-27)
 
 
