@@ -35,13 +35,18 @@ const columns: GridColDef[] = [
 
 export default function GeneralBlockTable({ data, isLoading }: Props) {
   const rows = useMemo(() => {
-    return data.map((block, index) => {
-      return {
-        id: block.numberInBase10,
-        hash: block.hash,
-        timestamp: block.timestamp,
-      };
-    });
+    return data
+      .map((block, index) => {
+        return {
+          id: block.numberInBase10,
+          hash: block.hash,
+          timestamp: block.timestamp,
+        };
+      })
+      .filter((block, index) => {
+        // find unique
+        return index === data.findIndex((b) => b.hash === block.hash);
+      });
   }, [data]);
 
   return (

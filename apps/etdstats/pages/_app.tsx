@@ -9,6 +9,7 @@ import { NextLinearProgressBar } from "ui";
 import { deepGreen } from "../lib/utils/colors";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 const theme = createTheme({
   palette: {
@@ -84,6 +85,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <head>
             <title>ETDStats</title>
           </head>
+          <GoogleAnalytics strategy="lazyOnload" />
           <Layout menu={<Menu />}>
             <Component {...pageProps} />
           </Layout>
