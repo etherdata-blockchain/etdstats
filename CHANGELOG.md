@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.2.0 (2022-06-28)
+
+
+### Features
+
+* change url to allow request from metamask ([#46](https://github.com/etherdata-blockchain/etdstats/issues/46)) ([0b71844](https://github.com/etherdata-blockchain/etdstats/commit/0b718446b37738f6970b947fd11c84a05620ed75))
+
 ## 1.1.1 (2022-06-28)
 
 
