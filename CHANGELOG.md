@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.4.0 (2022-06-28)
+
+
+### Features
+
+* add e2e testing ([#48](https://github.com/etherdata-blockchain/etdstats/issues/48)) ([5613a58](https://github.com/etherdata-blockchain/etdstats/commit/5613a58f8435635b0c14eff7d264923b3a3e10eb))
+
 # 1.3.0 (2022-06-28)
 
 
