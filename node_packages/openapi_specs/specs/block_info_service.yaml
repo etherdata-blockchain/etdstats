@@ -180,4 +180,7 @@ components:
         rpc:
           type: number
           description: RPC URL
+        numUncles:
+          type: number
+          description: Number of uncle blocks
   

@@ -17,6 +17,7 @@ export interface BlockInfoResponse {
   difficultyHistory: string[];
   chainId: string;
   rpc: string;
+  numUncles: number;
 }
 
 export interface PaginationResponse<T> {

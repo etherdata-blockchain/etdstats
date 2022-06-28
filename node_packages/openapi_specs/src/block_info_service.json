@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a analytics service",
-        "version": "1.2.0",
+        "version": "1.4.1",
         "title": "Block Info service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -540,6 +540,10 @@
                     "rpc": {
                         "type": "number",
                         "description": "RPC URL"
+                    },
+                    "numUncles": {
+                        "type": "number",
+                        "description": "Number of uncle blocks"
                     }
                 }
             }
