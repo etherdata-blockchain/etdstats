@@ -256,7 +256,7 @@ export default function TransactionDisplay({ data, id, currentPage }: Props) {
                   </Typography>
                 </Stack>
                 <Pagination
-                  count={pageCount}
+                  count={Number.isNaN(pageCount) ? 0 : pageCount}
                   page={page}
                   onChange={async (e, page) => {
                     await onPageChange(page);

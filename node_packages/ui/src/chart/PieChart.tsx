@@ -75,7 +75,7 @@ export function PieChart({ colors, selectedFillColor, data }: Props) {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   return (
-    <ResponsiveContainer>
+    <ResponsiveContainer width={"100%"} minHeight={500}>
       <Chart>
         <Pie
           activeIndex={activeIndex}

@@ -11,6 +11,7 @@ import { numberWithCommas } from "../../utils/format";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { Box } from "@mui/system";
+import Image from "next/image";
 
 interface Props {
   title: string;
@@ -40,9 +41,9 @@ export default function DataCard(props: Props) {
             </Stack>
             <Typography variant="h4" fontWeight={600}>
               {props.number ? (
-                numberWithCommas(props.number)
+                numberWithCommas(props.number!)
               ) : (
-                <CircularProgress />
+                <Image src={"/Progressbar.webp"} width={50} height={50} />
               )}
             </Typography>
           </Stack>

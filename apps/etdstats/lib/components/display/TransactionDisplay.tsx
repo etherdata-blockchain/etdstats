@@ -79,10 +79,7 @@ export default function TransactionDisplay({ data }: Props) {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ListItemButton
-              title="Timestamp"
-              subtitle={data.data.block.timestamp}
-            />
+            <ListItemButton title="Timestamp" subtitle={data.data.timestamp} />
           </Grid>
         </Grid>
         <Box p={2}>
