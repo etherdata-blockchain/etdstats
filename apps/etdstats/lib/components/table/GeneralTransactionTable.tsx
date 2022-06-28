@@ -33,7 +33,12 @@ const columns: GridColDef[] = [
     headerName: "Hash",
     flex: 10,
     renderCell: (rowData) => (
-      <Link href={`/tx/${rowData.value}`}>{rowData.value}</Link>
+      <Link
+        data-testid="general-transaction-link"
+        href={`/tx/${rowData.value}`}
+      >
+        {rowData.value}
+      </Link>
     ),
   },
   {
@@ -68,6 +73,7 @@ export default function GeneralTransactionTable({ data, isLoading }: Props) {
 
   return (
     <StyledDataGrid
+      data-testid="general-transaction-table"
       loading={isLoading}
       columns={columns}
       autoHeight

@@ -126,6 +126,7 @@ export default function TransactionDisplay({ data }: Props) {
             </Grid>
             <Grid item xs={12} md={6}>
               <ListItemButton
+                data-testid="miner"
                 title="Miner"
                 subtitle={data.data.miner}
                 onClick={() => navTo(data.data.miner)}

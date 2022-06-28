@@ -59,6 +59,7 @@ export default function TransactionDisplay({ data }: Props) {
         <Grid container mt={4} spacing={3}>
           <Grid item xs={12} md={6}>
             <ListItemButton
+              data-testid="transaction-from"
               title="Transaction From"
               subtitle={data.data.from}
               onClick={() => navTo(data.data.from)}
@@ -66,6 +67,7 @@ export default function TransactionDisplay({ data }: Props) {
           </Grid>
           <Grid item xs={12} md={6}>
             <ListItemButton
+              data-testid="transaction-to"
               title="Transaction To"
               subtitle={data.data.to}
               onClick={() => navTo(data.data.to)}
