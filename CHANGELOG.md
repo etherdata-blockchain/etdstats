@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.1 (2022-06-28)
+
+
+### Bug Fixes
+
+* update e2e config ([f39f7d4](https://github.com/etherdata-blockchain/etdstats/commit/f39f7d4ac74c5cd7d9fe68d9562e329831308f86))
+
 # 1.4.0 (2022-06-28)
 
 
