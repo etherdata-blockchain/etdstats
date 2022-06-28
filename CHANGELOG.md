@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1 (2022-06-28)
+
+
+### Bug Fixes
+
+* ui issue ([#45](https://github.com/etherdata-blockchain/etdstats/issues/45)) ([23e84d0](https://github.com/etherdata-blockchain/etdstats/commit/23e84d0503b8667e2d0e0e08ea7b1278512f2ae0))
+
 # 1.1.0 (2022-06-28)
 
 
