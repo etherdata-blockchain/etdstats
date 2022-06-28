@@ -40,11 +40,13 @@ export function UniversalSearchButton(props: Props) {
   const [isSearching, setIsSearching] = React.useState(false);
   const [autoCompleteResults, setAutoCompleteResults] =
     React.useState<SearchResult[]>();
+  const [showResults, setShowResults] = React.useState(false);
 
   const close = useCallback(() => {
     setOpen(false);
     setValue("");
     setAutoCompleteResults([]);
+    setShowResults(false);
   }, []);
 
   return (
@@ -95,6 +97,8 @@ export function UniversalSearchButton(props: Props) {
                   fullWidth
                   placeholder="Search..."
                   value={value}
+                  onFocus={() => setShowResults(true)}
+                  onBlur={() => setShowResults(false)}
                   onKeyDown={async (e) => {
                     if (e.key === "Enter") {
                       setLoading(true);
@@ -120,7 +124,7 @@ export function UniversalSearchButton(props: Props) {
                   }}
                 />
                 <Fade
-                  in={autoCompleteResults !== undefined}
+                  in={showResults && autoCompleteResults !== undefined}
                   mountOnEnter
                   unmountOnExit
                 >
@@ -130,6 +134,8 @@ export function UniversalSearchButton(props: Props) {
                       width: "85%",
                       top: 64,
                       boxShadow: "rgb(145 158 171 / 16%) 0px 20px 16px 0px",
+                      maxHeight: 400,
+                      overflowY: "auto",
                     }}
                   >
                     <List>
@@ -139,6 +145,7 @@ export function UniversalSearchButton(props: Props) {
                           onClick={async () => {
                             setValue(result.title);
                             setAutoCompleteResults(undefined);
+                            setShowResults(false);
                           }}
                         >
                           <ListItemText
