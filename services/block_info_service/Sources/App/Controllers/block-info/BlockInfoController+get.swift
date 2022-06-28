@@ -31,7 +31,7 @@ extension BlockInfoController {
     func getBlockInfo(req: Request) async throws -> BlockInfo {
 
         let blockInfo = try await BlockInfo(
-                numBlocks: BlockModel.query(on: req.db).count(),
+                numBlocks: BlockModel.query(on: req.db).filter(\.$isUncle, .notEqual, true).count(),
                 numTransactions: Transaction.query(on: req.db).count(),
                 blockTime: 0,
                 block: BlockModel.query(on: req.db).sort(\.$numberInBase10, .descending).first(),
@@ -40,7 +40,8 @@ extension BlockInfoController {
                 blockTimeHistory: [],
                 difficultyHistory: [],
                 chainId: getChainID(),
-                rpc: Environment.get("RPC_URL")!
+                rpc: Environment.get("RPC_URL")!,
+                numUncles: BlockModel.query(on: req.db).filter(\.$isUncle, .equal, true).count()
         )
 
         return blockInfo
