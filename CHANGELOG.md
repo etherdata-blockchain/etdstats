@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.6.0 (2022-06-30)
+
+
+### Features
+
+* add user info service ([#50](https://github.com/etherdata-blockchain/etdstats/issues/50)) ([a85d8c3](https://github.com/etherdata-blockchain/etdstats/commit/a85d8c30f39eeac487e988a63bf3056768413f64))
+
 # 1.5.0 (2022-06-28)
 
 
