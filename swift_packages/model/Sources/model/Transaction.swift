@@ -4,7 +4,45 @@ import Fluent
 import Foundation
 import Vapor
 
-public final class Transaction: Model, Content {
+protocol TransactionProtocol: Content {
+    var hash: String { get set }
+    var nonce: HexString { get set }
+    var blockHash: HexString? { get set }
+    var blockNumber: HexString? { get set }
+    var transactionIndex: HexString { get set }
+    var from: HexString { get set }
+    var to: HexString { get set }
+    var value: HexString { get set }
+    var gasPrice: HexString { get set }
+    var gas: HexString { get set }
+    var maxPriorityFeeperGas: HexString? { get set }
+    var maxFeePerGas: HexString? { get set }
+    var input: HexString? { get set }
+    var timestamp: AnyDate? { get set }
+}
+
+public struct Transaction: TransactionProtocol {
+    public var hash: String
+    public var nonce: HexString
+    public var blockHash: HexString?
+    public var blockNumber: HexString?
+    public var transactionIndex: HexString
+    public var from: HexString
+    public var to: HexString
+    public var value: HexString
+    public var gasPrice: HexString
+    public var gas: HexString
+    public var maxPriorityFeeperGas: HexString?
+    public var maxFeePerGas: HexString?
+    public var input: HexString?
+    public var block: Block?
+    public var timestamp: AnyDate?
+    public var fromUserInfo: UserInfoModel?
+    public var toUserInfo: UserInfoModel?
+}
+
+
+public final class TransactionModel: TransactionProtocol, Model {
     public static let schema = "transactions"
 
     @ID(custom: "_id")
@@ -49,8 +87,6 @@ public final class Transaction: Model, Content {
     @OptionalField(key: "input")
     public var input: HexString?
 
-    @OptionalField(key: "block_id")
-    public var block: Block?
 
     @OptionalField(key: "timestamp")
     public var timestamp: AnyDate?
@@ -58,7 +94,8 @@ public final class Transaction: Model, Content {
     public init() {
     }
 
-    public init(hash: String, nonce: HexString, blockHash: HexString?, blockNumber: HexString?, transactionIndex: HexString, from: HexString, to: HexString, value: HexString, gasPrice: HexString, gas: HexString, timestamp: AnyDate?) {
+    public init(id: ObjectId?, hash: String, nonce: HexString, blockHash: HexString?, blockNumber: HexString?, transactionIndex: HexString, from: HexString, to: HexString, value: HexString, gasPrice: HexString, gas: HexString, maxPriorityFeeperGas: HexString?, maxFeePerGas: HexString?, input: HexString?, timestamp: AnyDate?) {
+        self.id = id
         self.hash = hash
         self.nonce = nonce
         self.blockHash = blockHash
@@ -69,6 +106,33 @@ public final class Transaction: Model, Content {
         self.value = value
         self.gasPrice = gasPrice
         self.gas = gas
+        self.maxPriorityFeeperGas = maxPriorityFeeperGas
+        self.maxFeePerGas = maxFeePerGas
+        self.input = input
         self.timestamp = timestamp
+    }
+}
+
+
+public extension TransactionModel {
+    func toTransaction() -> Transaction {
+        return Transaction(hash: hash,
+                nonce: nonce,
+                blockHash: blockHash,
+                blockNumber: blockNumber,
+                transactionIndex: transactionIndex,
+                from: from,
+                to: to,
+                value: value,
+                gasPrice: gasPrice,
+                gas: gas,
+                maxPriorityFeeperGas: maxPriorityFeeperGas,
+                maxFeePerGas: maxFeePerGas,
+                input: input,
+                block: nil,
+                timestamp: timestamp,
+                fromUserInfo: nil,
+                toUserInfo: nil
+        )
     }
 }

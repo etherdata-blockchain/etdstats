@@ -15,7 +15,8 @@ let package = Package(
         .package(url: "https://github.com/vapor/redis.git", from: "4.0.0"),
         .package(path: "../../swift_packages/common"),
         .package(path: "../../swift_packages/model"),
-        .package(path: "../../swift_packages/env")
+        .package(path: "../../swift_packages/env"),
+        .package(path: "../../swift_packages/clients")
     ],
     targets: [
         .target(
@@ -29,6 +30,7 @@ let package = Package(
                 .product(name: "common", package: "common"),
                 .product(name: "model", package: "model"),
                 .product(name: "env", package: "env"),
+                .product(name: "clients", package: "clients")
             ],
             swiftSettings: [
                 .unsafeFlags(["-cross-module-optimization"], .when(configuration: .release)),

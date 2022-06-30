@@ -32,7 +32,7 @@ extension BlockInfoController {
 
         let blockInfo = try await BlockInfo(
                 numBlocks: BlockModel.query(on: req.db).filter(\.$isUncle, .notEqual, true).count(),
-                numTransactions: Transaction.query(on: req.db).count(),
+                numTransactions: TransactionModel.query(on: req.db).count(),
                 blockTime: 0,
                 block: BlockModel.query(on: req.db).sort(\.$numberInBase10, .descending).first(),
                 blockTimeChangePercentage: "0%",

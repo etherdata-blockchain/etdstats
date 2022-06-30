@@ -58,6 +58,7 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           RPC_URL: ${{ secrets.RPC_URL }}
           REDIS_URL: redis://localhost:6379
+          USER_SERVICE_URL: "https://api.etdchain.net/stats/user"
 
   docker-service:
     name: Build dockerized services

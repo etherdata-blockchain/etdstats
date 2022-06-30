@@ -9,8 +9,8 @@ struct TransactionController: RouteCollection {
         routes.get("stats", "block_info", "transactions", use: get)
     }
 
-    func get(req: Request) async throws -> Page<Transaction> {
-        let result = try await Transaction.query(on: req.db)
+    func get(req: Request) async throws -> Page<TransactionModel> {
+        let result = try await TransactionModel.query(on: req.db)
                 .sort(\.$timestamp, .descending)
                 .paginate(for: req)
         return result
