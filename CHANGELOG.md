@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.8.0 (2022-06-30)
+
+
+### Features
+
+* User info UI ([#53](https://github.com/etherdata-blockchain/etdstats/issues/53)) ([3f5f14d](https://github.com/etherdata-blockchain/etdstats/commit/3f5f14de286e47605254b3375032cb0526baf025))
+
 # 1.7.0 (2022-06-30)
 
 
