@@ -58,6 +58,8 @@ export default function TransactionDisplay({ data }: Props) {
     await router.push(`/tx/${id}`);
   }, []);
 
+  console.log("TransactionDisplay", data);
+
   return (
     <Stack spacing={5}>
       <Card>
@@ -128,7 +130,10 @@ export default function TransactionDisplay({ data }: Props) {
               <ListItemButton
                 data-testid="miner"
                 title="Miner"
-                subtitle={data.data.miner}
+                subtitle={data.data.minerInfo?.username ?? data.data.miner}
+                tooltip={
+                  data.data.minerInfo?.username ? data.data.miner : undefined
+                }
                 onClick={() => navTo(data.data.miner)}
               />
             </Grid>

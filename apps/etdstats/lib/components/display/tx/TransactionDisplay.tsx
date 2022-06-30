@@ -61,7 +61,10 @@ export default function TransactionDisplay({ data }: Props) {
             <ListItemButton
               data-testid="transaction-from"
               title="Transaction From"
-              subtitle={data.data.from}
+              subtitle={data.data.fromUserInfo?.username ?? data.data.from}
+              tooltip={
+                data.data.fromUserInfo?.username ? data.data.from : undefined
+              }
               onClick={() => navTo(data.data.from)}
             />
           </Grid>
@@ -69,7 +72,10 @@ export default function TransactionDisplay({ data }: Props) {
             <ListItemButton
               data-testid="transaction-to"
               title="Transaction To"
-              subtitle={data.data.to}
+              subtitle={data.data.toUserInfo?.username ?? data.data.to}
+              tooltip={
+                data.data.toUserInfo?.username ? data.data.to : undefined
+              }
               onClick={() => navTo(data.data.to)}
             />
           </Grid>

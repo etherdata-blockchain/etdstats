@@ -9,12 +9,14 @@ import { NextLinearProgressBar } from "ui";
 import { deepGreen } from "../lib/utils/colors";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { GoogleAnalytics } from "nextjs-google-analytics";
-import { useState } from "react";
-
-const queryClient = new QueryClient();
+import { useEffect, useState } from "react";
+import { initializeFirebase } from "../lib/models/Firebase";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient, setQueryClient] = useState<QueryClient>(
+    new QueryClient()
+  );
+
   const [theme, setTheme] = useState(
     createTheme({
       palette: {
@@ -82,6 +84,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     })
   );
 
+  useEffect(() => {
+    initializeFirebase();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <MetaMaskProvider>
@@ -97,7 +103,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           <head>
             <title>ETDStats</title>
           </head>
-          <GoogleAnalytics strategy="lazyOnload" />
           <Layout menu={<Menu />}>
             <Component {...pageProps} />
           </Layout>

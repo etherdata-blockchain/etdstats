@@ -132,8 +132,14 @@ export default function UserInfoDisplay() {
                           alignItems="flex-start"
                           width={"100%"}
                         >
-                          <Typography variant="body2" color={"gray"}>
+                          <Typography
+                            variant="body2"
+                            color={"gray"}
+                            maxWidth={"70%"}
+                          >
                             Changes may take up to 10 minutes to take effect.
+                            This functionality is currently in beta and data
+                            stored on the blockchain may be lost.
                           </Typography>
                         </Box>
                         <Box>

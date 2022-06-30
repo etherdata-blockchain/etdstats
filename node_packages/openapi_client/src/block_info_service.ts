@@ -6,6 +6,7 @@ import {
   TransactionResult,
   Block,
 } from "./transaction_service";
+import { UserInfo } from "./user_service";
 
 export interface BlockInfoResponse {
   numBlocks: number;

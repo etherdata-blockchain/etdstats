@@ -1,4 +1,5 @@
 import { Client } from "./client";
+import { UserInfo } from "./user_service";
 
 export interface PaginationParameter {
   /**
@@ -29,6 +30,8 @@ export interface Transaction {
   input: string;
   block: Block;
   timestamp: string;
+  fromUserInfo?: UserInfo;
+  toUserInfo?: UserInfo;
 }
 
 export interface TransactionResult {
@@ -56,6 +59,7 @@ export interface Block {
   gasUsed: string;
   timestamp: string;
   numberInBase10: number;
+  minerInfo: UserInfo;
 }
 
 export interface BlockResult {
@@ -72,6 +76,7 @@ export interface UserResult {
     totalTransactions: number;
     itemsPerPage: number;
     transactions: Transaction[];
+    userInfo?: UserInfo;
   };
 }
 
