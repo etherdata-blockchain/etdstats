@@ -14,7 +14,7 @@ public func configure(_ app: Application) throws {
     let cors = CORSMiddleware(configuration: corsConfiguration)
     app.middleware.use(cors, at: .beginning)
 
-    let checker = EnvChecker(envs: [ENVIRONMENT_DB_KEY, ENVIRONMENT_RPC_URL_KEY, ENVIRONMENT_REDIS_KEY])
+    let checker = EnvChecker(envs: [ENVIRONMENT_DB_KEY, ENVIRONMENT_RPC_URL_KEY, ENVIRONMENT_REDIS_KEY, ENVIRONMENT_USER_SERVICE_URL_KEY])
     let checkResult = checker.check()
 
     if !checkResult.isNotMissing {

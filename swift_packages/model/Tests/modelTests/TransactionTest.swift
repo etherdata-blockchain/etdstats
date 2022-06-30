@@ -20,7 +20,7 @@ extension Encodable {
 
 class TransactionTest: XCTestCase {
     func testEncoding() throws {
-        let transaction = Transaction(hash: "1",
+        var transaction = Transaction(hash: "1",
                 nonce: HexString(1), blockHash: HexString(1),
                 blockNumber: HexString(1), transactionIndex: HexString(1),
                 from: HexString(1), to: HexString(1), value: HexString(1),

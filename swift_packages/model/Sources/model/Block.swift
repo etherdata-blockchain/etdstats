@@ -69,10 +69,11 @@ public struct Block: BlockProtocol {
 
     public var totalDifficulty: HexString?
 
-    public var transactionsRoot: HexString
+    public var transactionsRoot: HexString?
 
     public var uncles: [HexString]
 
+    public var minerInfo: UserInfoModel?
 
     /**
         A list of transactions
@@ -158,5 +159,11 @@ public final class BlockModel: Model, BlockProtocol {
         self.uncles = uncles
         self.numberInBase10 = numberInBase10
         self.isUncle = isUncle
+    }
+}
+
+extension BlockModel {
+    public func toBlock() -> Block {
+        return Block(size: size, extraData: extraData, gasLimit: gasLimit, gasUsed: gasUsed, hash: hash, miner: miner, nonce: nonce, number: number, parentHash: parentHash, receiptsRoot: receiptsRoot, sha3Uncles: sha3Uncles, stateRoot: stateRoot, timestamp: timestamp, totalDifficulty: totalDifficulty, transactionsRoot: nil, uncles: uncles, minerInfo: nil, transactions: nil)
     }
 }

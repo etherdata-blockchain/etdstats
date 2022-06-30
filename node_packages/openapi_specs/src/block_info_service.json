@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a analytics service",
-        "version": "1.5.0",
+        "version": "1.6.0",
         "title": "Block Info service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -272,6 +272,27 @@
                     }
                 }
             },
+            "user-info": {
+                "type": "object",
+                "properties": {
+                    "address": {
+                        "type": "string",
+                        "description": "User address"
+                    },
+                    "username": {
+                        "type": "string",
+                        "description": "User name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "User description"
+                    },
+                    "avatar": {
+                        "type": "string",
+                        "description": "User avatar's url"
+                    }
+                }
+            },
             "reason": {
                 "type": "object",
                 "required": [
@@ -342,6 +363,12 @@
                         "type": "object",
                         "description": "The block which contains this transaction",
                         "$ref": "#/components/schemas/block"
+                    },
+                    "fromUserInfo": {
+                        "$ref": "#/components/schemas/user-info"
+                    },
+                    "toUserInfo": {
+                        "$ref": "#/components/schemas/user-info"
                     }
                 }
             },
@@ -387,6 +414,9 @@
                         "items": {
                             "$ref": "#/components/schemas/transaction"
                         }
+                    },
+                    "userInfo": {
+                        "$ref": "#/components/schemas/user-info"
                     }
                 }
             },
@@ -479,6 +509,9 @@
                     },
                     "baseFeePerGas": {
                         "type": "number"
+                    },
+                    "minerInfo": {
+                        "$ref": "#/components/schemas/user-info"
                     }
                 }
             },

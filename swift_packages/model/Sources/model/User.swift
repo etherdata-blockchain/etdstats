@@ -21,14 +21,15 @@ public struct RecentTransaction: Content {
 
 public struct User: Content {
     public var balance: String
-    public var transactions: [Transaction]
+    public var transactions: [TransactionModel]
     public var totalTransactionsReceived: Int
     public var totalTransactionsSent: Int
     public var recentTransactions: [RecentTransaction]
     public var totalTransactions: Int?
     public var itemsPerPage: Int?
+    public var userInfo: UserInfoModel?
 
-    public init(balance: String, transactions: [Transaction], totalTransactionsReceived: Int, totalTransactionsSent: Int, recentTransactions: [RecentTransaction], totalTransactions: Int?, itemsPerPage: Int?) {
+    public init(balance: String, transactions: [TransactionModel], totalTransactionsReceived: Int, totalTransactionsSent: Int, recentTransactions: [RecentTransaction], totalTransactions: Int?, itemsPerPage: Int?, userInfo: UserInfoModel?) {
         self.balance = balance
         self.transactions = transactions
         self.totalTransactionsReceived = totalTransactionsReceived
@@ -36,5 +37,6 @@ public struct User: Content {
         self.recentTransactions = recentTransactions
         self.totalTransactions = totalTransactions
         self.itemsPerPage = itemsPerPage
+        self.userInfo = userInfo
     }
 }
