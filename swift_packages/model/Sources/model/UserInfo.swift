@@ -5,7 +5,7 @@ import Foundation
 import Vapor
 
 
-public final class UserInfoModel: Model {
+public final class UserInfoModel: Model, Content {
     public init() {
     }
 
@@ -20,9 +20,17 @@ public final class UserInfoModel: Model {
     @Field(key: "username")
     public var username: String
 
-    public init(id: ObjectId?, username: String, address: HexString) {
+    @Field(key: "avatar")
+    public var avatar: String
+
+    @Field(key: "description")
+    public var description: String
+
+    public init(id: ObjectId?, address: HexString, username: String, avatar: String, description: String) {
         self.id = id
-        self.username = username
         self.address = address
+        self.username = username
+        self.avatar = avatar
+        self.description = description
     }
 }

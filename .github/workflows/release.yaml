@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app:  ["transaction_service", "analytics_service", "block_info_service"]
+        app:  ["transaction_service", "analytics_service", "block_info_service", "user_service"]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Docker Buildx

@@ -17,6 +17,24 @@
             "args": [],
             "cwd": "${workspaceFolder:etdstats}/services/transaction_service",
             "preLaunchTask": "swift: Build Release Run (services/transaction_service)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Run (services/analytics_service)",
+            "program": ".build/debug/Run",
+            "args": [],
+            "cwd": "${workspaceFolder:etdstats}/services/analytics_service",
+            "preLaunchTask": "swift: Build Debug Run (services/analytics_service)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release Run (services/analytics_service)",
+            "program": ".build/release/Run",
+            "args": [],
+            "cwd": "${workspaceFolder:etdstats}/services/analytics_service",
+            "preLaunchTask": "swift: Build Release Run (services/analytics_service)"
         }
     ]
 }
