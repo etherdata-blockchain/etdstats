@@ -5,18 +5,20 @@ import {
   ListItemButton as Button,
   Stack,
   Typography,
+  Tooltip,
 } from "@mui/material";
 
 interface Props {
   title: string;
   subtitle: string;
+  tooltip?: string;
   onClick?: () => void;
 }
 
-export function ListItemButton({ subtitle, title, onClick }: Props) {
+export function ListItemButton({ subtitle, title, onClick, tooltip }: Props) {
   const [loading, setLoading] = React.useState(false);
 
-  return (
+  const button = (
     <Button
       onClick={async () => {
         if (onClick) {
@@ -35,15 +37,28 @@ export function ListItemButton({ subtitle, title, onClick }: Props) {
         >
           {title}
         </Typography>
-        <Typography
-          width={300}
-          style={{ wordWrap: "break-word" }}
-          variant="body2"
-        >
-          {subtitle}
-        </Typography>
+        <Stack>
+          <Typography
+            width={300}
+            style={{ wordWrap: "break-word" }}
+            variant="body2"
+          >
+            {subtitle}
+          </Typography>
+          <Typography
+            width={300}
+            style={{ wordWrap: "break-word" }}
+            variant="body2"
+            color="gray"
+          >
+            {tooltip}
+          </Typography>
+        </Stack>
+
         <Box>{loading && <CircularProgress size={20} />}</Box>
       </Stack>
     </Button>
   );
+
+  return button;
 }

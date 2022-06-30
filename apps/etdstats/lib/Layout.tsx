@@ -16,7 +16,6 @@ export default function Layout(props: {
   menu: React.ReactNode;
 }) {
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
   const { blockInfoResult } = useBlockInfo({});
 
   const search = useCallback(async (value: string) => {
@@ -105,7 +104,9 @@ export default function Layout(props: {
           pl: { md: `${DrawerWidth}px` },
         }}
       >
-        <Box sx={{ paddingX: { lg: 25, sm: 3, xs: 3 } }}>{props.children}</Box>
+        <Box sx={{ paddingX: { lg: 10, sm: 3, xs: 3, md: 5 } }}>
+          {props.children}
+        </Box>
       </Box>
     </Box>
   );

@@ -17,11 +17,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { UserResult } from "openapi_client";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Chip, StyledDataGrid } from "ui";
-import { toETD } from "../../utils/toETD";
-import StatisticsCard from "../card/StatisticsCard";
-import TransferMoneyCard from "../card/TransferMoneyCard";
-import UserContractCard from "../card/UserContractCard";
+import { Chip, StyledDataGrid, UserInfoCard } from "ui";
+import { toETD } from "../../../utils/toETD";
+import StatisticsCard from "../../card/StatisticsCard";
+import TransferMoneyCard from "../../card/TransferMoneyCard";
+import UserContractCard from "../../card/UserContractCard";
 import {
   orange,
   deepBlue,
@@ -29,7 +29,7 @@ import {
   deepOrange,
   blue,
   green,
-} from "../../utils/colors";
+} from "../../../utils/colors";
 
 interface Props {
   data: UserResult;
@@ -144,6 +144,15 @@ export default function TransactionDisplay({ data, id, currentPage }: Props) {
 
   return (
     <Grid container spacing={5}>
+      {data.data.userInfo && (
+        <Grid item xs={12}>
+          <UserInfoCard
+            name={data.data.userInfo.username}
+            avatar={data.data.userInfo.avatar}
+            wallet={data.data.userInfo.address}
+          />
+        </Grid>
+      )}
       <Grid item xs={12} md={4}>
         <Card sx={{ boxShadow: "none", backgroundColor: green }}>
           <CardContent>
@@ -227,7 +236,20 @@ export default function TransactionDisplay({ data, id, currentPage }: Props) {
       </Grid>
       {/* Left column */}
       <Grid item xs={12} md={8}>
-        <Stack>
+        <Stack spacing={2}>
+          {data.data.userInfo && (
+            <Card>
+              <CardContent>
+                <Typography variant="h6" fontWeight={"bold"}>
+                  About
+                </Typography>
+                <Typography>
+                  {data.data.userInfo && data.data.userInfo.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          )}
+
           <Card>
             <CardContent>
               <Stack

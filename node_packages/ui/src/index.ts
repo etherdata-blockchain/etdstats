@@ -19,3 +19,5 @@ export {
 
 export { Chip } from "./Chip";
 export { StyledDataGrid } from "./StyledDataGrid";
+
+export { UserInfoCard } from "./cards/UserInfoCard";

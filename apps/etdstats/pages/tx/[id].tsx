@@ -9,9 +9,9 @@ import {
   SaveToFavoriteButton,
   ShareDataButton,
 } from "ui";
-import BlockDisplay from "../../lib/components/display/BlockDisplay";
-import TransactionDisplay from "../../lib/components/display/TransactionDisplay";
-import UserDisplay from "../../lib/components/display/UserDisplay";
+import BlockDisplay from "../../lib/components/display/tx/BlockDisplay";
+import TransactionDisplay from "../../lib/components/display/tx/TransactionDisplay";
+import UserDisplay from "../../lib/components/display/tx/UserDisplay";
 import { db } from "../../lib/models/SearchModel";
 
 interface Props {
