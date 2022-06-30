@@ -1,0 +1,79 @@
+openapi: "3.0.0"
+info:
+  description: "This belongs part of ETDStats microservices which will provide a user service."
+  version: "1.0.0"
+  title: "Node service"
+  termsOfService: "https://github.com/etherdata-blockchain"
+
+
+tags:
+  - name: "user"
+    description: "Get user info"
+  - name: "health"
+    description: "Get server's health info"
+
+servers:
+  - url: https://api.etdchain.net/stats/user
+    description: Production server
+  - url: https://api.debugchain.net/stats/user
+    description: Testing server
+
+paths:
+  /{id}:
+    get:
+      tags:
+        - "user"
+      summary: "Get user by address"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Hex string representation of one of the following: Transaction ID, block ID, or user wallet address"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user-info"
+
+        404:
+          description: Not found
+  /health:
+    get:
+      tags:
+        - "health"
+      summary: "Get server's health info"
+      description: "Will return a error reason if not healthy"
+      responses:
+        "200":
+          description: "Server is up"
+          content:
+            application/json:
+              schema:
+                $ref: "health_service.spec.yaml#/components/schemas/error"
+        "500":
+          description: "Server is down"
+          content:
+            application/json:
+              schema:
+                $ref: "health_service.spec.yaml#/components/schemas/error"
+components:
+  schemas:
+    user-info:
+      type: object
+      properties:
+        address:
+          type: string
+          description: "User address"
+        username:
+          type: string
+          description: "User name"
+        description:
+          type: string
+          description: "User description"
+        avatar:
+          type: string
+          description: "User avatar's url"
