@@ -11,13 +11,13 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { BlockResult } from "openapi_client";
 import { Chip, ListItemButton, StyledDataGrid } from "ui";
-import { toETD, toWei } from "../../utils/toETD";
+import { toETD, toWei } from "../../../utils/toETD";
 import { GridColDef } from "@mui/x-data-grid";
 //@ts-ignore
 import { format } from "friendly-numbers";
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
-import GeneralTransactionTable from "../table/GeneralTransactionTable";
+import GeneralTransactionTable from "../../table/GeneralTransactionTable";
 
 interface Props {
   data: BlockResult;

@@ -85,9 +85,16 @@ export function ConnectWalletButton({ chainId, rpc }: Props) {
             setAnchorEl(null);
           }}
         >
-          Profile
+          My Account
         </MenuItem>
-        <MenuItem>Settings</MenuItem>
+        <MenuItem
+          onClick={async () => {
+            await router.push(`/user`);
+            setAnchorEl(null);
+          }}
+        >
+          Settings
+        </MenuItem>
       </Menu>
     </>
   );

@@ -18,10 +18,10 @@ import { useRouter } from "next/router";
 import { UserResult } from "openapi_client";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Chip, StyledDataGrid } from "ui";
-import { toETD } from "../../utils/toETD";
-import StatisticsCard from "../card/StatisticsCard";
-import TransferMoneyCard from "../card/TransferMoneyCard";
-import UserContractCard from "../card/UserContractCard";
+import { toETD } from "../../../utils/toETD";
+import StatisticsCard from "../../card/StatisticsCard";
+import TransferMoneyCard from "../../card/TransferMoneyCard";
+import UserContractCard from "../../card/UserContractCard";
 import {
   orange,
   deepBlue,
@@ -29,7 +29,7 @@ import {
   deepOrange,
   blue,
   green,
-} from "../../utils/colors";
+} from "../../../utils/colors";
 
 interface Props {
   data: UserResult;

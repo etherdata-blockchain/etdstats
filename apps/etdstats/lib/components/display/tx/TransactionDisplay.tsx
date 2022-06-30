@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { TransactionResult } from "openapi_client";
 import React, { useCallback } from "react";
 import { Chip, ListItemButton } from "ui";
-import { toETD, toWei } from "../../utils/toETD";
+import { toETD, toWei } from "../../../utils/toETD";
 
 interface Props {
   data: TransactionResult;
