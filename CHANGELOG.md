@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.7.0 (2022-06-30)
+
+
+### Features
+
+* update transaction service ([#51](https://github.com/etherdata-blockchain/etdstats/issues/51)) ([6957446](https://github.com/etherdata-blockchain/etdstats/commit/6957446230eef031ee02546e64ebe0760ebdfa58))
+
 # 1.6.0 (2022-06-30)
 
 
