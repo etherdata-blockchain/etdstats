@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.9.0 (2022-07-01)
+
+
+### Features
+
+* restructure transaction controller ([#54](https://github.com/etherdata-blockchain/etdstats/issues/54)) ([639d53a](https://github.com/etherdata-blockchain/etdstats/commit/639d53a6fd0c0a6785ca340964c804d51bd50dfb))
+
 # 1.8.0 (2022-06-30)
 
 
