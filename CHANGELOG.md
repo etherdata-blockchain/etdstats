@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.9.1 (2022-07-01)
+
+
+### Bug Fixes
+
+* ui table display issue ([#55](https://github.com/etherdata-blockchain/etdstats/issues/55)) ([1dfce86](https://github.com/etherdata-blockchain/etdstats/commit/1dfce869671cdf254a199b3071398d557ed8f08c))
+
 # 1.9.0 (2022-07-01)
 
 
