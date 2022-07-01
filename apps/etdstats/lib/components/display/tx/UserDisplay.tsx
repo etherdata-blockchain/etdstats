@@ -7,83 +7,35 @@ import {
   CardContent,
   Fab,
   Grid,
-  Link,
   Pagination,
   Stack,
   Typography,
 } from "@mui/material";
-import { GridColDef } from "@mui/x-data-grid";
+
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { UserResult } from "openapi_client";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Chip, StyledDataGrid, UserInfoCard } from "ui";
+import { UserInfoCard } from "ui";
+import {
+  blue,
+  deepBlue,
+  deepGreen,
+  deepOrange,
+  green,
+  orange,
+} from "../../../utils/colors";
 import { toETD } from "../../../utils/toETD";
 import StatisticsCard from "../../card/StatisticsCard";
 import TransferMoneyCard from "../../card/TransferMoneyCard";
 import UserContractCard from "../../card/UserContractCard";
-import {
-  orange,
-  deepBlue,
-  deepGreen,
-  deepOrange,
-  blue,
-  green,
-} from "../../../utils/colors";
+import UserTransactionTable from "../../table/UserTransactionTable";
 
 interface Props {
   data: UserResult;
   id: string;
   currentPage: number;
 }
-
-interface Row {
-  id: number;
-  hash: string;
-  type: "Sent" | "Received";
-  value: string;
-}
-
-const columns: GridColDef[] = [
-  {
-    headerName: "#",
-    field: "id",
-    flex: 1,
-    sortable: false,
-  },
-  {
-    field: "hash",
-    headerName: "Hash",
-    flex: 4,
-    sortable: false,
-    renderCell: (rowData) => (
-      <Link href={`/tx/${rowData.value}`} noWrap>
-        {rowData.value}
-      </Link>
-    ),
-  },
-  {
-    field: "value",
-    headerName: "Value",
-    flex: 2,
-    sortable: false,
-  },
-  {
-    field: "type",
-    headerName: "Type",
-    flex: 2,
-    sortable: false,
-    renderCell: (rowData) => {
-      return (
-        <Chip
-          label={rowData.value}
-          textColor={rowData.value === "Sent" ? deepOrange : undefined}
-          backgroundColor={rowData.value === "Sent" ? orange : undefined}
-        />
-      );
-    },
-  },
-];
 
 export default function TransactionDisplay({ data, id, currentPage }: Props) {
   const router = useRouter();
@@ -105,22 +57,6 @@ export default function TransactionDisplay({ data, id, currentPage }: Props) {
       },
     ];
   }, [data]);
-
-  const rowData: Row[] = useMemo(() => {
-    return data.data.transactions.map((transaction, index) => {
-      const isSent: any = transaction.from === id;
-      const type: any = isSent ? "Sent" : "Received";
-      const value = !isSent
-        ? toETD(transaction.value).toFixed(2)
-        : "-" + toETD(transaction.value).toFixed(2);
-      return {
-        id: index,
-        hash: transaction.hash,
-        type,
-        value: `${value} ETD`,
-      };
-    });
-  }, [data, id]);
 
   useEffect(() => {
     setPage(currentPage);
@@ -278,22 +214,17 @@ export default function TransactionDisplay({ data, id, currentPage }: Props) {
                   </Typography>
                 </Stack>
                 <Pagination
-                  count={Number.isNaN(pageCount) ? 0 : pageCount}
+                  count={Number.isNaN(pageCount) ? 1 : pageCount}
                   page={page}
                   onChange={async (e, page) => {
                     await onPageChange(page);
                   }}
                 />
               </Stack>
-              <StyledDataGrid
-                loading={loading}
-                columns={columns}
-                autoHeight
-                rows={rowData}
-                hideFooter={true}
-                hideFooterPagination={true}
-                disableColumnFilter={true}
-                disableColumnSelector={true}
+              <UserTransactionTable
+                address={id}
+                transactions={data.data.transactions}
+                isLoading={loading}
               />
             </CardContent>
           </Card>

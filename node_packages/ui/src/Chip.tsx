@@ -13,6 +13,7 @@ export function Chip({ label, backgroundColor, textColor }: Props) {
 
   return (
     <Box
+      data-testid={label}
       color={color}
       fontFamily={"Public Sans, sans-serif"}
       bgcolor={background}
