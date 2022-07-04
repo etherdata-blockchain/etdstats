@@ -1,5 +1,5 @@
 import { Link } from "@mui/material";
-import { GridColDef } from "@mui/x-data-grid";
+import { GridColDef, GridColumns } from "@mui/x-data-grid";
 import { Block } from "openapi_client";
 import { useMemo } from "react";
 //@ts-ignore
@@ -12,7 +12,7 @@ interface Props {
   isLoading: boolean;
 }
 
-const columns: GridColDef[] = [
+const columns: GridColumns = [
   {
     headerName: "#",
     field: "id",
@@ -55,7 +55,7 @@ export default function GeneralBlockTable({ data, isLoading }: Props) {
     <StyledDataGrid
       data-testid="general-block-table"
       loading={isLoading}
-      columns={columns}
+      columns={columns as any}
       autoHeight
       rows={rows}
       hideFooter={true}

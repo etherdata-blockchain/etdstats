@@ -75,7 +75,7 @@ export default function GeneralTransactionTable({ data, isLoading }: Props) {
     <StyledDataGrid
       data-testid="general-transaction-table"
       loading={isLoading}
-      columns={columns}
+      columns={columns as any}
       autoHeight
       rows={rows}
       hideFooter={true}

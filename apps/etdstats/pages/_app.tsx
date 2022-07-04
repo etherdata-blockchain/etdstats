@@ -80,6 +80,15 @@ function MyApp({ Component, pageProps }: AppProps) {
             },
           },
         },
+        MuiFormControl: {
+          styleOverrides: {
+            root: {
+              [`& fieldset`]: {
+                borderRadius: 16,
+              },
+            },
+          },
+        },
       },
     })
   );

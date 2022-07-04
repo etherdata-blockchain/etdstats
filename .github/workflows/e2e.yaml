@@ -20,6 +20,7 @@ jobs:
       - run: pnpm install
       - name: Install Playwright
         run: npx playwright install --with-deps
+      - run: wget -O tests/e2e/secrets.json ${{ secrets.FIRESTORE_CONFIG_URL }}
       - run: pnpm e2e
         env:
           TEST_URL: "https://stats.etdchain.net"
