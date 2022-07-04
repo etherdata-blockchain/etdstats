@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MenuSubHeader } from "ui";
+import { HelpCenter, QuestionMark } from "@mui/icons-material";
 
 const selectedColor = "rgb(0, 171, 85)";
 
@@ -24,6 +25,7 @@ interface Menu {
   name: string;
   icon: React.ReactElement;
   href: string;
+  loginRequired?: boolean;
 }
 
 const menus: Menu[] = [
@@ -36,6 +38,12 @@ const menus: Menu[] = [
     name: "Info",
     icon: <InfoIcon />,
     href: "/tx",
+  },
+  {
+    name: "Issues",
+    icon: <HelpCenter />,
+    href: "/issues",
+    loginRequired: true,
   },
 ];
 
@@ -69,31 +77,33 @@ export default function Menu() {
         </Card>
       </Box>
       <MenuSubHeader title="General" />
-      {menus.map((menu) => {
-        const isSelected = currentPath === menu.href;
-        const icon = React.cloneElement(menu.icon, {
-          style: {
-            color: isSelected ? selectedColor : "inherit",
-          },
-        });
+      {menus
+        .filter((menu) => (menu.loginRequired ? account : true))
+        .map((menu) => {
+          const isSelected = currentPath === menu.href;
+          const icon = React.cloneElement(menu.icon, {
+            style: {
+              color: isSelected ? selectedColor : "inherit",
+            },
+          });
 
-        return (
-          <Link href={menu.href} key={menu.href}>
-            <ListItemButton
-              selected={isSelected}
-              sx={{
-                color: isSelected ? selectedColor : "inherit",
-                borderRadius: "10px",
-                padding: "12px",
-                margin: "12px",
-              }}
-            >
-              <ListItemIcon>{icon}</ListItemIcon>
-              <ListItemText primary={menu.name} />
-            </ListItemButton>
-          </Link>
-        );
-      })}
+          return (
+            <Link href={menu.href} key={menu.href}>
+              <ListItemButton
+                selected={isSelected}
+                sx={{
+                  color: isSelected ? selectedColor : "inherit",
+                  borderRadius: "10px",
+                  padding: "12px",
+                  margin: "12px",
+                }}
+              >
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={menu.name} />
+              </ListItemButton>
+            </Link>
+          );
+        })}
     </List>
   );
 }

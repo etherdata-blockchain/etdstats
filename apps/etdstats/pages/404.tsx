@@ -1,8 +1,12 @@
-import { Stack, Typography } from "@mui/material";
-import React from "react";
+import { Button, Stack, Typography } from "@mui/material";
+import { useMetaMask } from "metamask-react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function NotFound() {
+  const { account } = useMetaMask();
+  const router = useRouter();
+
   return (
     <Stack
       mt={10}
@@ -19,6 +23,14 @@ export default function NotFound() {
         mistyped your URL?
       </Typography>
       <Image src="/NotFoundIcon.webp" alt="404" width={300} height={300} />
+      {account && (
+        <Button
+          variant="contained"
+          onClick={async () => await router.push("/issues/create")}
+        >
+          Want help? Create a ticket
+        </Button>
+      )}
     </Stack>
   );
 }

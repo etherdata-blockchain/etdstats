@@ -86,7 +86,7 @@ export default function UserTransactionTable({
     <StyledDataGrid
       columnBuffer={columns.length}
       loading={isLoading}
-      columns={columns}
+      columns={columns as any}
       autoHeight
       rows={rowData}
       hideFooter={true}
