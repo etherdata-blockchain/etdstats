@@ -11,6 +11,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useEffect, useState } from "react";
 import { initializeFirebase } from "../lib/models/Firebase";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient, setQueryClient] = useState<QueryClient>(
@@ -109,9 +110,9 @@ function MyApp({ Component, pageProps }: AppProps) {
               width: "100vw",
             }}
           />
-          <head>
+          <Head>
             <title>ETDStats</title>
-          </head>
+          </Head>
           <Layout menu={<Menu />}>
             <Component {...pageProps} />
           </Layout>
