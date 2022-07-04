@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.10.0 (2022-07-04)
+
+
+### Features
+
+* add ticket page ([#56](https://github.com/etherdata-blockchain/etdstats/issues/56)) ([fb4af53](https://github.com/etherdata-blockchain/etdstats/commit/fb4af5326fe2c5f3270e7adf72e6a88edcec0475))
+
 ## 1.9.1 (2022-07-01)
 
 
