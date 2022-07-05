@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.10.3 (2022-07-05)
+
+
+### Bug Fixes
+
+* e2e testing issue ([#59](https://github.com/etherdata-blockchain/etdstats/issues/59)) ([d19c123](https://github.com/etherdata-blockchain/etdstats/commit/d19c123c6fc5950e8c5d6703792d9699e08c7183))
+
 ## 1.10.2 (2022-07-05)
 
 
