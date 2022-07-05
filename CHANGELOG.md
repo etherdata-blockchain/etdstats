@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.10.2 (2022-07-05)
+
+
+### Bug Fixes
+
+* e2e missing firebase-admin ([#58](https://github.com/etherdata-blockchain/etdstats/issues/58)) ([d5af758](https://github.com/etherdata-blockchain/etdstats/commit/d5af758b863865669703660402c40bda1e52881d))
+
 ## 1.10.1 (2022-07-04)
 
 
