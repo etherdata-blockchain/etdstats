@@ -8,7 +8,7 @@ import {
   UniversalSearchButton,
 } from "ui";
 import { useBlockInfo } from "./hooks/useBlockInfo";
-import { db } from "./models/SearchModel";
+import useSearch from "./hooks/useSearch";
 import { DrawerWidth } from "./settings/ui";
 
 export default function Layout(props: {
@@ -16,20 +16,20 @@ export default function Layout(props: {
   menu: React.ReactNode;
 }) {
   const router = useRouter();
+  const { search: searchResult } = useSearch();
   const { blockInfoResult } = useBlockInfo({});
 
-  const search = useCallback(async (value: string) => {
-    const result = await db.searchResults
-      .where("id")
-      .startsWithAnyOfIgnoreCase(value)
-      .limit(10)
-      .toArray();
-
-    return result.map((r) => ({
-      title: r.id,
-      subtitle: r.result.type,
-    }));
-  }, []);
+  const search = useCallback(
+    async (value: string) => {
+      const results = await searchResult(value);
+      if (!results) {
+        return [];
+      }
+      console.log(results);
+      return results.map((d) => ({ title: d.data?.hash, subtitle: d.type }));
+    },
+    [searchResult]
+  );
 
   return (
     <Box>
