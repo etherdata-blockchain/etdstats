@@ -12,7 +12,6 @@ import {
 import BlockDisplay from "../../lib/components/display/tx/BlockDisplay";
 import TransactionDisplay from "../../lib/components/display/tx/TransactionDisplay";
 import UserDisplay from "../../lib/components/display/tx/UserDisplay";
-import { db } from "../../lib/models/SearchModel";
 
 interface Props {
   data: TransactionResponse;
@@ -21,14 +20,6 @@ interface Props {
 }
 
 export default function Details({ data, id, currentPage }: Props) {
-  useEffect(() => {
-    (async () => {
-      if ((await db.searchResults.where("id").equals(id).count()) === 0) {
-        await db.searchResults.add({ id, result: data });
-      }
-    })();
-  }, [id]);
-
   const menus = [
     {
       title: "Home",

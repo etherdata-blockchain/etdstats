@@ -1,26 +1,23 @@
+import { Close } from "@mui/icons-material";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   AppBar,
   Box,
-  Card,
   CircularProgress,
-  ClickAwayListener,
+  Fade,
   IconButton,
   InputBase,
   List,
+  ListItemButton,
   ListItemText,
   Paper,
   Slide,
   Stack,
   Toolbar,
-  Typography,
-  ListItemButton,
-  ListItem,
-  Fade,
 } from "@mui/material";
 import React, { useCallback } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import { Close } from "@mui/icons-material";
-import useAutocomplete from "@mui/material/useAutocomplete";
+//@ts-ignore
+import Highlighter from "react-highlight-words";
 
 interface SearchResult {
   title: string;
@@ -149,7 +146,12 @@ export function UniversalSearchButton(props: Props) {
                           }}
                         >
                           <ListItemText
-                            primary={result.title}
+                            primary={
+                              <Highlighter
+                                searchWords={[value]}
+                                textToHighlight={result.title}
+                              />
+                            }
                             secondary={result.subtitle}
                           />
                         </ListItemButton>

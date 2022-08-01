@@ -47,7 +47,7 @@ export default function GeneralBlockTable({ data, isLoading }: Props) {
       })
       .filter((block, index) => {
         // find unique
-        return index === data.findIndex((b) => b.hash === block.hash);
+        return index === data.findIndex((b) => b.numberInBase10 === block.id);
       });
   }, [data]);
 
