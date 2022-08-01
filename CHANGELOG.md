@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.11.0 (2022-08-01)
+
+
+### Features
+
+* add meilisearch support ([#60](https://github.com/etherdata-blockchain/etdstats/issues/60)) ([d1d4575](https://github.com/etherdata-blockchain/etdstats/commit/d1d4575e0a88a32f1936456fbdcf84e0bd6d60f9))
+
 ## 1.10.3 (2022-07-05)
 
 
