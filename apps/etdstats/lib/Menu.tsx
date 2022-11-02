@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { MenuSubHeader } from "ui";
-import { HelpCenter, QuestionMark } from "@mui/icons-material";
+import { HelpCenter, QuestionMark, AppRegistration } from "@mui/icons-material";
 
 const selectedColor = "rgb(0, 171, 85)";
 
@@ -38,6 +38,11 @@ const menus: Menu[] = [
     name: "Info",
     icon: <InfoIcon />,
     href: "/tx",
+  },
+  {
+    name: "ENS",
+    icon: <AppRegistration />,
+    href: "/ens",
   },
   {
     name: "Issues",
