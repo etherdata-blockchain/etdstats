@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.12.0 (2022-11-02)
+
+
+### Features
+
+* add contract service ([#61](https://github.com/etherdata-blockchain/etdstats/issues/61)) ([8fe3536](https://github.com/etherdata-blockchain/etdstats/commit/8fe3536df8cb9c3d201fdaae7481a607fa8096f7))
+
 # 1.11.0 (2022-08-01)
 
 
