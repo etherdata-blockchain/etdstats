@@ -43,7 +43,12 @@ export default function DataCard(props: Props) {
               {props.number ? (
                 numberWithCommas(props.number!)
               ) : (
-                <Image src={"/Progressbar.webp"} width={50} height={50} />
+                <Image
+                  alt="in progress"
+                  src={"/Progressbar.webp"}
+                  width={50}
+                  height={50}
+                />
               )}
             </Typography>
           </Stack>

@@ -1,64 +1,71 @@
-import React, { useCallback } from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import {
-  Box,
+  CircularProgress,
   Fade,
   IconButton,
-  ListItem,
-  ListItemText,
   Menu,
   MenuItem,
-  Paper,
-  Popover,
   Tooltip,
-  Typography,
-  List,
-  ListItemButton,
-  Card,
-  Divider,
 } from "@mui/material";
 import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import React, { useCallback } from "react";
 
 interface Props {
   chainId: string;
   rpc: string;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
+  isSignedIn: boolean;
 }
 
-export function ConnectWalletButton({ chainId, rpc }: Props) {
+export function ConnectWalletButton({
+  chainId,
+  rpc,
+  signIn,
+  signOut,
+  isSignedIn,
+}: Props) {
   const { status, connect, addChain, account } = useMetaMask();
+  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const onClick = useCallback(
     async (e: any) => {
-      if (status === "connected") {
+      if (isSignedIn) {
         setAnchorEl(e.currentTarget);
         return;
       }
-      let getUrl = window.location;
-      let baseUrl =
-        getUrl.protocol +
-        "//" +
-        getUrl.host +
-        "/" +
-        getUrl.pathname.split("/")[1];
+      setLoading(true);
+      try {
+        let getUrl = window.location;
+        let baseUrl =
+          getUrl.protocol +
+          "//" +
+          getUrl.host +
+          "/" +
+          getUrl.pathname.split("/")[1];
 
-      await connect();
-      await addChain({
-        chainId: chainId,
-        chainName: "Etherdata Network",
-        rpcUrls: [rpc],
-        nativeCurrency: {
-          name: "ETD",
-          symbol: "ETD",
-          decimals: 18,
-        },
-        blockExplorerUrls: [baseUrl],
-      });
+        await connect();
+        await addChain({
+          chainId: chainId,
+          chainName: "Etherdata Network",
+          rpcUrls: [rpc],
+          nativeCurrency: {
+            name: "ETD",
+            symbol: "ETD",
+            decimals: 18,
+          },
+          blockExplorerUrls: [baseUrl],
+        });
+        await signIn();
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
     },
-    [status]
+    [status, isSignedIn]
   );
 
   return (
@@ -66,10 +73,10 @@ export function ConnectWalletButton({ chainId, rpc }: Props) {
       <Fade in={status !== "unavailable"}>
         <Tooltip title={status}>
           <IconButton
-            color={status === "connected" ? "success" : "default"}
+            color={isSignedIn ? "success" : "default"}
             onClick={onClick}
           >
-            <AccountBalanceWalletIcon />
+            {loading ? <CircularProgress /> : <AccountBalanceWalletIcon />}
           </IconButton>
         </Tooltip>
       </Fade>
@@ -87,13 +94,24 @@ export function ConnectWalletButton({ chainId, rpc }: Props) {
         >
           My Account
         </MenuItem>
-        <MenuItem
+        <MenuItem onClick={() => router.push("/contract")}>
+          Upload a contract
+        </MenuItem>
+        {/* <MenuItem
           onClick={async () => {
             await router.push(`/user`);
             setAnchorEl(null);
           }}
         >
           Settings
+        </MenuItem> */}
+        <MenuItem
+          onClick={async () => {
+            await signOut();
+            setAnchorEl(null);
+          }}
+        >
+          Sign Out
         </MenuItem>
       </Menu>
     </>

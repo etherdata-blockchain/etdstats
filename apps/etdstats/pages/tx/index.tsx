@@ -54,7 +54,12 @@ export default function Index(props: Props) {
                   </Box>
                 </Stack>
                 <Box>
-                  <Image src={"/IntroIcon.webp"} height={200} width={200} />
+                  <Image
+                    alt=""
+                    src={"/IntroIcon.webp"}
+                    height={200}
+                    width={200}
+                  />
                 </Box>
               </Stack>
             </CardContent>
@@ -65,7 +70,12 @@ export default function Index(props: Props) {
           <Card style={{ height: "100%" }}>
             <CardContent>
               <Stack justifyContent={"center"} alignItems="center">
-                <Image src="/DocumentIcon.png" width={150} height={150} />
+                <Image
+                  alt="documentation"
+                  src="/DocumentIcon.png"
+                  width={150}
+                  height={150}
+                />
                 <Button>Check Out the API Documentation</Button>
               </Stack>
             </CardContent>
@@ -77,7 +87,12 @@ export default function Index(props: Props) {
             title="Total Blocks"
             number={blockInfoResult.data?.numBlocks}
             icon={
-              <Image src="/BlockIcon2.webp" width={"100%"} height={"100%"} />
+              <Image
+                alt="blocks"
+                src="/BlockIcon2.webp"
+                width={100}
+                height={100}
+              />
             }
           />
         </Grid>
@@ -87,9 +102,10 @@ export default function Index(props: Props) {
             number={blockInfoResult.data?.numTransactions}
             icon={
               <Image
+                alt="transaction"
                 src="/TransactionIcon2.webp"
-                width={"100%"}
-                height={"100%"}
+                width={100}
+                height={100}
               />
             }
           />
@@ -98,7 +114,14 @@ export default function Index(props: Props) {
           <DataCard
             title="Total Visitors"
             number={analyticsResult.data?.total}
-            icon={<Image src="/UserIcon.webp" width={"100%"} height={"100%"} />}
+            icon={
+              <Image
+                alt="total visitor"
+                src="/UserIcon.webp"
+                width={100}
+                height={100}
+              />
+            }
           />
         </Grid>
         <Grid item xs={12} md={4}>

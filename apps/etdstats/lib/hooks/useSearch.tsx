@@ -9,9 +9,9 @@ export default function useSearch() {
       host: process.env.NEXT_PUBLIC_MEILISEARCH_API_ENDPOINT!,
       apiKey: process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY!,
     });
-    client.getIndex("blocks").then((index) => {
-      setIndex(index);
-    });
+    // client.getIndex("blocks").then((index) => {
+    //   setIndex(index);
+    // });
   }, []);
 
   const search = useCallback(

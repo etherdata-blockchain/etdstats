@@ -44,7 +44,12 @@ export default function UserInfoDisplay() {
         unmountOnExit
       >
         <Box alignItems={"center"} justifyContent="center" display={"flex"}>
-          <Image src={"/Progressbar.webp"} height={40} width={40} />
+          <Image
+            alt="in progress"
+            src={"/Progressbar.webp"}
+            height={40}
+            width={40}
+          />
         </Box>
       </Fade>
       <Fade in={userInfo.status === "error"}>

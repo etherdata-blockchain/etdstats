@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { useEffect, useState } from "react";
 import { initializeFirebase } from "../lib/models/Firebase";
 import Head from "next/head";
+import { AuthenticationProvider } from "../lib/models/AuthenticationContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient, setQueryClient] = useState<QueryClient>(
@@ -101,23 +102,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <MetaMaskProvider>
-        <ThemeProvider theme={theme}>
-          <NextLinearProgressBar
-            style={{
-              zIndex: 10000,
-              position: "fixed",
-              top: 0,
-              width: "100vw",
-            }}
-          />
-          <Head>
-            <title>ETDStats</title>
-          </Head>
-          <Layout menu={<Menu />}>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
+        <AuthenticationProvider>
+          <ThemeProvider theme={theme}>
+            <NextLinearProgressBar
+              style={{
+                zIndex: 10000,
+                position: "fixed",
+                top: 0,
+                width: "100vw",
+              }}
+            />
+            <Head>
+              <title>ETDStats</title>
+            </Head>
+            <Layout menu={<Menu />}>
+              <Component {...pageProps} />
+            </Layout>
+          </ThemeProvider>
+        </AuthenticationProvider>
       </MetaMaskProvider>
+
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
