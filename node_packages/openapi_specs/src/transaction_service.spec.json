@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a transaction and block services",
-        "version": "1.9.1",
+        "version": "1.11.0",
         "title": "Transaction service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -277,7 +277,8 @@
                         "type": "string"
                     },
                     "to": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Can be null if contract creation"
                     },
                     "value": {
                         "type": "string"
@@ -301,6 +302,10 @@
                         "type": "object",
                         "description": "The block which contains this transaction",
                         "$ref": "#/components/schemas/block"
+                    },
+                    "creates": {
+                        "type": "string",
+                        "description": "The address of the contract created, if the transaction was a contract creation, otherwise null"
                     },
                     "fromUserInfo": {
                         "$ref": "#/components/schemas/user-info"

@@ -19,6 +19,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/OpenKitten/MongoKitten.git", from: "6.6.4"),
+        .package(url: "https://github.com/Flight-School/AnyCodable", from: "0.6.0"),
         .package(path: "../common"),
     ],
     targets: [
@@ -29,6 +30,7 @@ let package = Package(
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "common", package: "common"),
                 .product(name: "MongoKitten", package: "MongoKitten"),
+                .product(name: "AnyCodable", package: "AnyCodable")
             ]
         ),
         .testTarget(

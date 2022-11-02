@@ -1,0 +1,588 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "This belongs part of ETDStats microservices which will provide a analytics service",
+        "version": "1.11.0",
+        "title": "Contract service",
+        "termsOfService": "https://github.com/etherdata-blockchain"
+    },
+    "tags": [
+        {
+            "name": "contract",
+            "description": "Get contract details"
+        },
+        {
+            "name": "health",
+            "description": "Get server's health info"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.etdchain.net/stats/contract",
+            "description": "Production server"
+        },
+        {
+            "url": "https://api.debugchain.net/stats/contract",
+            "description": "Testing server"
+        }
+    ],
+    "paths": {
+        "/contract": {
+            "post": {
+                "tags": [
+                    "contract"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": [
+                            "write"
+                        ]
+                    }
+                ],
+                "summary": "Create a new contract",
+                "description": "Will returns the contract result from server",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/contract"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/contract"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "contract"
+                ],
+                "summary": "Get list of contracts",
+                "description": "Will returns the contracts info from server",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        },
+                        "description": "Page number"
+                    },
+                    {
+                        "in": "query",
+                        "name": "per",
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "metadata": {
+                                            "$ref": "#/components/schemas/metadata"
+                                        },
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/contract"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/contract/{contract_address}": {
+            "get": {
+                "tags": [
+                    "contract"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "contract_address",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The contract address"
+                    }
+                ],
+                "summary": "Get contract details",
+                "description": "Will returns the contract result from server",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/contract"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string",
+                                                    "format": "uuid",
+                                                    "description": "The contract id",
+                                                    "example": "7e6b7e6b-7e6b-7e6b-7e6b-7e6b7e6b7e6b"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "contract"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "contract_address",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The contract address"
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": [
+                            "write"
+                        ]
+                    }
+                ],
+                "summary": "Update a contract",
+                "description": "Will returns the contract result from server",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/contract"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/contract"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/event": {
+            "post": {
+                "tags": [
+                    "contract"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": [
+                            "write"
+                        ]
+                    }
+                ],
+                "summary": "Create a new event",
+                "description": "Will returns the event result from server",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "lastScannedBlock": {
+                                        "type": "integer",
+                                        "description": "The last scanned block",
+                                        "example": 1000000
+                                    },
+                                    "events": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/components/schemas/event"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/event"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "contract"
+                ],
+                "summary": "Get events details",
+                "description": "Will returns the event result from server",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "contract_id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "The contract id"
+                    },
+                    {
+                        "in": "query",
+                        "name": "event_name",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false,
+                        "description": "The event name"
+                    },
+                    {
+                        "in": "query",
+                        "name": "from",
+                        "description": "Filtered by transaction from address",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "to",
+                        "description": "Filtered by transaction to address",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "block",
+                        "description": "Filtered by block hash",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "per",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "metadata": {
+                                            "$ref": "#/components/schemas/metadata"
+                                        },
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/event"
+                                                    },
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "format": "uuid",
+                                                                "description": "The event id",
+                                                                "example": "7e6b7e6b-7e6b-7e6b-7e6b-7e6b7e6b7e6b"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "tags": [
+                    "health"
+                ],
+                "summary": "Get server's health info",
+                "description": "Will return a error reason if not healthy",
+                "responses": {
+                    "200": {
+                        "description": "Server is up",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server is down",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "error": {
+                "type": "object",
+                "required": [
+                    "reason"
+                ],
+                "properties": {
+                    "services": {
+                        "type": "array",
+                        "title": "Services",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "ok",
+                                        "warning",
+                                        "error"
+                                    ]
+                                },
+                                "total": {
+                                    "type": "number",
+                                    "example": 11,
+                                    "description": "Total number of child services"
+                                },
+                                "numHealthyServices": {
+                                    "type": "number",
+                                    "example": 10,
+                                    "description": "Number of services in healthy condition"
+                                },
+                                "isLeaf": {
+                                    "type": "boolean",
+                                    "example": true,
+                                    "description": "If this is the leaf node (no children)"
+                                },
+                                "services": {
+                                    "type": "array",
+                                    "minItems": 0,
+                                    "items": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/error"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "status",
+                                "total",
+                                "numHealthyServices",
+                                "isLeaf",
+                                "services"
+                            ]
+                        }
+                    }
+                }
+            },
+            "metadata": {
+                "type": "object",
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "description": "Total number of contracts"
+                    },
+                    "per": {
+                        "type": "integer",
+                        "description": "Number of contracts per page"
+                    },
+                    "page": {
+                        "type": "integer",
+                        "description": "Current page"
+                    }
+                }
+            },
+            "contract": {
+                "type": "object",
+                "required": [
+                    "source",
+                    "abi",
+                    "bytecode",
+                    "compiler",
+                    "address"
+                ],
+                "properties": {
+                    "source": {
+                        "type": "string",
+                        "description": "Souce code of the contract"
+                    },
+                    "abi": {
+                        "type": "object",
+                        "description": "The ABI of the contract"
+                    },
+                    "bytecode": {
+                        "type": "string",
+                        "description": "The bytecode of the contract"
+                    },
+                    "compiler": {
+                        "type": "string",
+                        "description": "The compiler version of the contract"
+                    },
+                    "address": {
+                        "type": "string",
+                        "description": "The address of the contract"
+                    },
+                    "lastScannedBlock": {
+                        "type": "integer",
+                        "description": "The last scanned block of the contract",
+                        "default": 0
+                    }
+                }
+            },
+            "event": {
+                "type": "object",
+                "properties": {
+                    "contractAddress": {
+                        "type": "string",
+                        "description": "The contract address"
+                    },
+                    "blockNumber": {
+                        "type": "string",
+                        "description": "The block number of the event"
+                    },
+                    "blockHash": {
+                        "type": "string",
+                        "description": "The block hash of the event"
+                    },
+                    "blockTimestamp": {
+                        "type": "string",
+                        "description": "The block timestamp of the event"
+                    },
+                    "transaction": {
+                        "type": "object",
+                        "properties": {
+                            "hash": {
+                                "type": "string",
+                                "description": "The transaction hash of the event"
+                            },
+                            "index": {
+                                "type": "string",
+                                "description": "The transaction index of the event"
+                            },
+                            "from": {
+                                "type": "string",
+                                "description": "The transaction from of the event"
+                            },
+                            "to": {
+                                "type": "string",
+                                "description": "The transaction to of the event"
+                            },
+                            "value": {
+                                "type": "string",
+                                "description": "The transaction value of the event"
+                            }
+                        }
+                    },
+                    "event": {
+                        "type": "string",
+                        "description": "The event name"
+                    },
+                    "data": {
+                        "type": "array",
+                        "description": "The event data",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "The event data name"
+                                },
+                                "value": {
+                                    "type": "string",
+                                    "description": "The event data value"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "description": "The event data type"
+                                },
+                                "indexed": {
+                                    "type": "boolean",
+                                    "description": "The event data indexed"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

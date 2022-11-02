@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "anycodable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Flight-School/AnyCodable",
+      "state" : {
+        "revision" : "862808b2070cd908cb04f9aafe7de83d35f81b05",
+        "version" : "0.6.7"
+      }
+    },
+    {
       "identity" : "async-http-client",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swift-server/async-http-client.git",
       "state" : {
-        "revision" : "0f21b44d1ad5227ccbaa073aa40cd37eb8bbc337",
-        "version" : "1.11.0"
+        "revision" : "794dc9d42720af97cedd395e8cd2add9173ffd9a",
+        "version" : "1.11.1"
       }
     },
     {
@@ -16,6 +25,15 @@
       "state" : {
         "revision" : "017dc7da68c1ec9f0f46fcd1a8002d14a5662732",
         "version" : "1.12.0"
+      }
+    },
+    {
+      "identity" : "bson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OpenKitten/BSON.git",
+      "state" : {
+        "revision" : "40956d97c36aa166b8baea5add897864e1568a78",
+        "version" : "7.0.29"
       }
     },
     {
@@ -41,8 +59,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/fluent-kit.git",
       "state" : {
-        "revision" : "118870c902b078fa9ccbea240938c72e65cf87e2",
-        "version" : "1.28.0"
+        "revision" : "2b3ac0556740ea8d68f8616917daf64338d54c1b",
+        "version" : "1.29.2"
+      }
+    },
+    {
+      "identity" : "fluent-mongo-driver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/fluent-mongo-driver.git",
+      "state" : {
+        "revision" : "e96cf416e4a224cf9f104c930abaa8b69fb4d8cd",
+        "version" : "1.1.2"
       }
     },
     {
@@ -64,12 +91,30 @@
       }
     },
     {
+      "identity" : "mongokitten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OpenKitten/MongoKitten.git",
+      "state" : {
+        "revision" : "c3ca3bec61fec81c06d2275df8cde2dee72d1cab",
+        "version" : "6.7.5"
+      }
+    },
+    {
       "identity" : "multipart-kit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/vapor/multipart-kit.git",
       "state" : {
         "revision" : "0d55c35e788451ee27222783c7d363cb88092fab",
         "version" : "4.5.2"
+      }
+    },
+    {
+      "identity" : "niodns",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OpenKitten/NioDNS.git",
+      "state" : {
+        "revision" : "71cfedd3310d59b7d19e290176dd2a1a605a4252",
+        "version" : "2.0.7"
       }
     },
     {
