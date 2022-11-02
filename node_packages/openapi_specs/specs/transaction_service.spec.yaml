@@ -124,6 +124,7 @@ components:
           type: string
         to:
           type: string
+          description: "Can be null if contract creation"
         value:
           type: string
         gasPrice:
@@ -140,6 +141,9 @@ components:
           type: object
           description: The block which contains this transaction
           $ref: "#/components/schemas/block"
+        creates:
+          type: string
+          description: The address of the contract created, if the transaction was a contract creation, otherwise null
         fromUserInfo:
           $ref: "user_service.spec.yaml#/components/schemas/user-info"
         toUserInfo:
