@@ -62,6 +62,7 @@ export function AuthenticationProvider({ children }: any) {
     isSignedIn: signedIn,
     signIn,
     signOut,
+    accessToken,
   };
 
   return (

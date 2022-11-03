@@ -9,6 +9,14 @@ import model
 import Fluent
 
 extension ContractController {
+    struct SearchQuery: Content {
+        let keyword: String
+    }
+    
+    struct ListQuery: Content {
+        var showAbi: Bool = false
+    }
+    
     func health(req: Request) async throws -> Health {
         return await self.health()
     }
@@ -17,7 +25,27 @@ extension ContractController {
      List contracts with pagination
      */
     func listContracts(req: Request) async throws -> Page<ContractListDto> {
+        let query = try req.query.decode(ListQuery.self)
         let data = try await ContractListDto.query(on: req.db).paginate(for: req)
+        if !query.showAbi {
+            let items = data.items.map{item in
+                item.abi = nil
+                return item
+            }
+            let returnedData: Page<ContractListDto> = Page(items: items, metadata: data.metadata)
+            return returnedData
+        }
+        
+        return data
+    }
+    
+    /**
+     Search contracts based on contract address
+     */
+    func search(req: Request) async throws -> [ContractListDto]{
+        let payload = try req.jwt.verify(as: WalletAuthenticationPayload.self)
+        let query = try req.query.decode(SearchQuery.self)
+        let data = try await ContractListDto.query(on: req.db).filter(\.$address ~~ query.keyword).filter(\.$creator == payload.userId.lowercased()).limit(10).all()
         return data
     }
     

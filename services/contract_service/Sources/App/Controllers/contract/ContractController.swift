@@ -13,6 +13,7 @@ struct ContractController: RouteCollection, HealthProtocol {
         routes.get("stats", "contract", "contract", use: self.listContracts)
         routes.get("stats", "contract", "health", use: self.health)
         routes.get("stats", "contract", "contract", ":contract_address", use: self.getContractByAddress)
+        routes.get("stats", "contract", "contract", "search", use: self.search)
     }
 
 }

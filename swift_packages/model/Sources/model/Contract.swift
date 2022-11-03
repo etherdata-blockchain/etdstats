@@ -63,12 +63,16 @@ public final class ContractUpdateDto: Model, ContractUpdateProtocol {
     @Field(key: "address")
     public var address: String?
     
-    public init(id: ObjectId? = nil, name: String? = nil, compiler: String? = nil, source: String? = nil, abi: AnyCodable? = nil) {
+    @Field(key: "creator")
+    public var creator: String?
+    
+    public init(id: ObjectId? = nil, name: String? = nil, compiler: String? = nil, source: String? = nil, abi: AnyCodable? = nil, creator: String? = nil) {
         self.id = id
         self.name = name
         self.compiler = compiler
         self.source = source
         self.abi = abi
+        self.creator = creator
     }
 }
 
@@ -100,6 +104,9 @@ public final class ContractListDto: Model, ContractListProtocol {
     
     @Field(key: "lastScannedBlock")
     public var lastScannedBlock: Int
+    
+    @Field(key: "abi")
+    public var abi: Document?
 }
 
 

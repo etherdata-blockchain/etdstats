@@ -94,7 +94,12 @@ export function ConnectWalletButton({
         >
           My Account
         </MenuItem>
-        <MenuItem onClick={() => router.push("/contract")}>
+        <MenuItem
+          onClick={() => {
+            router.push("/contract/create");
+            setAnchorEl(null);
+          }}
+        >
           Upload a contract
         </MenuItem>
         {/* <MenuItem

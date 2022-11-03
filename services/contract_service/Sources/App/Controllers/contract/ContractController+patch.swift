@@ -15,7 +15,8 @@ extension ContractController {
      Create a contract
      */
     func updateContract(req: Request) async throws -> Response {
-        try req.jwt.verify(as: WalletAuthenticationPayload.self)
+        //TODO: add verify user's address match creator's address in the future
+        let payload = try req.jwt.verify(as: WalletAuthenticationPayload.self)
         
         guard let contractAddress = req.parameters.get("contract_address") else {
             throw Abort(.badRequest, reason: "Missing contract address")
@@ -42,6 +43,7 @@ extension ContractController {
         
         try await query
             .filter(\.$address == contractAddress)
+            .filter(\.$creator == payload.userId.lowercased())
             .update()
         return Response(status: .accepted)
     }

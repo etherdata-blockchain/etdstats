@@ -1,18 +1,19 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
+import { MetaMaskProvider } from "metamask-react";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { NextLinearProgressBar } from "ui";
 import Layout from "../lib/Layout";
 import Menu from "../lib/Menu";
-import { MetaMaskProvider } from "metamask-react";
-import { NextLinearProgressBar } from "ui";
-import { deepGreen } from "../lib/utils/colors";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { useEffect, useState } from "react";
-import { initializeFirebase } from "../lib/models/Firebase";
-import Head from "next/head";
 import { AuthenticationProvider } from "../lib/models/AuthenticationContext";
+import { initializeFirebase } from "../lib/models/Firebase";
+import { deepGreen } from "../lib/utils/colors";
+import { SnackbarProvider } from "notistack";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient, setQueryClient] = useState<QueryClient>(
@@ -100,30 +101,32 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <MetaMaskProvider>
-        <AuthenticationProvider>
-          <ThemeProvider theme={theme}>
-            <NextLinearProgressBar
-              style={{
-                zIndex: 10000,
-                position: "fixed",
-                top: 0,
-                width: "100vw",
-              }}
-            />
-            <Head>
-              <title>ETDStats</title>
-            </Head>
-            <Layout menu={<Menu />}>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
-        </AuthenticationProvider>
-      </MetaMaskProvider>
+    <SnackbarProvider>
+      <QueryClientProvider client={queryClient}>
+        <MetaMaskProvider>
+          <AuthenticationProvider>
+            <ThemeProvider theme={theme}>
+              <NextLinearProgressBar
+                style={{
+                  zIndex: 10000,
+                  position: "fixed",
+                  top: 0,
+                  width: "100vw",
+                }}
+              />
+              <Head>
+                <title>ETDStats</title>
+              </Head>
+              <Layout menu={<Menu />}>
+                <Component {...pageProps} />
+              </Layout>
+            </ThemeProvider>
+          </AuthenticationProvider>
+        </MetaMaskProvider>
 
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </SnackbarProvider>
   );
 }
 
