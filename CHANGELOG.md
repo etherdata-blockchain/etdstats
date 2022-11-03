@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.13.0 (2022-11-03)
+
+
+### Features
+
+* add Contract UI ([#62](https://github.com/etherdata-blockchain/etdstats/issues/62)) ([27711a1](https://github.com/etherdata-blockchain/etdstats/commit/27711a1154348106489584e5476ef75fb83695de))
+
 # 1.12.0 (2022-11-02)
 
 
