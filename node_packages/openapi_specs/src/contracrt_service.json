@@ -28,42 +28,6 @@
     ],
     "paths": {
         "/contract": {
-            "post": {
-                "tags": [
-                    "contract"
-                ],
-                "security": [
-                    {
-                        "bearerAuth": [
-                            "write"
-                        ]
-                    }
-                ],
-                "summary": "Create a new contract",
-                "description": "Will returns the contract result from server",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/contract"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "201": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/contract"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
             "get": {
                 "tags": [
                     "contract"
@@ -87,6 +51,15 @@
                             "type": "integer",
                             "default": 10
                         }
+                    },
+                    {
+                        "in": "query",
+                        "name": "showAbi",
+                        "schema": {
+                            "type": "string",
+                            "default": false
+                        },
+                        "description": "Show contract abi in the response"
                     }
                 ],
                 "responses": {
@@ -103,7 +76,30 @@
                                         "items": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/contract"
+                                                "type": "object",
+                                                "properties": {
+                                                    "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "blockHash": {
+                                                        "type": "string"
+                                                    },
+                                                    "creator": {
+                                                        "type": "string"
+                                                    },
+                                                    "transactionHash": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastScannedBlock": {
+                                                        "type": "integer"
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -138,22 +134,24 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "allOf": [
-                                        {
-                                            "$ref": "#/components/schemas/contract"
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
                                         },
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "id": {
-                                                    "type": "string",
-                                                    "format": "uuid",
-                                                    "description": "The contract id",
-                                                    "example": "7e6b7e6b-7e6b-7e6b-7e6b-7e6b7e6b7e6b"
-                                                }
-                                            }
+                                        "address": {
+                                            "type": "string"
+                                        },
+                                        "source": {
+                                            "type": "string"
+                                        },
+                                        "abi": {
+                                            "type": "array"
+                                        },
+                                        "compiler": {
+                                            "type": "string"
                                         }
-                                    ]
+                                    }
                                 }
                             }
                         }
@@ -505,6 +503,22 @@
                         "type": "integer",
                         "description": "The last scanned block of the contract",
                         "default": 0
+                    },
+                    "transactionHash": {
+                        "type": "string",
+                        "description": "The transaction hash of the contract"
+                    },
+                    "blockHash": {
+                        "type": "string",
+                        "description": "The block hash of the contract"
+                    },
+                    "creator": {
+                        "type": "string",
+                        "description": "The creator of the contract"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the contract"
                     }
                 }
             },

@@ -33,7 +33,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function index() {
+export default function Index() {
   const { status } = useMetaMask();
   const [value, setValue] = useState(0);
 

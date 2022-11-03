@@ -7,6 +7,7 @@ import {
   NextCirculatProgressBar,
   UniversalSearchButton,
 } from "ui";
+import useAuthentication from "./hooks/useAuthentication";
 import { useBlockInfo } from "./hooks/useBlockInfo";
 import useSearch from "./hooks/useSearch";
 import { DrawerWidth } from "./settings/ui";
@@ -17,6 +18,7 @@ export default function Layout(props: {
 }) {
   const router = useRouter();
   const { search: searchResult } = useSearch();
+  const { signIn, signOut, isSignedIn } = useAuthentication();
   const { blockInfoResult } = useBlockInfo({});
 
   const search = useCallback(
@@ -60,6 +62,9 @@ export default function Layout(props: {
               <ConnectWalletButton
                 chainId={blockInfoResult.data!.chainId}
                 rpc={blockInfoResult.data!.rpc}
+                signIn={signIn}
+                signOut={signOut}
+                isSignedIn={isSignedIn}
               />
             )}
           </Stack>

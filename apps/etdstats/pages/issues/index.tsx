@@ -6,7 +6,7 @@ import { useState } from "react";
 import TicketTable from "../../lib/components/table/TicketTable";
 import useTicket, { Status } from "../../lib/hooks/useTicket";
 
-export default function index() {
+export default function Index() {
   const [value, setValue] = useState<Status>("open");
 
   const router = useRouter();

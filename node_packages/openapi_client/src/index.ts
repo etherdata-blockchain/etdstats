@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export { TransactionService } from "./transaction_service";
 export type {
   TransactionResult,
@@ -13,5 +15,8 @@ export type { AnalyticsResponse } from "./analytics_service";
 
 export { BlockInfoService } from "./block_info_service";
 export type { BlockInfoResponse } from "./block_info_service";
+
+export { ContractService } from "./contract_service";
+export type { Contract } from "./contract_service";
 
 export type { UserInfo } from "./user_service";

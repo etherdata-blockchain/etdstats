@@ -1,4 +1,4 @@
-import React from "react";
+import { HelpCenter } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import {
@@ -15,9 +15,10 @@ import {
 import { useMetaMask } from "metamask-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MenuSubHeader } from "ui";
-import { HelpCenter, QuestionMark } from "@mui/icons-material";
+import useAuthentication from "./hooks/useAuthentication";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 
 const selectedColor = "rgb(0, 171, 85)";
 
@@ -40,6 +41,11 @@ const menus: Menu[] = [
     href: "/tx",
   },
   {
+    name: "Contract",
+    icon: <StickyNote2Icon />,
+    href: "/contract",
+  },
+  {
     name: "Issues",
     icon: <HelpCenter />,
     href: "/issues",
@@ -49,6 +55,7 @@ const menus: Menu[] = [
 
 export default function Menu() {
   const router = useRouter();
+  const { isSignedIn } = useAuthentication();
   const { account } = useMetaMask();
   const [currentPath, setCurrentPath] = useState(
     `/${router.pathname.split("/")[1]}`
@@ -78,7 +85,7 @@ export default function Menu() {
       </Box>
       <MenuSubHeader title="General" />
       {menus
-        .filter((menu) => (menu.loginRequired ? account : true))
+        .filter((menu) => (menu.loginRequired ? isSignedIn : true))
         .map((menu) => {
           const isSelected = currentPath === menu.href;
           const icon = React.cloneElement(menu.icon, {
@@ -88,7 +95,11 @@ export default function Menu() {
           });
 
           return (
-            <Link href={menu.href} key={menu.href}>
+            <Link
+              href={menu.href}
+              key={menu.href}
+              style={{ textDecoration: "none", color: "gray" }}
+            >
               <ListItemButton
                 selected={isSelected}
                 sx={{

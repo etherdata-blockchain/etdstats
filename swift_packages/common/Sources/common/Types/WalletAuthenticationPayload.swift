@@ -21,7 +21,7 @@ public struct WalletAuthenticationPayload: JWTPayload {
     /**
      User's verified address
      */
-    var userId: String
+    public var userId: String
     
 
     public func verify(using signer: JWTSigner) throws {

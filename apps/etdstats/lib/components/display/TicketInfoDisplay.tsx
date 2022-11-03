@@ -24,6 +24,10 @@ export default function TicketDisplay({ relatedHashId }: Props) {
   const { account } = useMetaMask();
   const { createTicket } = useTicket({});
 
+  const onSubmit = useCallback(async (data: Ticket) => {
+    await createTicket(data);
+  }, []);
+
   if (!account) {
     return <div>Please connect to MetaMask</div>;
   }
@@ -38,10 +42,6 @@ export default function TicketDisplay({ relatedHashId }: Props) {
     status: "open",
     checkedCount: 1,
   };
-
-  const onSubmit = useCallback(async (data: Ticket) => {
-    await createTicket(data);
-  }, []);
 
   return (
     <Box>
