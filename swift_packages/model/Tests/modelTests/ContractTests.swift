@@ -95,7 +95,7 @@ final class ContractTests: XCTestCase {
         """.data(using: .utf8)!
         
         let decoder = JSONDecoder()
-        let contract = try! decoder.decode(CreateContractDto.self, from: json)
+        let contract = try! decoder.decode(ContractUpdateDto.self, from: json)
         XCTAssertEqual(contract.address, "abc")
         XCTAssertNotNil(contract.abi)
         

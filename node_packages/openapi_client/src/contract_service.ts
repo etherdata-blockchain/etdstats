@@ -7,6 +7,9 @@ export interface Contract {
   bytecode: string;
   address: string;
   lastScannedBlock: number;
+  creator: string;
+  transactionHash: string;
+  blockHash: string;
 }
 
 export interface Pagination<T> {

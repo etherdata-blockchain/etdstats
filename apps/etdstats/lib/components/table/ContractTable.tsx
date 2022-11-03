@@ -7,9 +7,8 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { GridColDef } from "@mui/x-data-grid";
-import { Chip, StyledDataGrid } from "ui";
+import { StyledDataGrid } from "ui";
 
 interface Props {
   contracts: any[];
@@ -30,7 +29,9 @@ const columns: GridColDef[] = [
     flex: 4,
     renderCell: (value) => (
       <Link href={value.value ? `/contract/${value.value}` : undefined}>
-        {value.row.name ?? value.value}
+        {value.row.name !== undefined && value.row.name.length > 0
+          ? value.row.name
+          : value.value}
       </Link>
     ),
   },
