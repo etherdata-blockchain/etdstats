@@ -9,11 +9,10 @@ struct ContractController: RouteCollection, HealthProtocol {
     }
 
     func boot(routes: RoutesBuilder) throws {
-        routes.on(.POST, "stats", "contract", "contract", body: .collect(maxSize: "20mb"), use: self.createContract)
+        routes.on(.PATCH, "stats", "contract", "contract", ":contract_address", body: .collect(maxSize: "20mb"), use: self.updateContract)
         routes.get("stats", "contract", "contract", use: self.listContracts)
         routes.get("stats", "contract", "health", use: self.health)
         routes.get("stats", "contract", "contract", ":contract_address", use: self.getContractByAddress)
-        routes.patch("stats", "contract", "contract", ":contract_address", use: self.updateContract)
     }
 
 }

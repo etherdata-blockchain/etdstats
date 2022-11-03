@@ -16,8 +16,8 @@ extension ContractController {
     /**
      List contracts with pagination
      */
-    func listContracts(req: Request) async throws -> Page<Contract> {
-        let data = try await Contract.query(on: req.db).paginate(for: req)
+    func listContracts(req: Request) async throws -> Page<ContractListDto> {
+        let data = try await ContractListDto.query(on: req.db).paginate(for: req)
         return data
     }
     
