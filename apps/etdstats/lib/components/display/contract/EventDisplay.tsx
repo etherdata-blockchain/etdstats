@@ -23,6 +23,7 @@ import {
   bindPopper,
 } from "material-ui-popup-state/hooks";
 import { bindPopover } from "material-ui-popup-state";
+import { useMemo } from "react";
 
 interface Props {
   events: Event[];
@@ -140,6 +141,14 @@ export function EventDataField({
   value: string;
   type: string;
 }) {
+  const displayValue = useMemo(() => {
+    if (type === "uint256") {
+      return Number(value);
+    }
+
+    return value;
+  }, [value, type]);
+
   return (
     <ListItem>
       <ListItemText
@@ -149,7 +158,7 @@ export function EventDataField({
             <Chip label={type} />
           </Stack>
         }
-        secondary={value}
+        secondary={displayValue}
       />
     </ListItem>
   );

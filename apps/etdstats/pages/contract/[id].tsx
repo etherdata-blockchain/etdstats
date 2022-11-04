@@ -17,6 +17,7 @@ import { Contract, ContractService, Event, Pagination } from "openapi_client";
 import { useCallback, useState } from "react";
 import { ListItemButton } from "ui";
 import ABIDisplay from "../../lib/components/display/contract/ABIDisplay";
+import ByteCodeDisplay from "../../lib/components/display/contract/ByteCodeDisplay";
 import EventDisplay from "../../lib/components/display/contract/EventDisplay";
 import SourceDisplay from "../../lib/components/display/contract/SourceDisplay";
 
@@ -112,6 +113,7 @@ const Index: NextPage<Props> = ({ contract, events }) => {
           <Tab label="Events" value={"events"}></Tab>
           <Tab label="Source" value={"source"}></Tab>
           <Tab label="ABI" value={"abi"}></Tab>
+          <Tab label="ByteCode" value={"bytecode"}></Tab>
         </Tabs>
         <CardContent>
           {value === "events" && (
@@ -126,6 +128,9 @@ const Index: NextPage<Props> = ({ contract, events }) => {
           )}
           {value === "source" && <SourceDisplay source={contract.source} />}
           {value === "abi" && <ABIDisplay abi={contract.abi} />}
+          {value === "bytecode" && (
+            <ByteCodeDisplay bytecode={contract.bytecode} />
+          )}
         </CardContent>
       </Card>
     </Stack>
