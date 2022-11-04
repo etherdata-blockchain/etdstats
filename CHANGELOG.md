@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.2 (2022-11-04)
+
+
+### Bug Fixes
+
+* add event display ([#64](https://github.com/etherdata-blockchain/etdstats/issues/64)) ([95b9cd7](https://github.com/etherdata-blockchain/etdstats/commit/95b9cd7e7ae65bbc1dfa4a4a8b678130569a22cd))
+
 ## 1.13.1 (2022-11-04)
 
 
