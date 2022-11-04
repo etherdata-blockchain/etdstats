@@ -10,6 +10,7 @@ import {
 import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
 import React, { useCallback } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 interface Props {
   chainId: string;
@@ -72,12 +73,14 @@ export function ConnectWalletButton({
     <>
       <Fade in={status !== "unavailable"}>
         <Tooltip title={status}>
-          <IconButton
-            color={isSignedIn ? "success" : "default"}
-            onClick={onClick}
-          >
-            {loading ? <CircularProgress /> : <AccountBalanceWalletIcon />}
-          </IconButton>
+          <LoadingButton loading={loading}>
+            <IconButton
+              color={isSignedIn ? "success" : "default"}
+              onClick={onClick}
+            >
+              <AccountBalanceWalletIcon />
+            </IconButton>
+          </LoadingButton>
         </Tooltip>
       </Fade>
       <Menu

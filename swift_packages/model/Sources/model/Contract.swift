@@ -131,7 +131,7 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     @OptionalField(key: "source")
     public var source: String?
 
-    @Field(key: "abi")
+    @OptionalField(key: "abi")
     public var abi: Document?
 
     @Field(key: "byteCode")

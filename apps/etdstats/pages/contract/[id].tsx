@@ -9,23 +9,23 @@ import {
   Tabs,
   Typography,
 } from "@mui/material";
-import dayjs from "dayjs";
-import { GetServerSideProps, NextPage } from "next";
-import { ListItemButton } from "ui";
-import Image from "next/image";
-import { Contract, ContractService } from "openapi_client";
 import axios from "axios";
+import { GetServerSideProps, NextPage } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { Contract, ContractService, Event, Pagination } from "openapi_client";
 import { useCallback, useState } from "react";
+import { ListItemButton } from "ui";
 import ABIDisplay from "../../lib/components/display/contract/ABIDisplay";
-import SourceDisplay from "../../lib/components/display/contract/SourceDisplay";
 import EventDisplay from "../../lib/components/display/contract/EventDisplay";
+import SourceDisplay from "../../lib/components/display/contract/SourceDisplay";
 
 interface Props {
   contract: Contract;
+  events: Pagination<Event>;
 }
 
-const Index: NextPage<Props> = ({ contract }) => {
+const Index: NextPage<Props> = ({ contract, events }) => {
   const [value, setValue] = useState("events");
 
   const router = useRouter();
@@ -114,7 +114,16 @@ const Index: NextPage<Props> = ({ contract }) => {
           <Tab label="ABI" value={"abi"}></Tab>
         </Tabs>
         <CardContent>
-          {value === "events" && <EventDisplay />}
+          {value === "events" && (
+            <EventDisplay
+              total={Math.ceil(events.metadata.total / events.metadata.per)}
+              page={events.metadata.page}
+              events={events.items}
+              onPageChange={(page) => {
+                router.push(`/contract/${contract.address}?page=${page}`);
+              }}
+            />
+          )}
           {value === "source" && <SourceDisplay source={contract.source} />}
           {value === "abi" && <ABIDisplay abi={contract.abi} />}
         </CardContent>
@@ -134,10 +143,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   });
 
   const contract = await service.getContract(context.params?.id as string);
+  const events = await service.getEventsByContract(
+    context.params?.id as string,
+    context.query?.page as string
+  );
 
   return {
     props: {
       contract: JSON.parse(JSON.stringify(contract)),
+      events: JSON.parse(JSON.stringify(events)),
     },
   };
 };

@@ -12,6 +12,21 @@ export interface Contract {
   blockHash: string;
 }
 
+export interface Event {
+  blockNumber: string;
+  blockHash: string;
+  blockTimestamp: string;
+  address: string;
+  transaction: {
+    hash: string;
+    index: string;
+    from: string;
+    to: string;
+    value: string;
+  };
+  event: string;
+  data: { name: string; value: string; indexed: boolean; type: string }[];
+}
 export interface Pagination<T> {
   items: T[];
   metadata: {
@@ -55,6 +70,16 @@ export class ContractService extends Client {
           Authorization: `Bearer ${token}`,
         },
       }
+    );
+    return response.data;
+  }
+
+  async getEventsByContract(
+    address: string,
+    page: any = 1
+  ): Promise<Pagination<Event>> {
+    let response = await this.client.get(
+      `${this.baseUrl}/event/${address}?page=${page}`
     );
     return response.data;
   }
