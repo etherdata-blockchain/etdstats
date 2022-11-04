@@ -87,7 +87,7 @@ public final class ContractListDto: Model, ContractListProtocol {
     @ID(custom: "_id")
     public var id: ObjectId?
     
-    @Field(key: "name")
+    @OptionalField(key: "name")
     public var name: String?
     
     @Field(key: "creator")
@@ -105,7 +105,7 @@ public final class ContractListDto: Model, ContractListProtocol {
     @Field(key: "lastScannedBlock")
     public var lastScannedBlock: Int
     
-    @Field(key: "abi")
+    @OptionalField(key: "abi")
     public var abi: Document?
 }
 
@@ -116,7 +116,7 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     @ID(custom: "_id")
     public var id: ObjectId?
     
-    @Field(key: "name")
+    @OptionalField(key: "name")
     public var name: String?
     
     @Field(key: "creator")
@@ -128,7 +128,7 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     @Field(key: "blockHash")
     public var blockHash: String
 
-    @Field(key: "source")
+    @OptionalField(key: "source")
     public var source: String?
 
     @Field(key: "abi")
@@ -137,7 +137,7 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     @Field(key: "byteCode")
     public var bytecode: String
 
-    @Field(key: "compiler")
+    @OptionalField(key: "compiler")
     public var compiler: String?
 
     @Field(key: "address")
@@ -151,7 +151,8 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
 
     public init() {}
 
-    init(id: ObjectId? = nil, source: String, abi: Document, bytecode: String, compiler: String, address: String, lastScannedBlock: Int) {
+    init(id: ObjectId? = nil, name: String? ,source: String, abi: Document, bytecode: String, compiler: String, address: String, lastScannedBlock: Int) {
+        self.name = name
         self.id = id
         self.source = source
         self.abi = abi
