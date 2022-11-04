@@ -48,23 +48,26 @@ public final class ContractUpdateDto: Model, ContractUpdateProtocol {
     @ID(custom: "_id")
     public var id: ObjectId?
     
-    @Field(key: "name")
+    @OptionalField(key: "name")
     public var name: String?
     
-    @Field(key: "compiler")
+    @OptionalField(key: "compiler")
     public var compiler: String?
     
-    @Field(key: "source")
+    @OptionalField(key: "source")
     public var source: String?
     
-    @Field(key: "abi")
+    @OptionalField(key: "abi")
     public var abi: AnyCodable?
     
-    @Field(key: "address")
+    @OptionalField(key: "address")
     public var address: String?
     
-    @Field(key: "creator")
+    @OptionalField(key: "creator")
     public var creator: String?
+    
+    @Field(key: "lastScannedBlock")
+    public var lastScannedBlock: Int
     
     public init(id: ObjectId? = nil, name: String? = nil, compiler: String? = nil, source: String? = nil, abi: AnyCodable? = nil, creator: String? = nil) {
         self.id = id

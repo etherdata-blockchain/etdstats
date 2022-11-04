@@ -34,7 +34,7 @@ extension ContractController {
         }
         
         if let abi = contractData.abi {
-            query = query.set(\.$abi, to: abi)
+            query = query.set(\.$abi, to: abi).set(\.$lastScannedBlock, to: 0)
         }
         
         if let source = contractData.source {
