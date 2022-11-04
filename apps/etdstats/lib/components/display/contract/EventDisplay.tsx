@@ -56,7 +56,7 @@ const columns: GridColDef[] = [
   {
     field: "blockNumber",
     headerName: "Block Number",
-    flex: 4,
+    flex: 3,
     renderCell: (value) => (
       <Link href={`/tx/${value.value}`}>{Number(value.value)}</Link>
     ),
@@ -64,20 +64,20 @@ const columns: GridColDef[] = [
   {
     field: "data",
     headerName: "Data",
-    flex: 4,
+    flex: 5,
     renderCell: (value) => <EventDataList items={value.value} id={value.id} />,
   },
 
-  // {
-  //   field: "transaction",
-  //   headerName: "From",
-  //   flex: 4,
-  //   renderCell: (value) => (
-  //     <Link href={value.value ? `/tx/${value.value}` : undefined}>
-  //       {value.value}
-  //     </Link>
-  //   ),
-  // },
+  {
+    field: "transaction",
+    headerName: "From",
+    flex: 5,
+    renderCell: (value) => (
+      <Link href={value.value ? `/tx/${value.value.from}` : undefined}>
+        {value.value.from}
+      </Link>
+    ),
+  },
 ];
 
 export default function EventDisplay({
@@ -119,8 +119,9 @@ export function EventDataList({ items, id }: any) {
       <Button onClick={(e) => popupState.open(e)}>Show Data</Button>
       <Popover {...bindPopover(popupState)}>
         <List>
-          {items.map((item: any) => (
+          {items.map((item: any, index: number) => (
             <EventDataField
+              key={`event-${id}-${index}`}
               name={item.name}
               value={item.value}
               type={item.type}

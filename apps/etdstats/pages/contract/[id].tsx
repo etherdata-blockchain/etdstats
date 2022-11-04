@@ -99,6 +99,13 @@ const Index: NextPage<Props> = ({ contract, events }) => {
                 onClick={() => navTo(contract.blockHash)}
               />
             </Grid>
+            <Grid item xs={12} md={6}>
+              <ListItemButton
+                data-testid="events"
+                title="#Events"
+                subtitle={`${events.metadata.total}`}
+              />
+            </Grid>
           </Grid>
         </CardContent>
       </Card>
