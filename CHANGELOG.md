@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.1 (2022-11-04)
+
+
+### Bug Fixes
+
+* contract's model ([#63](https://github.com/etherdata-blockchain/etdstats/issues/63)) ([1470ed5](https://github.com/etherdata-blockchain/etdstats/commit/1470ed5a94b1fcc89e6f631bec19dab47cbbb467))
+
 # 1.13.0 (2022-11-03)
 
 
