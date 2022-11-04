@@ -229,9 +229,9 @@ const Index: NextPage = () => {
                 </Box>
                 <Box display={"flex"} alignItems="flex-start" width={"100%"}>
                   <Typography variant="body2" color={"gray"} maxWidth={"70%"}>
-                    Changes may take up to 10 minutes to take effect. This
-                    functionality is currently in beta and data stored on the
-                    blockchain may be lost.
+                    The ABI is a JSON array of objects that describe the Smart
+                    Contract. We need this value in order to run the events
+                    fetcher.
                   </Typography>
                 </Box>
                 <Stack width="100%" alignItems="flex-end">

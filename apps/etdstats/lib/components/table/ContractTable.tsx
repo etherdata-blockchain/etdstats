@@ -29,7 +29,7 @@ const columns: GridColDef[] = [
     flex: 4,
     renderCell: (value) => (
       <Link href={value.value ? `/contract/${value.value}` : undefined}>
-        {value.row.name !== undefined && value.row.name.length > 0
+        {value.row.name && value.row.name?.length > 0
           ? value.row.name
           : value.value}
       </Link>
