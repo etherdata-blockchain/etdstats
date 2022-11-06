@@ -16,6 +16,7 @@ public protocol ContractCreateProtocol: Content {
     var address: String { get set }
 
     var lastScannedBlock: Int { get set }
+    
 }
 
 public protocol ContractUpdateProtocol: Content {
@@ -36,6 +37,10 @@ public protocol ContractListProtocol: Content {
     var address: String { get set }
 
     var lastScannedBlock: Int { get set }
+    
+    var blockTime: Int { get set }
+    
+    var blockNumber: String { get set }
 }
 
 public final class ContractUpdateDto: Model, ContractUpdateProtocol {
@@ -110,6 +115,13 @@ public final class ContractListDto: Model, ContractListProtocol {
     
     @OptionalField(key: "abi")
     public var abi: Document?
+    
+    @Field(key: "blockTime")
+    public var blockTime: Int
+    
+    @Field(key: "blockNumber")
+    public var blockNumber: String
+    
 }
 
 
@@ -151,6 +163,12 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     
     @Children(for: \.$contract)
     public var events: [Event]
+    
+    @Field(key: "blockTime")
+    public var blockTime: Int
+    
+    @Field(key: "blockNumber")
+    public var blockNumber: String
 
     public init() {}
 

@@ -6,8 +6,10 @@ import {
   Stack,
   Tab,
   Tabs,
+  Typography,
 } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 import { StyledDataGrid } from "ui";
 
 interface Props {
@@ -46,18 +48,28 @@ const columns: GridColDef[] = [
     ),
   },
   {
-    field: "transactionHash",
-    headerName: "Transaction Hash",
-    flex: 4,
+    field: "blockNumber",
+    headerName: "Block Number",
+    flex: 2,
     renderCell: (value) => (
-      <Link href={value.value ? `/tx/${value.value}` : undefined}>
-        {value.value}
+      <Link href={value.value ? `/tx/${value.row.blockHash}` : undefined}>
+        {Number(value.value)}
       </Link>
     ),
   },
   {
-    field: "blockHash",
-    headerName: "Block Hash",
+    field: "blockTime",
+    headerName: "Block Time",
+    flex: 2,
+    renderCell: (value) => (
+      <Typography>
+        {dayjs(value.value * 1000).format("YYYY-MM-DD HH:mm:ss")}
+      </Typography>
+    ),
+  },
+  {
+    field: "transactionHash",
+    headerName: "Transaction Hash",
     flex: 4,
     renderCell: (value) => (
       <Link href={value.value ? `/tx/${value.value}` : undefined}>

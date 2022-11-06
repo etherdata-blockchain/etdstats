@@ -24,7 +24,7 @@ extension EventController {
             throw Abort(.badRequest, reason: "Wrong contract address")
         }
         
-        let events = try await contract.$events.query(on: req.db).paginate(for: req)
+        let events = try await contract.$events.query(on: req.db).sort(\.$blockTimestamp).paginate(for: req)
         return events
     }
 }
