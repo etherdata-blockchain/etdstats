@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.5 (2022-11-07)
+
+
+### Bug Fixes
+
+* update swift version ([#67](https://github.com/etherdata-blockchain/etdstats/issues/67)) ([b44684c](https://github.com/etherdata-blockchain/etdstats/commit/b44684c113484f01f98a2ffe8f22abc5e0ae3303))
+
 ## 1.13.4 (2022-11-07)
 
 
