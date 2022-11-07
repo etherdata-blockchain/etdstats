@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.3 (2022-11-07)
+
+
+### Bug Fixes
+
+* bugs ([#65](https://github.com/etherdata-blockchain/etdstats/issues/65)) ([20d55aa](https://github.com/etherdata-blockchain/etdstats/commit/20d55aaa081877cf1a739864245890545961c45d))
+
 ## 1.13.2 (2022-11-04)
 
 
