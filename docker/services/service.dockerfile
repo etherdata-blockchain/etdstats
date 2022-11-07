@@ -1,4 +1,4 @@
-FROM swift:5.6-focal as build
+FROM swift:5.7.1-focal as build
 
 ARG APP_NAME
 
