@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.4 (2022-11-07)
+
+
+### Bug Fixes
+
+* add contract service ([#66](https://github.com/etherdata-blockchain/etdstats/issues/66)) ([2990a1f](https://github.com/etherdata-blockchain/etdstats/commit/2990a1f69da8e4357f1fc09149253515e830fad9))
+
 ## 1.13.3 (2022-11-07)
 
 
