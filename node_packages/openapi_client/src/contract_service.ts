@@ -10,6 +10,8 @@ export interface Contract {
   creator: string;
   transactionHash: string;
   blockHash: string;
+  blockNumber: string;
+  blockTime: number;
 }
 
 export interface Event {

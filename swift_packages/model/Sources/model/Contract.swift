@@ -16,6 +16,7 @@ public protocol ContractCreateProtocol: Content {
     var address: String { get set }
 
     var lastScannedBlock: Int { get set }
+    
 }
 
 public protocol ContractUpdateProtocol: Content {
@@ -36,6 +37,10 @@ public protocol ContractListProtocol: Content {
     var address: String { get set }
 
     var lastScannedBlock: Int { get set }
+    
+    var blockTime: Int { get set }
+    
+    var blockNumber: String { get set }
 }
 
 public final class ContractUpdateDto: Model, ContractUpdateProtocol {
@@ -48,23 +53,26 @@ public final class ContractUpdateDto: Model, ContractUpdateProtocol {
     @ID(custom: "_id")
     public var id: ObjectId?
     
-    @Field(key: "name")
+    @OptionalField(key: "name")
     public var name: String?
     
-    @Field(key: "compiler")
+    @OptionalField(key: "compiler")
     public var compiler: String?
     
-    @Field(key: "source")
+    @OptionalField(key: "source")
     public var source: String?
     
-    @Field(key: "abi")
+    @OptionalField(key: "abi")
     public var abi: AnyCodable?
     
-    @Field(key: "address")
+    @OptionalField(key: "address")
     public var address: String?
     
-    @Field(key: "creator")
+    @OptionalField(key: "creator")
     public var creator: String?
+    
+    @Field(key: "lastScannedBlock")
+    public var lastScannedBlock: Int
     
     public init(id: ObjectId? = nil, name: String? = nil, compiler: String? = nil, source: String? = nil, abi: AnyCodable? = nil, creator: String? = nil) {
         self.id = id
@@ -107,6 +115,13 @@ public final class ContractListDto: Model, ContractListProtocol {
     
     @OptionalField(key: "abi")
     public var abi: Document?
+    
+    @Field(key: "blockTime")
+    public var blockTime: Int
+    
+    @Field(key: "blockNumber")
+    public var blockNumber: String
+    
 }
 
 
@@ -148,6 +163,12 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     
     @Children(for: \.$contract)
     public var events: [Event]
+    
+    @Field(key: "blockTime")
+    public var blockTime: Int
+    
+    @Field(key: "blockNumber")
+    public var blockNumber: String
 
     public init() {}
 

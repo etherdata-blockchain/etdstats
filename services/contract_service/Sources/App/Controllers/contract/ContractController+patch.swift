@@ -22,6 +22,7 @@ extension ContractController {
             throw Abort(.badRequest, reason: "Missing contract address")
         }
         let contractData = try req.content.decode(ContractUpdateDto.self)
+        let previousContract = try await Contract.query(on: req.db).filter(\.$address == contractAddress).first()
         
         var query = ContractUpdateDto.query(on: req.db)
         
@@ -35,6 +36,13 @@ extension ContractController {
         
         if let abi = contractData.abi {
             query = query.set(\.$abi, to: abi)
+            let encodedPreviousAbi = try? JSONEncoder().encode(previousContract?.abi)
+            let encodedCurrentAbi = try? JSONEncoder().encode(abi)
+            
+            if encodedCurrentAbi != encodedPreviousAbi {
+                req.logger.info("ABI has changed, reset last scanned block to 0")
+                query = query.set(\.$lastScannedBlock, to: 0)
+            }
         }
         
         if let source = contractData.source {

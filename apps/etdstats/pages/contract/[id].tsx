@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
+import dayjs from "dayjs";
 import { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -104,6 +105,20 @@ const Index: NextPage<Props> = ({ contract, events }) => {
                 data-testid="events"
                 title="#Events"
                 subtitle={`${events.metadata.total}`}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <ListItemButton
+                data-testid="block-number"
+                title="Block Number"
+                subtitle={`${Number(contract.blockNumber)}`}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <ListItemButton
+                data-testid="date-time"
+                title="Block Time"
+                subtitle={`${dayjs(contract.blockTime * 1000).format()}`}
               />
             </Grid>
           </Grid>
