@@ -12,22 +12,22 @@
     "packages"
   ],
   "dependencies": {
-    "turbo": "^1.3.0"
+    "turbo": "^1.6.3"
   },
   "devDependencies": {
-    "ts-node": "^10.8.1",
-    "@types/node": "^18.0.0",
-    "webpack": "^5.73.0",
-    "typescript": "^4.7.4",
+    "ts-node": "^10.9.1",
+    "@types/node": "^18.11.9",
+    "webpack": "^5.74.0",
+    "typescript": "^4.8.4",
     "glob": "^8.0.3",
     "@types/glob": "latest",
-    "release-it": "^15.1.0",
-    "@release-it/conventional-changelog": "^5.0.0",
+    "release-it": "^15.5.0",
+    "@release-it/conventional-changelog": "^5.1.1",
     "@release-it/bumper": "^4.0.0",
     "prettier": "^2.7.1",
-    "@playwright/test": "1.23.0",
+    "@playwright/test": "1.27.1",
     "wait-on": "6.0.1",
-    "firebase-admin": "11.0.0"
+    "firebase-admin": "11.2.0"
   },
   "scripts": {
     "build": "turbo run build",

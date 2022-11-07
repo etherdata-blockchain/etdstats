@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a analytics service",
-        "version": "1.11.0",
+        "version": "1.13.3",
         "title": "Contract service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -519,6 +519,14 @@
                     "name": {
                         "type": "string",
                         "description": "The name of the contract"
+                    },
+                    "blockTime": {
+                        "type": "integer",
+                        "description": "The block time of the contract"
+                    },
+                    "blockNumber": {
+                        "type": "string",
+                        "description": "The block number of the contract"
                     }
                 }
             },
