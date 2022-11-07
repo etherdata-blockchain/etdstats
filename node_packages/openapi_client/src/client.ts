@@ -1,12 +1,12 @@
-import axios, { Axios } from "axios";
+import axios, { AxiosStatic } from "axios";
 
 interface Props {
-  client: Axios;
+  client: AxiosStatic;
   baseUrl: string;
 }
 
 export class Client {
-  client: Axios;
+  client: AxiosStatic;
   baseUrl: string;
 
   constructor({ client, baseUrl }: Props) {
