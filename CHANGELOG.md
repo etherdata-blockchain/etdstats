@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.6 (2022-11-07)
+
+
+### Bug Fixes
+
+* update github action docker login ([cb6f05e](https://github.com/etherdata-blockchain/etdstats/commit/cb6f05e33f22badb2f4eaab33195002c48674a86))
+
 ## 1.13.5 (2022-11-07)
 
 
