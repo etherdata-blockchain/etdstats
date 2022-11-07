@@ -15,6 +15,9 @@ services:
       - RPC_URL=${RPC_URL}
       - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=${REDIS_URL}
+  contract_service:
+    
+
   redis:
     restart: always
     container_name: redis
