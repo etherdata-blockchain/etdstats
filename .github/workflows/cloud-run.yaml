@@ -1,0 +1,33 @@
+name: Deploy to Cloud Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy'
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy to Cloud Run
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app:  ["transaction_service", "analytics_service", "block_info_service", "user_service", "contract_service"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login to GCP
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_email: ${{ secrets.GCP_EMAIL }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+      - name: Configure Docker for GCP
+        run: gcloud auth configure-docker --quiet
+      - name: Pull image from GCR
+        run:  docker pull ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
+      - name: Tag image for GCR
+        run: docker tag ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
+      - name: Deploy cloud run
+        run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }} --region asia-southeast1 --platform managed
+
