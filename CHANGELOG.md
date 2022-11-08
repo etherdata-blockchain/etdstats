@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.9 (2022-11-08)
+
+
+### Bug Fixes
+
+* update cloud run to allow unauthenticated user ([#70](https://github.com/etherdata-blockchain/etdstats/issues/70)) ([986a323](https://github.com/etherdata-blockchain/etdstats/commit/986a3237faff42cb7f3606fd0211dd218ddb4add))
+
 ## 1.13.8 (2022-11-08)
 
 
