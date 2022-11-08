@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app:  ["contract_service", "block_info_service", "analytics_service", "transaction_service"]
+        app:  ["contract_service", "block_info_service", "analytics_service", "transaction_service", "user_service"]
+      fail-fast: false
     steps:
       - uses: actions/checkout@v3
       - name: Login to GCP
@@ -39,7 +40,11 @@ jobs:
           service: ${{ steps.runner.outputs.replaced }}
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
           env_vars:
-            DATABASE_URL=${{ secrets.DATABASE_TEST_URL }},JWT_SECRET=${{ secrets.JWT_SECRET }},RPC_URL=${{secrets.RPC_TEST_URL}},REDIS_URL=${{secrets.REDIS_TEST_URL}}
+            DATABASE_URL=${{ secrets.DATABASE_TEST_URL }},
+            JWT_SECRET=${{ secrets.JWT_SECRET }},
+            RPC_URL=${{secrets.RPC_TEST_URL}},
+            REDIS_URL=${{secrets.REDIS_TEST_URL}},
+            USER_SERVICE_URL=https://user.test.etdstatsapi.net
           region: asia-southeast1
           flags: --allow-unauthenticated
 
