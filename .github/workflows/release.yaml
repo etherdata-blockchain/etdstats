@@ -23,14 +23,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Login to GCP
-        uses: google-github-actions/setup-gcloud@v0
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_email: ${{ secrets.GCP_EMAIL }}
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-      - name: Configure Docker for GCP
-        run: gcloud auth configure-docker --quiet
       - name: Build and push ${{ matrix.app }}
         uses: docker/build-push-action@v3
         with:
@@ -43,5 +35,3 @@ jobs:
             APP_NAME=${{ matrix.app }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: Deploy cloud run
-        run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.release.tag_name }} --region asia-southeast1 --platform managed
