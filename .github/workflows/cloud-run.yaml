@@ -13,21 +13,26 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app:  ["transaction_service", "analytics_service", "block_info_service", "user_service", "contract_service"]
+        app:  ["contract_service"]
     steps:
       - uses: actions/checkout@v2
       - name: Login to GCP
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/auth@v0
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_email: ${{ secrets.GCP_EMAIL }}
-          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
       - name: Configure Docker for GCP
         run: gcloud auth configure-docker --quiet
       - name: Pull image from GCR
         run:  docker pull ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
       - name: Tag image for GCR
         run: docker tag ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
+      - uses: frabert/replace-string-action@v2.0
+        id: runner
+        with:
+          pattern: '_'
+          string: ${{matrix.app}}
+          replace-with: '-'
+          flags: "g"
       - name: Deploy cloud run
-        run: gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }} --region asia-southeast1 --platform managed
+        run: gcloud run deploy ${{steps.runner.outputs.replaced}} --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }} --region asia-southeast1 --platform managed --set-env-vars=DATABASE_URL=${{secrets.DATABASE_TEST_URL}},JWT_SECRET=${{secrets.JWT_SECRET}}
 
