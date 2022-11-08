@@ -33,6 +33,14 @@ jobs:
           string: ${{matrix.app}}
           replace-with: '-'
           flags: "g"
-      - name: Deploy cloud run
-        run: gcloud run deploy ${{steps.runner.outputs.replaced}} --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }} --region asia-southeast1 --platform managed --set-env-vars=DATABASE_URL=${{secrets.DATABASE_TEST_URL}},JWT_SECRET=${{secrets.JWT_SECRET}}
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloudrun@v0'
+        with:
+          service: ${{ steps.runner.outputs.replaced }}
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
+          env_vars:
+            DATABASE_URL=${{ secrets.DATABASE_TEST_URL }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+          region: asia-southeast1
+          flags: --allow-unauthenticated
 
