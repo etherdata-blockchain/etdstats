@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.13.8 (2022-11-08)
+
+
+### Bug Fixes
+
+* release action ([dc4060c](https://github.com/etherdata-blockchain/etdstats/commit/dc4060ca352b372959e142654ad5768a9b9889e4))
+
 ## 1.13.7 (2022-11-07)
 
 
