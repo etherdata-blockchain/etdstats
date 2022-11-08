@@ -18,7 +18,7 @@ RUN swift build -c release --static-swift-stdlib
 WORKDIR /build
 RUN cp "$(swift build --package-path /app/services/${APP_NAME} -c release --show-bin-path)/Run" ./
 
-FROM ubuntu:20.04 as run
+FROM ubuntu:22.10 as run
 
 ARG APP_NAME
 WORKDIR /app
