@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app:  ["contract_service"]
+        app:  ["contract_service", "block_info_service", "analytics_service", "transaction_service"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Login to GCP
         uses: google-github-actions/auth@v0
         with:
@@ -26,7 +26,7 @@ jobs:
         run:  docker pull ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
       - name: Tag image for GCR
         run: docker tag ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
-      - uses: frabert/replace-string-action@v2.0
+      - uses: frabert/replace-string-action@v2.3
         id: runner
         with:
           pattern: '_'
@@ -39,8 +39,7 @@ jobs:
           service: ${{ steps.runner.outputs.replaced }}
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
           env_vars:
-            DATABASE_URL=${{ secrets.DATABASE_TEST_URL }}
-            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            DATABASE_URL=${{ secrets.DATABASE_TEST_URL }},JWT_SECRET=${{ secrets.JWT_SECRET }},RPC_URL=${{secrets.RPC_TEST_URL}},REDIS_URL=${{secrets.REDIS_TEST_URL}}
           region: asia-southeast1
           flags: --allow-unauthenticated
 
