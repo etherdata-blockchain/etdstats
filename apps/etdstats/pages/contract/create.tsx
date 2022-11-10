@@ -1,14 +1,14 @@
 import Editor from "@monaco-editor/react";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
 import { LoadingButton } from "@mui/lab";
 import {
-  Alert,
   Autocomplete,
   Box,
   Card,
   CardContent,
   Chip,
   CircularProgress,
-  Fade,
   FormControl,
   Grid,
   InputLabel,
@@ -21,147 +21,28 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useFormik } from "formik";
 import { NextPage } from "next";
 import Image from "next/image";
-import { useSnackbar } from "notistack";
-import { Contract } from "openapi_client";
-import { useCallback, useState } from "react";
 import { useContract } from "../../lib/hooks/useContract";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import ErrorIcon from "@mui/icons-material/Error";
-import useCbor from "../../lib/hooks/useCbor";
+import useContractCreate from "../../lib/hooks/useContractCreate";
+import useContractNames from "../../lib/hooks/useContractNames";
 
 const Index: NextPage = () => {
-  const { search, update, getContract, compile, solidityVersions } =
-    useContract({ page: 1 });
-  const { enqueueSnackbar } = useSnackbar();
-  const [contracts, setContracts] = useState<Contract[]>([]);
-  const [contract, setContract] = useState<Contract>();
-  const [loading, setLoading] = useState(false);
-  const [hasCompiled, setHasCompiled] = useState(false);
-  const [compiling, setCompiling] = useState(false);
-  const [compilingError, setCompilingError] = useState<string | undefined>(
-    undefined
-  );
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      source: "",
-      abi: "",
-      compiler: "",
-      address: "",
-      bytecode: "",
-    },
-    onSubmit: async (values) => {
-      if (
-        values.name === "" ||
-        values.source === "" ||
-        values.abi === "" ||
-        values.address === ""
-      ) {
-        console.log(values);
-        alert("Please fill all the fields");
-        return;
-      }
-
-      try {
-        await update(values);
-        enqueueSnackbar("Contract created successfully", {
-          variant: "success",
-          anchorOrigin: {
-            vertical: "top",
-            horizontal: "right",
-          },
-        });
-      } catch (error) {
-        enqueueSnackbar(`Error creating contract: ${error}`, {
-          variant: "error",
-          anchorOrigin: {
-            vertical: "top",
-            horizontal: "right",
-          },
-        });
-      }
-    },
-  });
-
-  const decodedBytecode = useCbor(formik.values.bytecode);
-
-  const onCompile = useCallback(async () => {
-    setCompiling(true);
-    try {
-      enqueueSnackbar(`Compiling contract using ${formik.values.compiler}`, {
-        variant: "info",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "right",
-        },
-      });
-
-      const result = await compile(
-        formik.values.source,
-        formik.values.compiler,
-        formik.values.name
-      );
-      formik.setFieldValue("abi", JSON.stringify(result.abi, null, 4));
-      formik.setFieldValue("bytecode", result.bytecode);
-      setHasCompiled(true);
-      setCompilingError(undefined);
-    } catch (error) {
-      let errorMsg: any = error;
-      if (errorMsg.response?.data?.errors) {
-        errorMsg = errorMsg.response.data.errors;
-      }
-
-      enqueueSnackbar(`${errorMsg}`, {
-        variant: "error",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "right",
-        },
-      });
-
-      setCompilingError(`${errorMsg}`);
-      setHasCompiled(false);
-    }
-    setCompiling(false);
-  }, [hasCompiled, formik]);
-
-  const onSelectContract = useCallback(async (value: Contract | null) => {
-    if (value === null) {
-      formik.setFieldValue("source", "");
-      formik.setFieldValue("abi", "");
-      formik.setFieldValue("compiler", "");
-      formik.setFieldValue("address", "");
-      formik.setFieldValue("bytecode", "");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const contractDetail = await getContract(value?.address ?? "");
-      formik.setFieldValue("address", value?.address);
-      formik.setFieldValue(
-        "abi",
-        JSON.stringify(contractDetail.abi, undefined, 4)
-      );
-      formik.setFieldValue("source", contractDetail.source);
-      formik.setFieldValue("name", contractDetail.name);
-      formik.setFieldValue("bytecode", contractDetail.bytecode);
-    } catch (error) {
-      enqueueSnackbar("Error getting contract", {
-        variant: "error",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "right",
-        },
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { search, solidityVersions } = useContract({ page: 1 });
+  const {
+    formik,
+    onCompile,
+    onSelectContract,
+    setContracts,
+    setHasCompiled,
+    hasCompiled,
+    compiling,
+    compilingError,
+    contract,
+    contracts,
+    decodedBytecode,
+  } = useContractCreate();
+  const names = useContractNames(formik.values.source);
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -198,6 +79,7 @@ const Index: NextPage = () => {
                   options={contracts}
                   style={{ width: "100%" }}
                   getOptionLabel={(option) => option.address ?? ""}
+                  value={contract ?? null}
                   onChange={async (event, value) => {
                     await onSelectContract(value);
                   }}
@@ -208,7 +90,6 @@ const Index: NextPage = () => {
                       label="Contract Address"
                       fullWidth
                       variant="outlined"
-                      value={formik.values.address}
                       onChange={async (e: any) => {
                         const results = await search(e.target.value);
                         setContracts(results);
@@ -216,16 +97,31 @@ const Index: NextPage = () => {
                     />
                   )}
                 />
-
-                <TextField
-                  name="name"
-                  label="Contract Name"
-                  helperText="This should be the same as the name of the contract in the source code"
-                  fullWidth
-                  variant="outlined"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                />
+                <FormControl fullWidth>
+                  <InputLabel>Contract Name</InputLabel>
+                  <Select
+                    value={formik.values.name}
+                    label="Name"
+                    name="name"
+                    onChange={formik.handleChange}
+                  >
+                    {names.data?.map((name) => (
+                      <MenuItem value={name} key={name}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                    {names.data?.length === 0 && (
+                      <MenuItem value={""} key={""}>
+                        No contract name found
+                      </MenuItem>
+                    )}
+                    {names.isLoading && (
+                      <MenuItem value="">
+                        <CircularProgress size={20} />
+                      </MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
 
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">

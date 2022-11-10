@@ -148,7 +148,12 @@ const Index: NextPage<Props> = ({ contract, events }) => {
               }}
             />
           )}
-          {value === "source" && <SourceDisplay source={contract.source} />}
+          {value === "source" && (
+            <SourceDisplay
+              source={contract.source}
+              address={contract.address}
+            />
+          )}
           {value === "abi" && <ABIDisplay abi={contract.abi} />}
           {value === "bytecode" && (
             <ByteCodeDisplay bytecode={contract.bytecode} />
