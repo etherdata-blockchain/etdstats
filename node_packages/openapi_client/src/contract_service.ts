@@ -38,6 +38,12 @@ export interface Pagination<T> {
   };
 }
 
+export interface CompiledResult {
+  bytecode: string;
+  abi: any;
+  compilerVersion: string;
+}
+
 export class ContractService extends Client {
   async listContracts(page: number = 1): Promise<Pagination<Contract>> {
     let response = await this.client.get(
@@ -83,6 +89,21 @@ export class ContractService extends Client {
     let response = await this.client.get(
       `${this.baseUrl}/event/${address}?page=${page}`
     );
+    return response.data;
+  }
+
+  async compile(
+    source: string,
+    compilerVersion: string | undefined,
+    contractName: string
+  ): Promise<CompiledResult> {
+    const endpoint = process.env.NEXT_PUBLIC_CONTRACT_VERIFICATION_ENDPOINT!;
+    const response = await this.client.post(`${endpoint}`, {
+      source,
+      compilerVersion,
+      contractName,
+    });
+
     return response.data;
   }
 }

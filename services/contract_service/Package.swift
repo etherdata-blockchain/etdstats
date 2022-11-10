@@ -12,6 +12,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         .package(url: "https://github.com/vapor/fluent-mongo-driver.git", from: "1.0.0"),
         .package(url: "https://github.com/vapor/jwt.git", from: "4.0.0"),
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.6.1")),
         .package(path: "../../swift_packages/common"),
         .package(path: "../../swift_packages/model"),
         .package(path: "../../swift_packages/env"),
@@ -27,6 +28,7 @@ let package = Package(
                 .product(name: "common", package: "common"),
                 .product(name: "model", package: "model"),
                 .product(name: "env", package: "env"),
+                .product(name: "Alamofire", package: "Alamofire")
             ],
             swiftSettings: [
                 // Enable better optimizations when building in Release configuration. Despite the use of

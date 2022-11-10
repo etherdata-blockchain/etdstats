@@ -71,8 +71,8 @@ public final class ContractUpdateDto: Model, ContractUpdateProtocol {
     @OptionalField(key: "creator")
     public var creator: String?
     
-    @Field(key: "lastScannedBlock")
-    public var lastScannedBlock: Int
+    @OptionalField(key: "lastScannedBlock")
+    public var lastScannedBlock: Int?
     
     public init(id: ObjectId? = nil, name: String? = nil, compiler: String? = nil, source: String? = nil, abi: AnyCodable? = nil, creator: String? = nil) {
         self.id = id

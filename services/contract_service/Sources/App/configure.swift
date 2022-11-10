@@ -14,7 +14,7 @@ public func configure(_ app: Application) throws {
     let cors = CORSMiddleware(configuration: corsConfiguration)
     app.middleware.use(cors, at: .beginning)
 
-    let checker = EnvChecker(envs: [ENVIRONMENT_DB_KEY, ENVIRONMENAT_JWT_KEY])
+    let checker = EnvChecker(envs: [ENVIRONMENT_DB_KEY, ENVIRONMENT_JWT_KEY, ENVIRONMENT_SOLIDITY_SERVICE_URL_KEY])
     let checkResult = checker.check()
 
     if !checkResult.isNotMissing {
@@ -26,7 +26,7 @@ public func configure(_ app: Application) throws {
             connectionString: Environment.get(ENVIRONMENT_DB_KEY)!
     ), as: .mongo)
 
-    app.jwt.signers.use(.hs256(key: Environment.get(ENVIRONMENAT_JWT_KEY)!))
+    app.jwt.signers.use(.hs256(key: Environment.get(ENVIRONMENT_JWT_KEY)!))
     app.migrations.add(CreateContract())
     app.migrations.add(CreateEvent())
     
