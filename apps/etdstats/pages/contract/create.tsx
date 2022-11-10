@@ -242,7 +242,10 @@ const Index: NextPage = () => {
                     {solidityVersions.data?.builds
                       .filter((v) => !v.longVersion.includes("night"))
                       .map((version) => (
-                        <MenuItem value={version.longVersion}>
+                        <MenuItem
+                          value={version.longVersion}
+                          key={version.build}
+                        >
                           {version.longVersion}
                         </MenuItem>
                       ))}
