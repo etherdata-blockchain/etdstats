@@ -1,0 +1,762 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "description": "This belongs part of ETDStats microservices which will provide a storage service.",
+        "version": "1.14.2",
+        "title": "Storage service",
+        "termsOfService": "https://github.com/etherdata-blockchain"
+    },
+    "tags": [
+        {
+            "name": "health",
+            "description": "Get server's health info"
+        },
+        {
+            "name": "file",
+            "description": "File"
+        },
+        {
+            "name": "folder",
+            "description": "Folder"
+        },
+        {
+            "name": "bucket",
+            "description": "Bucket"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://etdstatsapi.net/stats/user",
+            "description": "Production server"
+        },
+        {
+            "url": "https://storage.test.etdstatsapi.net/stats/storage",
+            "description": "Testing server"
+        }
+    ],
+    "paths": {
+        "/bucket": {
+            "summary": "CRUD for bucket",
+            "parameters": [
+                {
+                    "in": "query",
+                    "name": "per",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "description": "Number of buckets to return"
+                },
+                {
+                    "in": "query",
+                    "name": "page",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "description": "The page number to return"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "bucket"
+                ],
+                "summary": "List buckets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "metadata": {
+                                            "$ref": "#/components/schemas/pagination"
+                                        },
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/bucket"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "bucket"
+                ],
+                "summary": "Create a bucket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/bucket"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "password": {
+                                                "type": "string",
+                                                "description": "Password for the bucket. Will be used to encrypt the bucket."
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/bucket"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "bucket"
+                ],
+                "summary": "Update a bucket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/bucket"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/bucket"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "bucket"
+                ],
+                "summary": "Delete a bucket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/bucket"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/bucket"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/bucket/[bucket_id]": {
+            "summary": "List folders and files in root folder",
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "bucket_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "Bucket ID"
+                },
+                {
+                    "in": "query",
+                    "name": "per",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "description": "Number of buckets to return"
+                },
+                {
+                    "in": "query",
+                    "name": "page",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "description": "The page number to return"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "storage"
+                ],
+                "summary": "List folders and files in root folder",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "metadata": {
+                                            "$ref": "#/components/schemas/pagination"
+                                        },
+                                        "files": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/file"
+                                            }
+                                        },
+                                        "folders": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/folder"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/folder/[folder_id]": {
+            "summary": "List folders and files in a folder",
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "folder_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "Folder ID"
+                },
+                {
+                    "in": "query",
+                    "name": "per",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "description": "Number of buckets to return"
+                },
+                {
+                    "in": "query",
+                    "name": "page",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "description": "The page number to return"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "folder"
+                ],
+                "summary": "List folders and files in a folder",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "metadata": {
+                                            "$ref": "#/components/schemas/pagination"
+                                        },
+                                        "files": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/file"
+                                            }
+                                        },
+                                        "folders": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/folder"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "folder"
+                ],
+                "summary": "Create a folder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/folder"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/folder"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "folder"
+                ],
+                "summary": "Update a folder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/folder"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/folder"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "folder"
+                ],
+                "summary": "Delete a folder",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/file/[file_id]": {
+            "summary": "Get file",
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "folder_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "Folder ID"
+                },
+                {
+                    "in": "path",
+                    "name": "file_id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "required": true,
+                    "description": "File ID"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "Get file",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/file"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "Create a file",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/file"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "file": {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/file"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "Update a file",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/components/schemas/file"
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "file": {
+                                                "type": "string",
+                                                "format": "binary"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/file"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "file"
+                ],
+                "summary": "Delete a file",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "tags": [
+                    "health"
+                ],
+                "summary": "Get server's health info",
+                "description": "Will return a error reason if not healthy",
+                "responses": {
+                    "200": {
+                        "description": "Server is up",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server is down",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "error": {
+                "type": "object",
+                "required": [
+                    "reason"
+                ],
+                "properties": {
+                    "services": {
+                        "type": "array",
+                        "title": "Services",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "ok",
+                                        "warning",
+                                        "error"
+                                    ]
+                                },
+                                "total": {
+                                    "type": "number",
+                                    "example": 11,
+                                    "description": "Total number of child services"
+                                },
+                                "numHealthyServices": {
+                                    "type": "number",
+                                    "example": 10,
+                                    "description": "Number of services in healthy condition"
+                                },
+                                "isLeaf": {
+                                    "type": "boolean",
+                                    "example": true,
+                                    "description": "If this is the leaf node (no children)"
+                                },
+                                "services": {
+                                    "type": "array",
+                                    "minItems": 0,
+                                    "items": {
+                                        "type": "object",
+                                        "$ref": "#/components/schemas/error"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "status",
+                                "total",
+                                "numHealthyServices",
+                                "isLeaf",
+                                "services"
+                            ]
+                        }
+                    }
+                }
+            },
+            "pagination": {
+                "type": "object",
+                "required": [
+                    "page",
+                    "per"
+                ],
+                "properties": {
+                    "page": {
+                        "type": "number",
+                        "description": "Page number",
+                        "default": 1
+                    },
+                    "per": {
+                        "type": "number",
+                        "description": "Number of items per page"
+                    }
+                }
+            },
+            "bucket": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "number"
+                    },
+                    "files": {
+                        "type": "number"
+                    },
+                    "created": {
+                        "type": "string"
+                    },
+                    "updated": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "User id"
+                    }
+                }
+            },
+            "folder": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "number"
+                    },
+                    "files": {
+                        "type": "number"
+                    },
+                    "created": {
+                        "type": "string"
+                    },
+                    "updated": {
+                        "type": "string"
+                    },
+                    "parent": {
+                        "type": "string",
+                        "description": "Parent folder id"
+                    },
+                    "bucket": {
+                        "type": "string",
+                        "description": "Bucket id"
+                    }
+                }
+            },
+            "file": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "number"
+                    },
+                    "created": {
+                        "type": "string"
+                    },
+                    "updated": {
+                        "type": "string"
+                    },
+                    "parent": {
+                        "type": "string",
+                        "description": "Parent folder id. Null if file is in root folder"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "File type. For example: image/jpeg"
+                    },
+                    "bucket": {
+                        "type": "string",
+                        "description": "Bucket id"
+                    },
+                    "hash": {
+                        "type": "string",
+                        "description": "File hash"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "Downloadable File url. Could be a pre-signed url for sharing"
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "User id"
+                    }
+                }
+            }
+        }
+    }
+}
