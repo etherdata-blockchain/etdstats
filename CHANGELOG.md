@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.14.2 (2022-11-10)
+
+
+### Bug Fixes
+
+* use selections for contract name ([#73](https://github.com/etherdata-blockchain/etdstats/issues/73)) ([5a4ccaa](https://github.com/etherdata-blockchain/etdstats/commit/5a4ccaa457e499a4902172e453703f851e9acc86))
+
 ## 1.14.1 (2022-11-10)
 
 
