@@ -23,7 +23,7 @@ jobs:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
       - name: Configure Docker for GCP
         run: gcloud auth configure-docker --quiet
-      - name: Pull image from GCR
+      - name: Pull image from GitHub Container Registry
         run:  docker pull ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
       - name: Tag image for GCR
         run: docker tag ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
