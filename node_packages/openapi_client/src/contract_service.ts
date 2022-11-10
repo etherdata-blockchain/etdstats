@@ -12,6 +12,7 @@ export interface Contract {
   blockHash: string;
   blockNumber: string;
   blockTime: number;
+  compiler: string;
 }
 
 export interface Event {
