@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.14.0 (2022-11-10)
+
+
+### Features
+
+* add verification functionality ([#71](https://github.com/etherdata-blockchain/etdstats/issues/71)) ([a09acb9](https://github.com/etherdata-blockchain/etdstats/commit/a09acb9e4f111725b6fa385aa6c453935fb8eda1))
+
 ## 1.13.9 (2022-11-08)
 
 
