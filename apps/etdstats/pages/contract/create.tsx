@@ -167,7 +167,7 @@ const Index: NextPage = () => {
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={5} mt={10}>
         <Grid item xs={12} md={5} lg={4}>
-          <Card>
+          <Card sx={{ position: "sticky", top: "62px" }}>
             <CardContent>
               <Stack justifyContent={"center"} alignItems="center" spacing={3}>
                 <Stack
