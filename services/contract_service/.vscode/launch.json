@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug Run",
+      "program": "${workspaceFolder:contract_service}/.build/debug/Run",
+      "args": [],
+      "cwd": "${workspaceFolder:contract_service}",
+      "preLaunchTask": "swift: Build Debug Run"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Release Run",
+      "program": "${workspaceFolder:contract_service}/.build/release/Run",
+      "args": [],
+      "cwd": "${workspaceFolder:contract_service}",
+      "preLaunchTask": "swift: Build Release Run"
+    }
+  ]
+}

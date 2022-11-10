@@ -22,7 +22,12 @@ extension ContractController {
             throw Abort(.badRequest, reason: "Missing contract address")
         }
         let contractData = try req.content.decode(ContractUpdateDto.self)
-        let previousContract = try await Contract.query(on: req.db).filter(\.$address == contractAddress).first()
+        guard let previousContract = try await Contract.query(on: req.db).filter(\.$address == contractAddress).first() else {
+            throw Abort(.badRequest, reason: "Cannot find contract with address \(contractAddress)")
+        }
+        guard let sourceCode = contractData.source else {
+            throw Abort(.badRequest, reason: "Source code is required")
+        }
         
         var query = ContractUpdateDto.query(on: req.db)
         
@@ -34,16 +39,19 @@ extension ContractController {
             query = query.set(\.$compiler, to: compiler)
         }
         
-        if let abi = contractData.abi {
-            query = query.set(\.$abi, to: abi)
-            let encodedPreviousAbi = try? JSONEncoder().encode(previousContract?.abi)
-            let encodedCurrentAbi = try? JSONEncoder().encode(abi)
-            
-            if encodedCurrentAbi != encodedPreviousAbi {
-                req.logger.info("ABI has changed, reset last scanned block to 0")
-                query = query.set(\.$lastScannedBlock, to: 0)
-            }
+        let verifiedResult = try await req.contractClient.verify(contractName: contractData.name!, sourceCode: sourceCode, bytecode: previousContract.bytecode, compilerVersion: contractData.compiler!)
+        
+       
+        query = query.set(\.$abi, to: verifiedResult.abi).set(\.$source, to: sourceCode).set(\.$compiler, to: contractData.compiler)
+        
+        let encodedPreviousAbi = try? JSONEncoder().encode(previousContract.abi)
+        let encodedCurrentAbi = try? JSONEncoder().encode(verifiedResult.abi)
+        
+        if encodedCurrentAbi != encodedPreviousAbi {
+            req.logger.info("ABI has changed, reset last scanned block to 0")
+            query = query.set(\.$lastScannedBlock, to: 0)
         }
+ 
         
         if let source = contractData.source {
             query = query.set(\.$source, to: source)
