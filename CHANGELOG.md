@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.15.0 (2022-11-10)
+
+
+### Features
+
+* add storage service spec ([#74](https://github.com/etherdata-blockchain/etdstats/issues/74)) ([2c482aa](https://github.com/etherdata-blockchain/etdstats/commit/2c482aacb3c42d608d035e467086455c197e284d))
+
 ## 1.14.2 (2022-11-10)
 
 
