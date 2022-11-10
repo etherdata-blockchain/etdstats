@@ -39,6 +39,7 @@ export default function useContractCreate() {
           formik.setFieldValue("source", contractDetail.source);
           formik.setFieldValue("name", contractDetail.name);
           formik.setFieldValue("bytecode", contractDetail.bytecode);
+          formik.setFieldValue("compiler", contractDetail.compiler);
           setContracts((v) => {
             let foundIndex = v.findIndex(
               (c) => c.address === contractDetail.address
