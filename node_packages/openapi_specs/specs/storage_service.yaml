@@ -8,11 +8,11 @@ info:
 tags:
   - name: "health"
     description: "Get server's health info"
-  - name: "file"
+  - name: "File"
     description: "File"
-  - name: "folder"
+  - name: "Folder"
     description: "Folder"
-  - name: "bucket"
+  - name: "Bucket"
     description: "Bucket"
 
 servers:
@@ -37,7 +37,7 @@ paths:
         description: The page number to return
     get:
       tags:
-        - "bucket"
+        - "Bucket"
       summary: "List buckets"
       responses:
         "200":
@@ -57,57 +57,20 @@ paths:
           description: Not found
     post:
       tags:
-        - "bucket"
+        - "Bucket"
       summary: "Create a bucket"
       requestBody:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/bucket"
-                - type: object
-                  properties:
-                    password:
-                      type: string
-                      description: Password for the bucket. Will be used to encrypt the bucket.
-        required: true
-      responses:
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/bucket"
-        404:
-          description: Not found
-    patch:
-      tags:
-        - "bucket"
-      summary: "Update a bucket"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/bucket"
-        required: true
-      responses:
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/bucket"
-        404:
-          description: Not found
-    delete:
-      tags:
-        - "bucket"
-      summary: "Delete a bucket"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/bucket"
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: Password for the bucket. Will be used to encrypt the bucket.
+                name:
+                  type: string
+                  description: Name of the bucket
         required: true
       responses:
         "200":
@@ -139,7 +102,7 @@ paths:
         description: The page number to return
     get:
       tags:
-        - "storage"
+        - "Folder"
       summary: "List folders and files in root folder"
       responses:
         "200":
@@ -161,6 +124,48 @@ paths:
                       $ref: "#/components/schemas/folder"
         404:
           description: Not found
+    patch:
+      tags:
+        - "Bucket"
+      summary: "Update a bucket"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bucket"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Bucket name
+        404:
+          description: Not found
+    delete:
+      tags:
+        - "Bucket"
+      summary: "Delete a bucket"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bucket"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bucket"
+        404:
+          description: Not found
 
   /folder/[folder_id]:
     summary: List folders and files in a folder
@@ -171,19 +176,20 @@ paths:
           type: string
         required: true
         description: Folder ID
-      - in: query
-        name: per
-        schema:
-          type: integer
-        description: Number of buckets to return
-      - in: query
-        name: page
-        schema:
-          type: integer
-        description: The page number to return
     get:
       tags:
-        - "folder"
+        - "Folder"
+      parameters:
+        - in: query
+          name: per
+          schema:
+            type: integer
+          description: Number of buckets to return
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page number to return
       summary: "List folders and files in a folder"
       responses:
         "200":
@@ -205,95 +211,93 @@ paths:
                       $ref: "#/components/schemas/folder"
         404:
           description: Not found
-    post:
-      tags:
-        - "folder"
-      summary: "Create a folder"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/folder"
-      responses:
-        "200":
-          description: "OK"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/folder"
-        404:
-          description: Not found
     patch:
       tags:
-        - "folder"
+        - "Folder"
       summary: "Update a folder"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/folder"
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Folder name
+                parent_id:
+                  type: string
+                  description: Parent folder ID
       responses:
         "200":
           description: "OK"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/folder"
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Name of the folder
+                  parent_id:
+                    type: string
+                    description: ID of the parent folder
         404:
           description: Not found
     delete:
       tags:
-        - "folder"
+        - "Folder"
       summary: "Delete a folder"
       responses:
         "200":
           description: "OK"
         404:
           description: Not found
-
-  /file/[file_id]:
-    summary: Get file
-    parameters:
-      - in: path
-        name: folder_id
-        schema:
-          type: string
-        required: true
-        description: Folder ID
-      - in: path
-        name: file_id
-        schema:
-          type: string
-        required: true
-        description: File ID
-    get:
+  /folder:
+    summary: Create a folder
+    post:
       tags:
-        - "file"
-      summary: "Get file"
+        - "Folder"
+      summary: "Create a folder"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - "name"
+              properties:
+                name:
+                  type: string
+                  description: Name of the folder
+                parent_id:
+                  type: string
+                  description: ID of the parent folder
+                bucket_id:
+                  type: string
+                  description: ID of the bucket
       responses:
         "200":
           description: "OK"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/file"
+                $ref: "#/components/schemas/folder"
         404:
           description: Not found
-    post:
+
+  /file/[file_id]:
+    summary: Get file
+    get:
       tags:
-        - "file"
-      summary: "Create a file"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: "#/components/schemas/file"
-                - type: object
-                  properties:
-                    file:
-                      type: string
-                      format: binary
+        - "File"
+      summary: "Get file"
+      parameters:
+        - in: path
+          name: file_id
+          schema:
+            type: string
+          required: true
+          description: File ID
       responses:
         "200":
           description: "OK"
@@ -305,19 +309,20 @@ paths:
           description: Not found
     patch:
       tags:
-        - "file"
+        - "File"
       summary: "Update a file"
       requestBody:
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "#/components/schemas/file"
-                - type: object
-                  properties:
-                    file:
-                      type: string
-                      format: binary
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the file
+                parent_id:
+                  type: string
+                  description: ID of the parent folder
       responses:
         "200":
           description: "OK"
@@ -329,11 +334,47 @@ paths:
           description: Not found
     delete:
       tags:
-        - "file"
+        - "File"
       summary: "Delete a file"
       responses:
         "200":
           description: "OK"
+        404:
+          description: Not found
+  /file:
+    post:
+      tags:
+        - "File"
+      summary: "Create a file"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - type: object
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the file
+                    parent_id:
+                      type: string
+                      description: ID of the parent folder
+                    bucket_id:
+                      type: string
+                      description: ID of the bucket
+                - type: object
+                  properties:
+                    file:
+                      type: string
+                      format: binary
+                      description: File content
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/file"
         404:
           description: Not found
 
@@ -357,6 +398,12 @@ paths:
               schema:
                 $ref: "health_service.spec.yaml#/components/schemas/error"
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "JWT token contains user's wallet address. Check [here](https://docs.msbd5017.etdchain.net/Chapter4/bonus-signMessage#sign-a-message) for more details."
   schemas:
     pagination:
       type: object
@@ -436,3 +483,7 @@ components:
         user:
           type: string
           description: "User id"
+security:
+  - bearerAuth:
+      - "read"
+      - "write"

@@ -12,15 +12,15 @@
             "description": "Get server's health info"
         },
         {
-            "name": "file",
+            "name": "File",
             "description": "File"
         },
         {
-            "name": "folder",
+            "name": "Folder",
             "description": "Folder"
         },
         {
-            "name": "bucket",
+            "name": "Bucket",
             "description": "Bucket"
         }
     ],
@@ -57,7 +57,7 @@
             ],
             "get": {
                 "tags": [
-                    "bucket"
+                    "Bucket"
                 ],
                 "summary": "List buckets",
                 "responses": {
@@ -89,89 +89,24 @@
             },
             "post": {
                 "tags": [
-                    "bucket"
+                    "Bucket"
                 ],
                 "summary": "Create a bucket",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/bucket"
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "description": "Password for the bucket. Will be used to encrypt the bucket."
                                     },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "password": {
-                                                "type": "string",
-                                                "description": "Password for the bucket. Will be used to encrypt the bucket."
-                                            }
-                                        }
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name of the bucket"
                                     }
-                                ]
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/bucket"
                                 }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found"
-                    }
-                }
-            },
-            "patch": {
-                "tags": [
-                    "bucket"
-                ],
-                "summary": "Update a bucket",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/bucket"
-                            }
-                        }
-                    },
-                    "required": true
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/bucket"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "bucket"
-                ],
-                "summary": "Delete a bucket",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/bucket"
                             }
                         }
                     },
@@ -225,7 +160,7 @@
             ],
             "get": {
                 "tags": [
-                    "storage"
+                    "Folder"
                 ],
                 "summary": "List folders and files in root folder",
                 "responses": {
@@ -260,6 +195,74 @@
                         "description": "Not found"
                     }
                 }
+            },
+            "patch": {
+                "tags": [
+                    "Bucket"
+                ],
+                "summary": "Update a bucket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/bucket"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Bucket name"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Bucket"
+                ],
+                "summary": "Delete a bucket",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/bucket"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/bucket"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
             }
         },
         "/folder/[folder_id]": {
@@ -273,27 +276,29 @@
                     },
                     "required": true,
                     "description": "Folder ID"
-                },
-                {
-                    "in": "query",
-                    "name": "per",
-                    "schema": {
-                        "type": "integer"
-                    },
-                    "description": "Number of buckets to return"
-                },
-                {
-                    "in": "query",
-                    "name": "page",
-                    "schema": {
-                        "type": "integer"
-                    },
-                    "description": "The page number to return"
                 }
             ],
             "get": {
                 "tags": [
-                    "folder"
+                    "Folder"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "per",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "Number of buckets to return"
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The page number to return"
+                    }
                 ],
                 "summary": "List folders and files in a folder",
                 "responses": {
@@ -329,46 +334,26 @@
                     }
                 }
             },
-            "post": {
-                "tags": [
-                    "folder"
-                ],
-                "summary": "Create a folder",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/folder"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/folder"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not found"
-                    }
-                }
-            },
             "patch": {
                 "tags": [
-                    "folder"
+                    "Folder"
                 ],
                 "summary": "Update a folder",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/folder"
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Folder name"
+                                    },
+                                    "parent_id": {
+                                        "type": "string",
+                                        "description": "Parent folder ID"
+                                    }
+                                }
                             }
                         }
                     }
@@ -379,7 +364,17 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/folder"
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Name of the folder"
+                                        },
+                                        "parent_id": {
+                                            "type": "string",
+                                            "description": "ID of the parent folder"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -391,7 +386,7 @@
             },
             "delete": {
                 "tags": [
-                    "folder"
+                    "Folder"
                 ],
                 "summary": "Delete a folder",
                 "responses": {
@@ -404,40 +399,46 @@
                 }
             }
         },
-        "/file/[file_id]": {
-            "summary": "Get file",
-            "parameters": [
-                {
-                    "in": "path",
-                    "name": "folder_id",
-                    "schema": {
-                        "type": "string"
-                    },
-                    "required": true,
-                    "description": "Folder ID"
-                },
-                {
-                    "in": "path",
-                    "name": "file_id",
-                    "schema": {
-                        "type": "string"
-                    },
-                    "required": true,
-                    "description": "File ID"
-                }
-            ],
-            "get": {
+        "/folder": {
+            "summary": "Create a folder",
+            "post": {
                 "tags": [
-                    "file"
+                    "Folder"
                 ],
-                "summary": "Get file",
+                "summary": "Create a folder",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name of the folder"
+                                    },
+                                    "parent_id": {
+                                        "type": "string",
+                                        "description": "ID of the parent folder"
+                                    },
+                                    "bucket_id": {
+                                        "type": "string",
+                                        "description": "ID of the bucket"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/file"
+                                    "$ref": "#/components/schemas/folder"
                                 }
                             }
                         }
@@ -446,34 +447,26 @@
                         "description": "Not found"
                     }
                 }
-            },
-            "post": {
+            }
+        },
+        "/file/[file_id]": {
+            "summary": "Get file",
+            "get": {
                 "tags": [
-                    "file"
+                    "File"
                 ],
-                "summary": "Create a file",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/file"
-                                    },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "file": {
-                                                "type": "string",
-                                                "format": "binary"
-                                            }
-                                        }
-                                    }
-                                ]
-                            }
-                        }
+                "summary": "Get file",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "file_id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true,
+                        "description": "File ID"
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -492,27 +485,24 @@
             },
             "patch": {
                 "tags": [
-                    "file"
+                    "File"
                 ],
                 "summary": "Update a file",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "allOf": [
-                                    {
-                                        "$ref": "#/components/schemas/file"
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Name of the file"
                                     },
-                                    {
-                                        "type": "object",
-                                        "properties": {
-                                            "file": {
-                                                "type": "string",
-                                                "format": "binary"
-                                            }
-                                        }
+                                    "parent_id": {
+                                        "type": "string",
+                                        "description": "ID of the parent folder"
                                     }
-                                ]
+                                }
                             }
                         }
                     }
@@ -535,12 +525,72 @@
             },
             "delete": {
                 "tags": [
-                    "file"
+                    "File"
                 ],
                 "summary": "Delete a file",
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/file": {
+            "post": {
+                "tags": [
+                    "File"
+                ],
+                "summary": "Create a file",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "description": "Name of the file"
+                                            },
+                                            "parent_id": {
+                                                "type": "string",
+                                                "description": "ID of the parent folder"
+                                            },
+                                            "bucket_id": {
+                                                "type": "string",
+                                                "description": "ID of the bucket"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "file": {
+                                                "type": "string",
+                                                "format": "binary",
+                                                "description": "File content"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/file"
+                                }
+                            }
+                        }
                     },
                     "404": {
                         "description": "Not found"
@@ -758,5 +808,13 @@
                 }
             }
         }
-    }
+    },
+    "security": [
+        {
+            "bearerAuth": [
+                "read",
+                "write"
+            ]
+        }
+    ]
 }
