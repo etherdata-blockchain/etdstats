@@ -27,6 +27,8 @@ jobs:
         run:  docker pull ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
       - name: Tag image for GCR
         run: docker tag ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
+      - name: Push image to GCR
+        run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
       - uses: frabert/replace-string-action@v2.3
         id: runner
         with:
