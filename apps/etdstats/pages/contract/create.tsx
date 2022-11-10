@@ -42,7 +42,7 @@ const Index: NextPage = () => {
     contracts,
     decodedBytecode,
   } = useContractCreate();
-  const names = useContractNames(formik.values.source);
+  const names = useContractNames(formik.values.source, formik.values.name);
 
   return (
     <form onSubmit={formik.handleSubmit}>

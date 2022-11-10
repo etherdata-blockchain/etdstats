@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 
-export default function useContractNames(source: string) {
+export default function useContractNames(source: string, name: string) {
   const names = useQuery(["contractNames", source], async () => {
     if (source === null || source === "") {
       return;
@@ -13,7 +13,12 @@ export default function useContractNames(source: string) {
       source,
     });
 
-    return result.data.names;
+    let names = result.data.names;
+    let found = names.find((n) => n === name);
+    if (!found) {
+      names = [name, ...names];
+    }
+    return names;
   });
 
   return names;
