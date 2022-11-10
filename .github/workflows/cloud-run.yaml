@@ -23,10 +23,12 @@ jobs:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
       - name: Configure Docker for GCP
         run: gcloud auth configure-docker --quiet
-      - name: Pull image from GCR
+      - name: Pull image from GitHub Container Registry
         run:  docker pull ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
       - name: Tag image for GCR
         run: docker tag ghcr.io/${{ github.repository }}/${{ matrix.app }}:${{ github.event.inputs.tag }} gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
+      - name: Push image to GCR
+        run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.app }}:${{ github.event.inputs.tag }}
       - uses: frabert/replace-string-action@v2.3
         id: runner
         with:
@@ -44,7 +46,7 @@ jobs:
             JWT_SECRET=${{ secrets.JWT_SECRET }},
             RPC_URL=${{secrets.RPC_TEST_URL}},
             REDIS_URL=${{secrets.REDIS_TEST_URL}},
-            USER_SERVICE_URL=https://user.test.etdstatsapi.net
+            USER_SERVICE_URL=https://user.test.etdstatsapi.net,
             SOLIDITY_SERVICE_URL=https://functions.etdstatsapi.net/api/solidity/compile
           region: asia-southeast1
           flags: --allow-unauthenticated
