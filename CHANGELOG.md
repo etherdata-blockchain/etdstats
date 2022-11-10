@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.14.1 (2022-11-10)
+
+
+### Bug Fixes
+
+* cloud run action ([#72](https://github.com/etherdata-blockchain/etdstats/issues/72)) ([19522d8](https://github.com/etherdata-blockchain/etdstats/commit/19522d879ffe3af5bae32a49c7a0e5006bb2705e))
+
 # 1.14.0 (2022-11-10)
 
 
