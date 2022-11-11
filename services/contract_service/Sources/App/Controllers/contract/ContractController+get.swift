@@ -26,7 +26,7 @@ extension ContractController {
      */
     func listContracts(req: Request) async throws -> Page<ContractListDto> {
         let query = try req.query.decode(ListQuery.self)
-        let data = try await ContractListDto.query(on: req.db).sort(\.$blockTime).paginate(for: req)
+        let data = try await ContractListDto.query(on: req.db).sort(\.$blockTime, .descending).paginate(for: req)
         if !query.showAbi {
             let items = data.items.map{item in
                 item.abi = nil

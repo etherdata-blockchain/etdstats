@@ -9,10 +9,12 @@ import Foundation
 import model
 import Vapor
 import Fluent
+import MongoKittenCore
+import MongoKitten
 
 extension EventController {
     func getEvents(req: Request) async throws -> Page<Event> {
-        return try await Event.query(on: req.db).paginate(for: req)
+        return try await Event.query(on: req.db).sort(\.$blockTimestamp, .descending).paginate(for: req)
     }
     
     func getEventsByContract(req: Request) async throws -> Page<Event> {

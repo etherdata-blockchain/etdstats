@@ -10,6 +10,10 @@ import model
 import Fluent
 import Vapor
 import common
+import FluentMongoDriver
+import BSON
+import MongoKitten
+import MongoClient
 
 extension EventController {
     func createMultipleEvents(req: Request) async throws -> Response{
@@ -24,8 +28,20 @@ extension EventController {
             throw Abort(.notFound, reason: "The given contract address [\(contractAddress)] is not found")
         }
         
+        // upsert many events
         let eventToBeCreated = events.toEvents(contract: contract)
-        try await eventToBeCreated.create(on: req.db)
+        guard let db = req.db as? MongoDatabaseRepresentable else {
+            throw Abort(.internalServerError)
+        }
+        
+        let mongodb = db.raw
+        let coll = mongodb[Event.schema]
+        let documents = try eventToBeCreated.map { model in
+            return try BSONEncoder().encode(model)
+        }
+        
+        let _ = try coll.insertMany(documents, ordered: false).wait()
+        
         contract.lastScannedBlock = events.lastScannedBlock
         try await contract.save(on: req.db)
         return Response(status: .ok)
