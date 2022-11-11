@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.2 (2022-11-11)
+
+
+### Bug Fixes
+
+* insert many ([#75](https://github.com/etherdata-blockchain/etdstats/issues/75)) ([c15c87b](https://github.com/etherdata-blockchain/etdstats/commit/c15c87bf49df7f8577b22e04bf25c5984c91eab4))
+
 ## 1.15.1 (2022-11-11)
 
 
