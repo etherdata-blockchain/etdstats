@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.1 (2022-11-11)
+
+
+### Bug Fixes
+
+* pagination ([72f054e](https://github.com/etherdata-blockchain/etdstats/commit/72f054e1cc7e3a0caa1658e0376d965938a6f9bf))
+
 # 1.15.0 (2022-11-10)
 
 
