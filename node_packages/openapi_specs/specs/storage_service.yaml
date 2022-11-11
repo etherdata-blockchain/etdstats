@@ -416,6 +416,9 @@ components:
         per:
           type: number
           description: "Number of items per page"
+        total:
+          type: number
+          description: "Total number of items"
     bucket:
       type: object
       required: ["name"]
