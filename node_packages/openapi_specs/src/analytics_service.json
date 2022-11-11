@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a analytics service",
-        "version": "1.14.2",
+        "version": "1.15.0",
         "title": "Analytics service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
