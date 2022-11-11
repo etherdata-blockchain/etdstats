@@ -12,6 +12,8 @@ import Vapor
 import common
 import FluentMongoDriver
 import BSON
+import MongoKitten
+import MongoClient
 
 extension EventController {
     func createMultipleEvents(req: Request) async throws -> Response{
@@ -28,10 +30,17 @@ extension EventController {
         
         // upsert many events
         let eventToBeCreated = events.toEvents(contract: contract)
-        for event in eventToBeCreated {
-            try? await event.create(on: req.db)
+        guard let db = req.db as? MongoDatabaseRepresentable else {
+            throw Abort(.internalServerError)
         }
         
+        let mongodb = db.raw
+        let coll = mongodb[Event.schema]
+        let documents = try eventToBeCreated.map { model in
+            return try BSONEncoder().encode(model)
+        }
+        
+        let _ = try coll.insertMany(documents, ordered: false).wait()
         
         contract.lastScannedBlock = events.lastScannedBlock
         try await contract.save(on: req.db)
