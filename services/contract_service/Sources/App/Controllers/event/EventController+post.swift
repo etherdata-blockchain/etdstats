@@ -30,17 +30,19 @@ extension EventController {
         
         // upsert many events
         let eventToBeCreated = events.toEvents(contract: contract)
-        guard let db = req.db as? MongoDatabaseRepresentable else {
-            throw Abort(.internalServerError)
+        if eventToBeCreated.count > 0 {
+            guard let db = req.db as? MongoDatabaseRepresentable else {
+                throw Abort(.internalServerError)
+            }
+            
+            let mongodb = db.raw
+            let coll = mongodb[Event.schema]
+            let documents = try eventToBeCreated.map { model in
+                return try BSONEncoder().encode(model)
+            }
+            
+            let _ = try coll.insertMany(documents, ordered: false).wait()
         }
-        
-        let mongodb = db.raw
-        let coll = mongodb[Event.schema]
-        let documents = try eventToBeCreated.map { model in
-            return try BSONEncoder().encode(model)
-        }
-        
-        let _ = try coll.insertMany(documents, ordered: false).wait()
         
         contract.lastScannedBlock = events.lastScannedBlock
         try await contract.save(on: req.db)
