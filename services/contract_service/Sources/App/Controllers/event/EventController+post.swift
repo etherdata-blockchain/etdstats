@@ -41,7 +41,8 @@ extension EventController {
                 return try BSONEncoder().encode(model)
             }
             
-            let _ = try coll.insertMany(documents, ordered: false).wait()
+            let result = try coll.insertMany(documents, ordered: false).wait()
+            req.logger.info("Insert \(result.insertCount) events to contract \(contractAddress)")
         }
         
         contract.lastScannedBlock = events.lastScannedBlock
