@@ -65,6 +65,22 @@ public struct CreateEventDto: EventProtocol {
     }
 }
 
+public struct ListEventDto: EventProtocol {
+    public var blockNumber: String
+    
+    public var blockHash: String
+    
+    public var blockTimestamp: String
+    
+    public var transaction: EventTransaction
+    
+    public var event: String
+    
+    public var data: [EventData]
+    
+    
+}
+
 public struct CreateMultipleEventDto: Content {
     public var events: [CreateEventDto]
     
