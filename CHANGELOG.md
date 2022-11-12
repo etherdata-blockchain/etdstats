@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.4 (2022-11-12)
+
+
+### Bug Fixes
+
+* pagination for events ([22d5d43](https://github.com/etherdata-blockchain/etdstats/commit/22d5d431312fe8c547e0be03c5bcbd52961b60fb))
+
 ## 1.15.3 (2022-11-12)
 
 
