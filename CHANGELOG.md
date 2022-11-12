@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.3 (2022-11-12)
+
+
+### Bug Fixes
+
+* empty events error ([#76](https://github.com/etherdata-blockchain/etdstats/issues/76)) ([3c9eb33](https://github.com/etherdata-blockchain/etdstats/commit/3c9eb3332fa2cba9a70ee0010dcf7447b48ba152))
+
 ## 1.15.2 (2022-11-11)
 
 
