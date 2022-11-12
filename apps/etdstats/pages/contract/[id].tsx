@@ -179,7 +179,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     context.params?.id as string,
     context.query?.page as string
   );
-
   return {
     props: {
       contract: JSON.parse(JSON.stringify(contract)),

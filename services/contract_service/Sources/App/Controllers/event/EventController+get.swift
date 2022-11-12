@@ -33,10 +33,10 @@ extension EventController {
 
         let mongodb = db.raw
         let coll = mongodb[Event.schema]
-        let results = try await coll.find(["contract": ["id": contract.id]]).paginate(for: req).allResults().map {
-            try BSONDecoder().decode(ListEventDto.self, from: $0)
+        let results = try await coll.find(["contract": ["id": contract.id]]).sort(["blockTimestamp": -1]).paginate(for: req).allResults().map {
+            try! BSONDecoder().decode(ListEventDto.self, from: $0)
         }
-        let total = try coll.count().wait()
+        let total = try coll.count(["contract": ["id": contract.id]]).wait()
         let pageRequest = try req.query.decode(PageRequest.self)
         return Page(items: results, metadata: .init(page: pageRequest.page, per: pageRequest.per, total: total))
     }
@@ -45,6 +45,6 @@ extension EventController {
 extension FindQueryBuilder {
     func paginate(for req: Request) throws -> FindQueryBuilder {
         let pageRequest = try req.query.decode(PageRequest.self)
-        return self.skip(pageRequest.page * pageRequest.per).limit(pageRequest.per)
+        return self.skip(Swift.max((pageRequest.page - 1), 0) * Swift.max(pageRequest.per, 0)).limit(Swift.max(pageRequest.per, 0))
     }
 }
