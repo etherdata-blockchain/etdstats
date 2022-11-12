@@ -59,6 +59,9 @@ jobs:
         image: mongo
         ports:
           - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: password
     steps:
       - uses: actions/checkout@v3
       - uses: swift-actions/setup-swift@v1
@@ -66,7 +69,7 @@ jobs:
         run: swift test
         working-directory: services/${{ matrix.app }}
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: mongodb://root:password@localhost:27017
           RPC_URL: ${{ secrets.RPC_URL }}
           REDIS_URL: redis://localhost:6379
           USER_SERVICE_URL: "https://api.etdchain.net/stats/user"
