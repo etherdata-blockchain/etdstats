@@ -5,7 +5,7 @@ import Fluent
 
 struct CreateEvent: AsyncMigration {
     func prepare(on database: Database) async throws {
-        try await database.schema(Event.schema).unique(on: "blockHash", "event", "contract").create()
+        try await database.schema(Event.schema).unique(on: "transaction.hash", "event", "contract").create()
     }
 
     func revert(on database: Database) async throws {
