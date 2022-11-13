@@ -39,7 +39,7 @@ extension ContractController {
             query = query.set(\.$compiler, to: compiler)
         }
         
-        let verifiedResult = try await req.contractClient.verify(contractName: contractData.name!, sourceCode: sourceCode, bytecode: previousContract.bytecode, compilerVersion: contractData.compiler!)
+        let verifiedResult = try await req.contractClient.verify(contractName: contractData.name!, sourceCode: sourceCode, bytecode: previousContract.byteCode, compilerVersion: contractData.compiler!)
         
        
         query = query.set(\.$abi, to: verifiedResult.abi).set(\.$source, to: sourceCode).set(\.$compiler, to: contractData.compiler)

@@ -11,11 +11,15 @@ public protocol ContractCreateProtocol: Content {
     
     var blockHash: String { get set }
 
-    var bytecode: String { get set }
+    var byteCode: String { get set }
 
     var address: String { get set }
 
     var lastScannedBlock: Int { get set }
+    
+    var blockNumber: String { get set }
+    
+    var blockTime: Int { get set }
     
 }
 
@@ -41,6 +45,35 @@ public protocol ContractListProtocol: Content {
     var blockTime: Int { get set }
     
     var blockNumber: String { get set }
+}
+
+public struct ContractCreateDto: ContractCreateProtocol {
+    public var blockNumber: String
+    
+    public var blockTime: Int
+    
+    public var creator: String
+    
+    public var transactionHash: String
+    
+    public var blockHash: String
+    
+    public var byteCode: String
+    
+    public var address: String
+    
+    public var lastScannedBlock: Int
+    
+    public init(blockNumber: String, blockTime: Int, creator: String, transactionHash: String, blockHash: String, byteCode: String, address: String, lastScannedBlock: Int) {
+        self.blockNumber = blockNumber
+        self.blockTime = blockTime
+        self.creator = creator
+        self.transactionHash = transactionHash
+        self.blockHash = blockHash
+        self.byteCode = byteCode
+        self.address = address
+        self.lastScannedBlock = lastScannedBlock
+    }
 }
 
 public final class ContractUpdateDto: Model, ContractUpdateProtocol {
@@ -150,7 +183,7 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     public var abi: Document?
 
     @Field(key: "byteCode")
-    public var bytecode: String
+    public var byteCode: String
 
     @OptionalField(key: "compiler")
     public var compiler: String?
@@ -171,15 +204,4 @@ public final class Contract: Model, ContractCreateProtocol, ContractUpdateProtoc
     public var blockNumber: String
 
     public init() {}
-
-    init(id: ObjectId? = nil, name: String? ,source: String, abi: Document, bytecode: String, compiler: String, address: String, lastScannedBlock: Int) {
-        self.name = name
-        self.id = id
-        self.source = source
-        self.abi = abi
-        self.bytecode = bytecode
-        self.compiler = compiler
-        self.address = address
-        self.lastScannedBlock = lastScannedBlock
-    }
 }

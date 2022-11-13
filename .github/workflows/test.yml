@@ -42,12 +42,26 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        app:  ["transaction_service", "analytics_service", "block_info_service", "user_service", "contract_service"]
+        app:
+          [
+            "transaction_service",
+            "analytics_service",
+            "block_info_service",
+            "user_service",
+            "contract_service",
+          ]
     services:
       redis:
         image: redis:alpine
         ports:
           - 6379:6379
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: password
     steps:
       - uses: actions/checkout@v3
       - uses: swift-actions/setup-swift@v1
@@ -66,7 +80,14 @@ jobs:
     needs: [test-swift-packages, test-swift-services]
     strategy:
       matrix:
-        app: ["transaction_service", "contract_service", "analytics_service", "block_info_service", "user_service"]
+        app:
+          [
+            "transaction_service",
+            "contract_service",
+            "analytics_service",
+            "block_info_service",
+            "user_service",
+          ]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Docker Buildx
@@ -96,7 +117,7 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
     if: ${{ (github.event.pusher.name != 'github action') && (github.ref == 'refs/heads/main') }}
-    needs: [ test-node, test-swift-packages, docker-service ]
+    needs: [test-node, test-swift-packages, docker-service]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
