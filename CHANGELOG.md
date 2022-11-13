@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.15.7 (2022-11-13)
+
+
+### Bug Fixes
+
+* add unit tests ([#78](https://github.com/etherdata-blockchain/etdstats/issues/78)) ([6455cbe](https://github.com/etherdata-blockchain/etdstats/commit/6455cbe523b20d3cd9a704155b54141e5edd5149))
+
 ## 1.15.6 (2022-11-12)
 
 
