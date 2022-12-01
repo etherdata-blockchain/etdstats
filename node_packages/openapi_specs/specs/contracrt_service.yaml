@@ -247,7 +247,7 @@ paths:
           schema:
             type: string
           required: false
-          description: The contract id
+          description: The contract address
         - in: query
           name: event_name
           schema:
@@ -280,6 +280,20 @@ paths:
           name: per
           schema:
             type: integer
+        - in: query
+          name: value
+          description: Filtered by value in data field
+          schema:
+            type: string
+        - in: query
+          name: operation
+          description:
+            Filtered by operation with value in data field. For example operation is `eq` and value is `0xabc`, then |
+            will return all events with data field is `0xabc`
+          schema:
+            type: string
+            enum: [eq, gt, gte, lt, lte]
+
       responses:
         "200":
           description: "OK"
