@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.16.1 (2022-12-01)
+
+
+### Bug Fixes
+
+* update contract service spec ([#80](https://github.com/etherdata-blockchain/etdstats/issues/80)) ([0b2273e](https://github.com/etherdata-blockchain/etdstats/commit/0b2273e2f616885645238441c0c180672d7035e6))
+
 # 1.16.0 (2022-12-01)
 
 
