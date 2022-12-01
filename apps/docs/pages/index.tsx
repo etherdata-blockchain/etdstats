@@ -3,14 +3,18 @@ import {
   Box,
   CircularProgress,
   Fade,
+  FormControl,
+  InputLabel,
   MenuItem,
+  Select,
+  Stack,
   Toolbar,
   Typography,
 } from "@mui/material";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import * as spec from "openapi_specs";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { RedocStandalone } from "redoc";
 
 const Home: NextPage = () => {
@@ -34,23 +38,35 @@ const Home: NextPage = () => {
     return foundValue[1];
   }, [router.query.doc]);
 
+  const onClick = useCallback((name: string) => {
+    router.push(`?doc=${name}`);
+  }, []);
+
   return (
     <div>
       <AppBar color="primary">
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <Box display={"flex"}>
+          <Stack display={"flex"} direction="row" spacing={5}>
             <Typography variant={"h5"}>Docs</Typography>
-            {Object.keys(spec).map((k) => (
-              <MenuItem
-                key={k}
-                selected={true}
-                onClick={() => router.push(`?doc=${k}`)}
-                style={{ color: k === router.query.doc ? "purple" : "black" }}
+            <FormControl fullWidth variant="standard">
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={router.query.doc ?? "health_service_schema"}
+                label="Age"
               >
-                {k}
-              </MenuItem>
-            ))}
-          </Box>
+                {Object.entries(spec).map(([key, value], index) => (
+                  <MenuItem
+                    key={index}
+                    value={key}
+                    onClick={() => onClick(key)}
+                  >
+                    {key}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Stack>
           <Fade in={isLoading} mountOnEnter unmountOnExit>
             <CircularProgress color={"secondary"} size={30} />
           </Fade>
