@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  description: "This belongs part of ETDStats microservices which will provide a storage service."
+  description: "This belongs part of ETDStats microservices which will provide a storage service. Pending!"
   version: "1.0.0"
   title: "Storage service"
   termsOfService: "https://github.com/etherdata-blockchain"

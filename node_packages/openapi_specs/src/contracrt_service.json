@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "description": "This belongs part of ETDStats microservices which will provide a analytics service",
-        "version": "1.15.0",
+        "description": "This belongs part of ETDStats microservices which will provide a contract service",
+        "version": "1.15.7",
         "title": "Contract service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -57,9 +57,17 @@
                         "name": "showAbi",
                         "schema": {
                             "type": "string",
-                            "default": false
+                            "default": false,
+                            "description": "Will include contract abi in response"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "creator",
+                        "schema": {
+                            "type": "string"
                         },
-                        "description": "Show contract abi in the response"
+                        "description": "Creator address. If this field is set, will list all contracts created by this address"
                     }
                 ],
                 "responses": {
@@ -260,8 +268,9 @@
                 "tags": [
                     "contract"
                 ],
-                "summary": "Get events details",
+                "summary": "Get events details by contract address",
                 "description": "Will returns the event result from server",
+                "deprecated": true,
                 "parameters": [
                     {
                         "in": "path",
@@ -270,6 +279,114 @@
                             "type": "string"
                         },
                         "required": true,
+                        "description": "The contract id"
+                    },
+                    {
+                        "in": "query",
+                        "name": "event_name",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false,
+                        "description": "The event name"
+                    },
+                    {
+                        "in": "query",
+                        "name": "from",
+                        "description": "Filtered by transaction from address",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "to",
+                        "description": "Filtered by transaction to address",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "block",
+                        "description": "Filtered by block hash",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "per",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "metadata": {
+                                            "$ref": "#/components/schemas/metadata"
+                                        },
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "allOf": [
+                                                    {
+                                                        "$ref": "#/components/schemas/event"
+                                                    },
+                                                    {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "format": "uuid",
+                                                                "description": "The event id",
+                                                                "example": "7e6b7e6b-7e6b-7e6b-7e6b-7e6b7e6b7e6b"
+                                                            }
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/events": {
+            "get": {
+                "tags": [
+                    "contract"
+                ],
+                "summary": "Get events by filter",
+                "description": "Will returns the event result from server",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "contract_id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false,
                         "description": "The contract id"
                     },
                     {

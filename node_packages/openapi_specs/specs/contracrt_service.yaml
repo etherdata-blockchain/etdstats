@@ -1,10 +1,9 @@
 openapi: "3.0.0"
 info:
-  description: "This belongs part of ETDStats microservices which will provide a analytics service"
+  description: "This belongs part of ETDStats microservices which will provide a contract service"
   version: "1.0.0"
   title: "Contract service"
   termsOfService: "https://github.com/etherdata-blockchain"
-
 
 tags:
   - name: "contract"
@@ -42,7 +41,12 @@ paths:
           schema:
             type: string
             default: false
-          description: Show contract abi in the response
+            description: Will include contract abi in response
+        - in: query
+          name: creator
+          schema:
+            type: string
+          description: Creator address. If this field is set, will list all contracts created by this address
       responses:
         "200":
           description: "OK"
@@ -72,7 +76,6 @@ paths:
                           type: string
                         lastScannedBlock:
                           type: integer
-                  
 
   /contract/{contract_address}:
     get:
@@ -105,7 +108,7 @@ paths:
                     type: array
                   compiler:
                     type: string
-    
+
     patch:
       tags:
         - "contract"
@@ -133,7 +136,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/contract"
-  
+
   /event:
     post:
       tags:
@@ -148,7 +151,7 @@ paths:
             schema:
               type: object
               properties:
-                lastScannedBlock: 
+                lastScannedBlock:
                   type: integer
                   description: The last scanned block
                   example: 1000000
@@ -156,7 +159,7 @@ paths:
                   type: array
                   items:
                     $ref: "#/components/schemas/event"
-              
+
         required: true
       responses:
         "201":
@@ -168,8 +171,9 @@ paths:
     get:
       tags:
         - "contract"
-      summary: "Get events details"
+      summary: "Get events details by contract address"
       description: "Will returns the event result from server"
+      deprecated: true
       parameters:
         - in: path
           name: contract_id
@@ -226,7 +230,74 @@ paths:
                         - $ref: "#/components/schemas/event"
                         - type: object
                           properties:
-                            id: 
+                            id:
+                              type: string
+                              format: uuid
+                              description: The event id
+                              example: 7e6b7e6b-7e6b-7e6b-7e6b-7e6b7e6b7e6b
+  /events:
+    get:
+      tags:
+        - "contract"
+      summary: "Get events by filter"
+      description: "Will returns the event result from server"
+      parameters:
+        - in: query
+          name: contract_id
+          schema:
+            type: string
+          required: false
+          description: The contract id
+        - in: query
+          name: event_name
+          schema:
+            type: string
+          required: false
+          description: The event name
+        - in: query
+          name: from
+          description: Filtered by transaction from address
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: to
+          description: Filtered by transaction to address
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: block
+          description: Filtered by block hash
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    $ref: "#/components/schemas/metadata"
+                  items:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: "#/components/schemas/event"
+                        - type: object
+                          properties:
+                            id:
                               type: string
                               format: uuid
                               description: The event id
@@ -272,7 +343,7 @@ components:
           description: Current page
     contract:
       type: object
-      required: [ "source", "abi", "bytecode", "compiler", "address"]
+      required: ["source", "abi", "bytecode", "compiler", "address"]
       properties:
         source:
           type: string
@@ -311,7 +382,7 @@ components:
         blockNumber:
           type: string
           description: The block number of the contract
-    
+
     event:
       type: object
       properties:

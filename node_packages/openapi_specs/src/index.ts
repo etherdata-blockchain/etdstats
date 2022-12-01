@@ -3,6 +3,7 @@ import block_info_service_schema from "./block_info_service.json"
 import contracrt_service_schema from "./contracrt_service.json"
 import health_service_schema from "./health_service.spec.json"
 import node_service_schema from "./node_service.json"
+import optimism_service_schema from "./optimism_service.json"
 import storage_service_schema from "./storage_service.json"
 import transaction_service_schema from "./transaction_service.spec.json"
 import user_service_schema from "./user_service.spec.json"
@@ -14,6 +15,7 @@ export {
   contracrt_service_schema,
   health_service_schema,
   node_service_schema,
+  optimism_service_schema,
   storage_service_schema,
   transaction_service_schema,
   user_service_schema,  

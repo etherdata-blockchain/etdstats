@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "description": "This belongs part of ETDStats microservices which will provide a node service. Pending!",
-        "version": "1.15.0",
+        "version": "1.15.7",
         "title": "Node service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },

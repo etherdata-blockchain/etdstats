@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "description": "This belongs part of ETDStats microservices which will provide a storage service.",
-        "version": "1.15.0",
+        "description": "This belongs part of ETDStats microservices which will provide a storage service. Pending!",
+        "version": "1.15.7",
         "title": "Storage service",
         "termsOfService": "https://github.com/etherdata-blockchain"
     },
@@ -702,6 +702,10 @@
                     "per": {
                         "type": "number",
                         "description": "Number of items per page"
+                    },
+                    "total": {
+                        "type": "number",
+                        "description": "Total number of items"
                     }
                 }
             },

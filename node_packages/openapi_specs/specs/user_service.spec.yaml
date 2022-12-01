@@ -2,9 +2,8 @@ openapi: "3.0.0"
 info:
   description: "This belongs part of ETDStats microservices which will provide a user service."
   version: "1.0.0"
-  title: "Node service"
+  title: "User service"
   termsOfService: "https://github.com/etherdata-blockchain"
-
 
 tags:
   - name: "user"
@@ -24,6 +23,7 @@ paths:
       tags:
         - "user"
       summary: "Get user by address"
+      deprecated: true
       parameters:
         - name: "id"
           in: "path"
@@ -47,6 +47,7 @@ paths:
         - "health"
       summary: "Get server's health info"
       description: "Will return a error reason if not healthy"
+      deprecated: true
       responses:
         "200":
           description: "Server is up"

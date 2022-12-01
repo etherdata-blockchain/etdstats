@@ -1,10 +1,9 @@
 openapi: "3.0.0"
 info:
-  description: "This belongs part of ETDStats microservices which will provide a analytics service"
+  description: "This belongs part of ETDStats microservices which will provide a block info service"
   version: "1.0.0"
   title: "Block Info service"
   termsOfService: "https://github.com/etherdata-blockchain"
-
 
 tags:
   - name: "block-info"
@@ -90,7 +89,7 @@ paths:
                   metadata:
                     type: object
                     properties:
-                      page: 
+                      page:
                         type: number
                       per:
                         type: number
@@ -127,7 +126,7 @@ paths:
                   metadata:
                     type: object
                     properties:
-                      page: 
+                      page:
                         type: number
                       per:
                         type: number
@@ -135,14 +134,20 @@ paths:
                         type: number
                   items:
                     $ref: "transaction_service.spec.yaml#/components/schemas/transaction"
-                    
-
 
 components:
   schemas:
     block-info:
       type: object
-      required: [ "numBlocks", "numTransactions", "blockTime", "blockTimeHistory", "difficultyHistory", "chainId" ]
+      required:
+        [
+          "numBlocks",
+          "numTransactions",
+          "blockTime",
+          "blockTimeHistory",
+          "difficultyHistory",
+          "chainId",
+        ]
       properties:
         numBlocks:
           type: number
@@ -183,4 +188,3 @@ components:
         numUncles:
           type: number
           description: Number of uncle blocks
-  

@@ -1,0 +1,284 @@
+openapi: "3.0.0"
+info:
+  description: "This belongs part of ETDStats microservices which will provide a optimism service"
+  version: "1.0.0"
+  title: "Optimism service"
+  termsOfService: "https://github.com/etherdata-blockchain"
+
+tags:
+  - name: "batch"
+    description: "Get transaction batches"
+  - name: "transaction"
+    description: "Get transactions"
+  - name: "health"
+    description: "Get server's health info"
+
+servers:
+  - url: https://api.etdchain.net/stats/block_info
+    description: Production server
+  - url: https://api.debugchain.net/stats/block_info
+    description: Testing server
+
+paths:
+  /health:
+    get:
+      tags:
+        - "health"
+      summary: "Get server's health info"
+      description: "Will return a error reason if not healthy"
+      responses:
+        "200":
+          description: "Server is up"
+          content:
+            application/json:
+              schema:
+                $ref: "health_service.spec.yaml#/components/schemas/error"
+        "500":
+          description: "Server is down"
+          content:
+            application/json:
+              schema:
+                $ref: "health_service.spec.yaml#/components/schemas/error"
+  /batches:
+    get:
+      tags:
+        - batch
+      summary: Get all batches
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: "Current page number."
+          schema:
+            type: "number"
+        - name: per
+          in: query
+          required: false
+          description: "Number of items per page."
+          schema:
+            type: number
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: "#/components/schemas/pagination"
+                  - properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/batch"
+  /batches/{batch_id}:
+    get:
+      tags:
+        - batch
+      summary: Get batch by id
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: "Current page number."
+          schema:
+            type: "number"
+        - name: per
+          in: query
+          required: false
+          description: "Number of items per page."
+          schema:
+            type: number
+      responses:
+        200:
+          description: "List of transactions in batch"
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: "#/components/schemas/pagination"
+                  - properties:
+                      batch:
+                        $ref: "#/components/schemas/batch"
+                      transactions:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/transaction"
+  /transactions:
+    get:
+      tags:
+        - transaction
+      summary: Get all transactions
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: "Current page number."
+          schema:
+            type: "number"
+        - name: per
+          in: query
+          required: false
+          description: "Number of items per page."
+          schema:
+            type: number
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: "#/components/schemas/pagination"
+                  - properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/transaction"
+  /transactions/{tx_id}:
+    get:
+      tags:
+        - transaction
+      summary: Get transaction by id
+      parameters:
+        - name: tx_id
+          in: path
+          required: true
+          description: "Transaction id."
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Transaction details"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/transaction"
+  /layer1To2Transactions:
+    get:
+      tags:
+        - transaction
+      summary: Get all layer1To2 transactions
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: "Current page number."
+          schema:
+            type: "number"
+        - name: per
+          in: query
+          required: false
+          description: "Number of items per page."
+          schema:
+            type: number
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: "#/components/schemas/pagination"
+                  - properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/layer1To2Transaction"
+
+components:
+  schemas:
+    batch:
+      type: object
+      properties:
+        id:
+          type: string
+        layer1:
+          type: object
+          properties:
+            timestamp:
+              type: number
+            transactionHash:
+              type: string
+            transactionNumer:
+              type: number
+        batchSize:
+          type: number
+        previousTotalElements:
+          type: number
+        extraData:
+          type: string
+        transactionCount:
+          type: number
+    transaction:
+      type: object
+      description: Layer2 transaction object
+      properties:
+        id:
+          type: string
+        transactionHash:
+          type: string
+        method:
+          type: string
+        index:
+          type: number
+        timestamp:
+          type: number
+        from:
+          type: string
+        to:
+          type: string
+        confirmed_by:
+          type: string
+        value:
+          type: string
+        transaction_fee:
+          type: string
+        batchId:
+          type: string
+        gasPrice:
+          type: string
+        status:
+          type: string
+        blockNumber:
+          type: number
+          description: Not null if confirmed
+
+    layer1To2Transaction:
+      type: object
+      properties:
+        blockNumber:
+          type: number
+        queueIndex:
+          type: number
+        layer2TransactionHash:
+          type: string
+        layer1TransactionHash:
+          type: string
+        timestamp:
+          type: number
+        layer1TransactionOrigin:
+          type: string
+        gasLimit:
+          type: number
+    batchWithTransactions:
+      type: object
+      properties:
+        batch:
+          $ref: "#/components/schemas/batch"
+        transactions:
+          type: array
+          items:
+            $ref: "#/components/schemas/transaction"
+    pagination:
+      type: object
+      properties:
+        page:
+          type: number
+        per:
+          type: number
+        total:
+          type: number
