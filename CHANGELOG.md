@@ -1,5 +1,12 @@
 # Changelog
 
+# 1.16.0 (2022-12-01)
+
+
+### Features
+
+* add optimism service spec ([#79](https://github.com/etherdata-blockchain/etdstats/issues/79)) ([e8caed8](https://github.com/etherdata-blockchain/etdstats/commit/e8caed88a151e6d9452de1cce6787b50b4cebfcd))
+
 ## 1.15.7 (2022-11-13)
 
 
