@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.16.2 (2023-01-07)
+
+
+### Bug Fixes
+
+* update payload size for contact event route ([#81](https://github.com/etherdata-blockchain/etdstats/issues/81)) ([2ee05bb](https://github.com/etherdata-blockchain/etdstats/commit/2ee05bb710382b0cf1334c576977dcab988b21fe))
+
 ## 1.16.1 (2022-12-01)
 
 
